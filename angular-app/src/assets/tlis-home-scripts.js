@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const absOffset = Math.abs(offset);
       const sign = Math.sign(offset);
 
-      let translateX = offset * 220;
+      let translateX = offset * 253;
       let translateZ = -absOffset * 200;
       let rotateY = -sign * Math.min(absOffset * 60, 60);
       let opacity = 1 - (absOffset * 0.2);
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (absOffset > 3) {
         opacity = 0;
-        translateX = sign * 800;
+        translateX = sign * 920;
       }
 
       item.style.transform = `
