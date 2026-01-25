@@ -15,5 +15,93 @@
             font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
             overflow-x: hidden;
             position: relative;
-            background: #000;
+            background: #121212;
+        }
+
+        body.light-theme {
+            background: #f7e4d0;
+            color: #1a1a1a;
+        }
+
+        .light-theme .header {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .light-theme .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .light-theme .logo-text,
+        .light-theme .logo-description-text,
+        .light-theme .menu-item,
+        .light-theme .contacts,
+        .light-theme .info,
+        .light-theme .about-content,
+        .light-theme .contact-content,
+        .light-theme .footer {
+            color: #1a1a1a;
+        }
+
+        .light-theme .menu-item {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .light-theme .menu-item:hover,
+        .light-theme .menu-item.active {
+            color: #000;
+        }
+
+        .light-theme .contacts .email,
+        .light-theme .contacts .working-hours,
+        .light-theme .about-header p,
+        .light-theme .about-info p,
+        .light-theme .contact-header p,
+        .light-theme .contact-info-section p,
+        .light-theme .contact-text p,
+        .light-theme .footer-copyright,
+        .light-theme .footer-links a {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .light-theme .section {
+            background: #f7e4d0;
+        }
+
+        .light-theme .coverflow-item .cover {
+            background: #e9e9e9;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .light-theme .nav-button,
+        .light-theme .play-pause-button,
+        .light-theme .menu-toggle span {
+            color: #1a1a1a;
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .light-theme .dot {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .light-theme .dot.active {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .light-theme .contact-item,
+        .light-theme .contact-form,
+        .light-theme .stats-section {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .light-theme .social-btn {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .light-theme .theme-toggle {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
         }

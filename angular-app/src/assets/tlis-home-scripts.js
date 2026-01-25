@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollToTopBtn = document.getElementById('scrollToTop');
   const playIcon = document.querySelector('.play-icon');
   const pauseIcon = document.querySelector('.pause-icon');
+  const themeToggle = document.getElementById('themeToggle');
 
   if (!items.length || !dotsContainer || !currentTitle || !currentDescription || !container) {
     return;
@@ -406,6 +407,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const contactForm = document.querySelector('.contact-form');
   contactForm?.addEventListener('submit', handleSubmit);
+
+  function applyTheme(theme) {
+    const isLight = theme === 'light';
+    document.body.classList.toggle('light-theme', isLight);
+    if (themeToggle) {
+      themeToggle.checked = isLight;
+    }
+  }
+
+  if (themeToggle) {
+    const storedTheme = localStorage.getItem('theme');
+    const initialTheme = storedTheme === 'light' || storedTheme === 'dark'
+      ? storedTheme
+      : 'dark';
+    if (!storedTheme) {
+      localStorage.setItem('theme', 'dark');
+    }
+    applyTheme(initialTheme);
+
+    themeToggle.addEventListener('change', () => {
+      const nextTheme = themeToggle.checked ? 'light' : 'dark';
+      localStorage.setItem('theme', nextTheme);
+      applyTheme(nextTheme);
+    });
+  } else {
+    applyTheme(localStorage.getItem('theme') || 'dark');
+  }
 
   // Initialize
   updateCoverflow();
