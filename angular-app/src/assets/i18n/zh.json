@@ -1,0 +1,148 @@
+{
+  "header": {
+    "company": "生产公司",
+    "themeToggle": "切换主题",
+    "themeDark": "暗色",
+    "themeLight": "亮色",
+    "language": "语言",
+    "hoursWeekdays": "周一-周五：9:00 - 18:00",
+    "hoursWeekend": "周六-周日：9:00 - 13:00"
+  },
+  "menu": {
+    "catalog": "目录",
+    "about": "关于我们",
+    "portfolio": "作品",
+    "order": "订购铺砖"
+  },
+  "catalog": {
+    "title": "作品示例或目录",
+    "description": "点击作品示例查看系列",
+    "playPause": "播放/暂停",
+    "slabs": {
+      "slab1": "板材 1",
+      "slab2": "板材 2",
+      "slab3": "板材 3",
+      "slab4": "板材 4",
+      "slab5": "板材 5",
+      "slab6": "板材 6",
+      "slab7": "板材 7",
+      "slab10": "板材 10"
+    }
+  },
+  "about": {
+    "title": "TLIS 质量控制",
+    "lead": "我们通过严格的多级流程控制，确保每一块铺路砖的最高品质。",
+    "quality": {
+      "1": {
+        "title": "100% 符合国家标准",
+        "text": "始终严格遵守国家标准和规范。"
+      },
+      "2": {
+        "title": "每日实验室测试",
+        "text": "每一批产品都在我们现代化实验室中检测。"
+      },
+      "3": {
+        "title": "COLOR MIX 面层强度控制",
+        "text": "确保耐久性与色彩饱和度。"
+      },
+      "4": {
+        "title": "抗冻与防水控制",
+        "text": "铺砖可应对各种天气条件。"
+      },
+      "5": {
+        "title": "几何尺寸控制",
+        "text": "尺寸精准，确保完美铺设。"
+      },
+      "6": {
+        "title": "生态安全",
+        "text": "仅使用经过认证且安全的材料。"
+      },
+      "7": {
+        "title": "耐磨性",
+        "text": "即使高强度使用也经久耐用。"
+      },
+      "8": {
+        "title": "抗紫外线褪色",
+        "text": "长期保持色彩亮度与饱和度。"
+      }
+    }
+  },
+  "portfolio": {
+    "title": "发现 3D Coverflow",
+    "lead": "以震撼的 3D 效果与流畅交互展示视觉内容的全新方式",
+    "showcase": {
+      "title": "3D Coverflow",
+      "subtitle": "将图片画廊变成沉浸式 3D 体验"
+    },
+    "badges": {
+      "html": "HTML5",
+      "css": "CSS3",
+      "js": "JavaScript",
+      "responsive": "响应式"
+    },
+    "info": {
+      "title": "提升你的画廊体验",
+      "paragraph1": "3D Coverflow 由 TemplateMo 提供。借助先进的 3D 技术，改变你展示图片的方式。创建沉浸式、互动性强的画廊，吸引观众并留下深刻印象。",
+      "paragraph2": "无论是作品集、产品图片，还是互动故事，3D coverflow 通过流畅动画与直观控制让内容栩栩如生。"
+    },
+    "features": {
+      "1": "硬件加速的平滑 3D 过渡",
+      "2": "支持移动设备触控导航",
+      "3": "可定制自动播放与时间控制",
+      "4": "支持键盘导航",
+      "5": "反射效果增强层次感"
+    },
+    "cta": "开始项目",
+    "stats": {
+      "performance": "流畅性能",
+      "responsive": "响应式设计",
+      "effects": "视觉效果",
+      "customization": "可定制"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "lead": "有项目想法吗？让我们一起创造精彩作品。",
+    "info": {
+      "title": "保持联系",
+      "text": "我们将帮助你实现愿景。无论是精美画廊、网站改版，还是定制开发，都欢迎联系。"
+    },
+    "items": {
+      "email": {
+        "title": "邮箱",
+        "value": "hello@3dcoverflow.com"
+      },
+      "phone": {
+        "title": "电话",
+        "value": "+1 (555) 123-4567"
+      },
+      "address": {
+        "title": "地址",
+        "value": "123 Design Street, San Francisco, CA 94102"
+      },
+      "hours": {
+        "title": "营业时间",
+        "value": "周一-周五：9:00 - 18:00 (PST)"
+      }
+    },
+    "social": {
+      "title": "关注我们",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "instagram": "Instagram"
+    },
+    "form": {
+      "name": "姓名",
+      "email": "邮箱地址",
+      "subject": "主题",
+      "message": "留言",
+      "submit": "发送消息"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 网站由“物流与建设领地”有限公司开发",
+    "privacy": "隐私政策（白俄罗斯共和国）",
+    "terms": "使用条款（白俄罗斯共和国）"
+  }
+}

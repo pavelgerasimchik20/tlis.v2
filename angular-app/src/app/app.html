@@ -17,32 +17,64 @@
     </div>
     <div class="verticat-container">
       <div class="logo-text">TLI<span style="color: rgb(218, 103, 8);">S</span></div>
-      <div class="logo-description-text">Производственная компания</div>
+      <div class="logo-description-text">{{ 'header.company' | translate }}</div>
     </div>
   </div>
 
   <nav class="main-menu" id="mainMenu">
     <div class="menu-items">
-      <a href="#catalog" class="menu-item active">Каталог</a>
-      <a href="#about-us" class="menu-item">О нас</a>
-      <a href="#portfolio" class="menu-item">Портфолио</a>
-      <a href="#order" class="menu-item">Заказ плитки</a>
+      <a href="#catalog" class="menu-item active">{{ 'menu.catalog' | translate }}</a>
+      <a href="#about-us" class="menu-item">{{ 'menu.about' | translate }}</a>
+      <a href="#portfolio" class="menu-item">{{ 'menu.portfolio' | translate }}</a>
+      <a href="#order" class="menu-item">{{ 'menu.order' | translate }}</a>
     </div>
-    <div class="theme-switch" aria-label="Переключить тему">
-      <span class="theme-label">Тёмн.</span>
-      <label class="theme-toggle" for="themeToggle">
-        <input type="checkbox" id="themeToggle" aria-label="Переключить тему" />
-        <span class="theme-slider"></span>
-      </label>
-      <span class="theme-label">Светл.</span>
+    <div class="header-controls">
+      <div class="theme-switch" [attr.aria-label]="'header.themeToggle' | translate">
+        <span class="theme-label">{{ 'header.themeDark' | translate }}</span>
+        <label class="theme-toggle" for="themeToggle">
+          <input
+            type="checkbox"
+            id="themeToggle"
+            [attr.aria-label]="'header.themeToggle' | translate"
+          />
+          <span class="theme-slider"></span>
+        </label>
+        <span class="theme-label">{{ 'header.themeLight' | translate }}</span>
+      </div>
+      <div class="lang-switch" [attr.aria-label]="'header.language' | translate">
+        <button
+          type="button"
+          class="lang-button"
+          [class.active]="currentLang === 'ru'"
+          (click)="setLanguage('ru')"
+        >
+          ру
+        </button>
+        <button
+          type="button"
+          class="lang-button"
+          [class.active]="currentLang === 'be'"
+          (click)="setLanguage('be')"
+        >
+          бел
+        </button>
+        <button
+          type="button"
+          class="lang-button"
+          [class.active]="currentLang === 'zh'"
+          (click)="setLanguage('zh')"
+        >
+          中文
+        </button>
+      </div>
     </div>
     <div class="contacts">
       <div class="phone-number">
         <span style="color: rgb(229 197 171);">+37529</span><span style="color: rgb(218, 103, 8);">6582576</span>
       </div>
       <div class="email">info@tlis.by</div>
-      <div class="working-hours">Пн-Пт: 9:00 - 18:00</div>
-      <div class="working-hours">Сб-Вс: 9:00 - 13:00</div>
+      <div class="working-hours">{{ 'header.hoursWeekdays' | translate }}</div>
+      <div class="working-hours">{{ 'header.hoursWeekend' | translate }}</div>
     </div>
   </nav>
 
@@ -56,57 +88,89 @@
 <section id="catalog" class="section">
   <div class="coverflow-wrapper">
     <div class="info">
-      <h1 id="current-title">Примеры работ или каталог</h1>
-      <p id="current-description">Жми на пример работ - смотри коллекцию</p>
+      <h1 id="current-title">{{ 'catalog.title' | translate }}</h1>
+      <p id="current-description">{{ 'catalog.description' | translate }}</p>
     </div>
 
     <div class="coverflow-container" tabindex="0">
       <div class="coverflow" id="coverflow">
         <div class="coverflow-item" data-index="0">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab1.jpg" alt="slab 1 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab1.jpg"
+              [attr.alt]="'catalog.slabs.slab1' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
         <div class="coverflow-item" data-index="1">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab2.jpg" alt="slab 2 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab2.jpg"
+              [attr.alt]="'catalog.slabs.slab2' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
         <div class="coverflow-item" data-index="2">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab3.jpg" alt="slab 3 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab3.jpg"
+              [attr.alt]="'catalog.slabs.slab3' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
         <div class="coverflow-item" data-index="3">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab4.jpg" alt="slab 4 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab4.jpg"
+              [attr.alt]="'catalog.slabs.slab4' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
         <div class="coverflow-item" data-index="4">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab5.jpg" alt="slab 5 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab5.jpg"
+              [attr.alt]="'catalog.slabs.slab5' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
         <div class="coverflow-item" data-index="5">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab6.jpg" alt="slab 6 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab6.jpg"
+              [attr.alt]="'catalog.slabs.slab6' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
         <div class="coverflow-item" data-index="6">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab7.jpg" alt="slab 7 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab7.jpg"
+              [attr.alt]="'catalog.slabs.slab7' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
         <div class="coverflow-item" data-index="7">
           <div class="cover image-loading">
-            <img src="assets/images/slabs/slab10.jpg" alt="slab 10 description" loading="lazy" />
+            <img
+              src="assets/images/slabs/slab10.jpg"
+              [attr.alt]="'catalog.slabs.slab10' | translate"
+              loading="lazy"
+            />
           </div>
           <div class="reflection"></div>
         </div>
@@ -117,7 +181,11 @@
 
       <div class="dots-container" id="dots"></div>
 
-      <button class="play-pause-button" id="playPauseBtn">
+      <button
+        class="play-pause-button"
+        id="playPauseBtn"
+        [attr.aria-label]="'catalog.playPause' | translate"
+      >
         <span class="play-icon">▶</span>
         <span class="pause-icon" style="display: none">❚❚</span>
       </button>
@@ -128,10 +196,8 @@
 <section id="about-us" class="section">
   <div class="about-content">
     <div class="about-header">
-      <h2>Контроль Качества TLIS</h2>
-      <p>
-        Мы гарантируем высочайшее качество тротуарной плитки благодаря строгому многоступенчатому контролю на каждом этапе производства.
-      </p>
+      <h2>{{ 'about.title' | translate }}</h2>
+      <p>{{ 'about.lead' | translate }}</p>
     </div>
     <div class="about-main">
       <div class="quality-grid">
@@ -142,8 +208,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>100% Соответствие ГОСТ</h4>
-            <p>Всегда точное соблюдение государственных стандартов и норм.</p>
+            <h4>{{ 'about.quality.1.title' | translate }}</h4>
+            <p>{{ 'about.quality.1.text' | translate }}</p>
           </div>
         </div>
         <div class="quality-item">
@@ -153,8 +219,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>Ежедневные Лабораторные Испытания</h4>
-            <p>Каждая партия проходит проверку в нашей современной лаборатории.</p>
+            <h4>{{ 'about.quality.2.title' | translate }}</h4>
+            <p>{{ 'about.quality.2.text' | translate }}</p>
           </div>
         </div>
         <div class="quality-item">
@@ -164,8 +230,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>Контроль Прочности Верхнего COLOR MIX Слоя</h4>
-            <p>Обеспечение долговечности и насыщенности цвета.</p>
+            <h4>{{ 'about.quality.3.title' | translate }}</h4>
+            <p>{{ 'about.quality.3.text' | translate }}</p>
           </div>
         </div>
         <div class="quality-item">
@@ -175,8 +241,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>Контроль Морозостойкости и Водонепроницаемости</h4>
-            <p>Плитка выдерживает любые погодные условия.</p>
+            <h4>{{ 'about.quality.4.title' | translate }}</h4>
+            <p>{{ 'about.quality.4.text' | translate }}</p>
           </div>
         </div>
         <div class="quality-item">
@@ -186,8 +252,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>Контроль геометрии и размеров</h4>
-            <p>Точное соответствие заявленным параметрам для идеальной укладки.</p>
+            <h4>{{ 'about.quality.5.title' | translate }}</h4>
+            <p>{{ 'about.quality.5.text' | translate }}</p>
           </div>
         </div>
         <div class="quality-item">
@@ -197,8 +263,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>Экологическая безопасность</h4>
-            <p>Использование только сертифицированных и безопасных материалов.</p>
+            <h4>{{ 'about.quality.6.title' | translate }}</h4>
+            <p>{{ 'about.quality.6.text' | translate }}</p>
           </div>
         </div>
         <div class="quality-item">
@@ -208,8 +274,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>Устойчивость к истиранию</h4>
-            <p>Долгий срок службы даже при интенсивных нагрузках.</p>
+            <h4>{{ 'about.quality.7.title' | translate }}</h4>
+            <p>{{ 'about.quality.7.text' | translate }}</p>
           </div>
         </div>
         <div class="quality-item">
@@ -219,8 +285,8 @@
             </svg>
           </div>
           <div class="text-content">
-            <h4>Стойкость цвета к УФ-излучению</h4>
-            <p>Сохранение яркости и насыщенности цвета на долгие годы.</p>
+            <h4>{{ 'about.quality.8.title' | translate }}</h4>
+            <p>{{ 'about.quality.8.text' | translate }}</p>
           </div>
         </div>
       </div>
@@ -231,10 +297,8 @@
 <section id="portfolio" class="section">
   <div class="about-content">
     <div class="about-header">
-      <h2>Discover 3D Coverflow</h2>
-      <p>
-        A revolutionary way to showcase your visual content with stunning 3D effects and seamless interactions
-      </p>
+      <h2>{{ 'portfolio.title' | translate }}</h2>
+      <p>{{ 'portfolio.lead' | translate }}</p>
     </div>
 
     <div class="about-main">
@@ -253,42 +317,64 @@
               </svg>
             </div>
 
-            <h3 class="showcase-title">3D Coverflow</h3>
+            <h3 class="showcase-title">{{ 'portfolio.showcase.title' | translate }}</h3>
             <p class="showcase-subtitle">
-              Transform your image galleries into immersive 3D experiences
+              {{ 'portfolio.showcase.subtitle' | translate }}
             </p>
 
             <div class="showcase-badges">
-              <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer" class="badge">HTML5</a>
-              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer" class="badge">CSS3</a>
-              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" class="badge">JavaScript</a>
-              <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design" target="_blank" rel="noopener noreferrer" class="badge">Responsive</a>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/HTML"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="badge"
+              >
+                {{ 'portfolio.badges.html' | translate }}
+              </a>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/CSS"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="badge"
+              >
+                {{ 'portfolio.badges.css' | translate }}
+              </a>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="badge"
+              >
+                {{ 'portfolio.badges.js' | translate }}
+              </a>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="badge"
+              >
+                {{ 'portfolio.badges.responsive' | translate }}
+              </a>
             </div>
           </div>
         </div>
       </div>
 
       <div class="about-info">
-        <h3>Elevate Your Gallery Experience</h3>
-        <p>
-          3D Coverflow is brought to you by TemplateMo. Transform the way you present images with our cutting-edge 3D coverflow technology.
-          Create immersive, interactive galleries that captivate your audience and leave a lasting impression.
-        </p>
-        <p>
-          Whether you're showcasing portfolio pieces, product images, or creating an interactive story, our 3D coverflow brings your
-          content to life with fluid animations and intuitive controls.
-        </p>
+        <h3>{{ 'portfolio.info.title' | translate }}</h3>
+        <p>{{ 'portfolio.info.paragraph1' | translate }}</p>
+        <p>{{ 'portfolio.info.paragraph2' | translate }}</p>
 
         <ul class="feature-list">
-          <li>Smooth 3D transitions with hardware acceleration</li>
-          <li>Touch-enabled navigation for mobile devices</li>
-          <li>Customizable autoplay and timing controls</li>
-          <li>Keyboard navigation support</li>
-          <li>Reflection effects for added depth</li>
+          <li>{{ 'portfolio.features.1' | translate }}</li>
+          <li>{{ 'portfolio.features.2' | translate }}</li>
+          <li>{{ 'portfolio.features.3' | translate }}</li>
+          <li>{{ 'portfolio.features.4' | translate }}</li>
+          <li>{{ 'portfolio.features.5' | translate }}</li>
         </ul>
 
         <a href="#contact" class="cta-button">
-          Start Your Project
+          {{ 'portfolio.cta' | translate }}
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"></path>
           </svg>
@@ -299,19 +385,19 @@
     <div class="stats-section">
       <div class="stat-item">
         <div class="stat-number">60fps</div>
-        <div class="stat-label">Smooth Performance</div>
+        <div class="stat-label">{{ 'portfolio.stats.performance' | translate }}</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">100%</div>
-        <div class="stat-label">Responsive Design</div>
+        <div class="stat-label">{{ 'portfolio.stats.responsive' | translate }}</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">3D</div>
-        <div class="stat-label">Visual Effects</div>
+        <div class="stat-label">{{ 'portfolio.stats.effects' | translate }}</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">∞</div>
-        <div class="stat-label">Customization</div>
+        <div class="stat-label">{{ 'portfolio.stats.customization' | translate }}</div>
       </div>
     </div>
   </div>
@@ -320,15 +406,13 @@
 <section id="order" class="section">
   <div class="contact-content">
     <div class="contact-header">
-      <h2>Get In Touch</h2>
-      <p>Have a project in mind? Let's create something amazing together.</p>
+      <h2>{{ 'contact.title' | translate }}</h2>
+      <p>{{ 'contact.lead' | translate }}</p>
     </div>
     <div class="contact-container">
       <div class="contact-info-section">
-        <h3>Let's Connect</h3>
-        <p>
-          We're here to help bring your vision to life. Whether you need a stunning gallery, a complete website redesign, or custom development work, we'd love to hear from you.
-        </p>
+        <h3>{{ 'contact.info.title' | translate }}</h3>
+        <p>{{ 'contact.info.text' | translate }}</p>
         <div class="contact-details">
           <div class="contact-item">
             <div class="contact-icon">
@@ -337,8 +421,8 @@
               </svg>
             </div>
             <div class="contact-text">
-              <h4>Email</h4>
-              <p>hello@3dcoverflow.com</p>
+              <h4>{{ 'contact.items.email.title' | translate }}</h4>
+              <p>{{ 'contact.items.email.value' | translate }}</p>
             </div>
           </div>
           <div class="contact-item">
@@ -348,8 +432,8 @@
               </svg>
             </div>
             <div class="contact-text">
-              <h4>Phone</h4>
-              <p>+1 (555) 123-4567</p>
+              <h4>{{ 'contact.items.phone.title' | translate }}</h4>
+              <p>{{ 'contact.items.phone.value' | translate }}</p>
             </div>
           </div>
           <div class="contact-item">
@@ -359,8 +443,8 @@
               </svg>
             </div>
             <div class="contact-text">
-              <h4>Address</h4>
-              <p>123 Design Street, San Francisco, CA 94102</p>
+              <h4>{{ 'contact.items.address.title' | translate }}</h4>
+              <p>{{ 'contact.items.address.value' | translate }}</p>
             </div>
           </div>
           <div class="contact-item">
@@ -370,30 +454,30 @@
               </svg>
             </div>
             <div class="contact-text">
-              <h4>Business Hours</h4>
-              <p>Monday - Friday: 9:00 AM - 6:00 PM PST</p>
+              <h4>{{ 'contact.items.hours.title' | translate }}</h4>
+              <p>{{ 'contact.items.hours.value' | translate }}</p>
             </div>
           </div>
         </div>
         <div class="social-links">
-          <h4>Follow Us</h4>
+          <h4>{{ 'contact.social.title' | translate }}</h4>
           <div class="social-buttons">
-            <a href="#" class="social-btn" title="Facebook">
+            <a href="#" class="social-btn" [attr.title]="'contact.social.facebook' | translate">
               <svg viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
               </svg>
             </a>
-            <a href="#" class="social-btn" title="Twitter">
+            <a href="#" class="social-btn" [attr.title]="'contact.social.twitter' | translate">
               <svg viewBox="0 0 24 24">
                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
               </svg>
             </a>
-            <a href="#" class="social-btn" title="LinkedIn">
+            <a href="#" class="social-btn" [attr.title]="'contact.social.linkedin' | translate">
               <svg viewBox="0 0 24 24">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
               </svg>
             </a>
-            <a href="#" class="social-btn" title="Instagram">
+            <a href="#" class="social-btn" [attr.title]="'contact.social.instagram' | translate">
               <svg viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"></path>
               </svg>
@@ -405,22 +489,22 @@
       <div class="contact-form-section">
         <form class="contact-form">
           <div class="form-group">
-            <label for="name">Your Name</label>
+            <label for="name">{{ 'contact.form.name' | translate }}</label>
             <input type="text" id="name" name="name" required />
           </div>
           <div class="form-group">
-            <label for="email">Email Address</label>
+            <label for="email">{{ 'contact.form.email' | translate }}</label>
             <input type="email" id="email" name="email" required />
           </div>
           <div class="form-group">
-            <label for="subject">Subject</label>
+            <label for="subject">{{ 'contact.form.subject' | translate }}</label>
             <input type="text" id="subject" name="subject" required />
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
+            <label for="message">{{ 'contact.form.message' | translate }}</label>
             <textarea id="message" name="message" required></textarea>
           </div>
-          <button type="submit" class="submit-btn">Send Message</button>
+          <button type="submit" class="submit-btn">{{ 'contact.form.submit' | translate }}</button>
         </form>
       </div>
     </div>
@@ -430,11 +514,15 @@
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-copyright">
-      © 2026 Сайт разработан ООО "Территория логистики и строительства"
+      {{ 'footer.copyright' | translate }}
     </div>
     <div class="footer-links">
-      <a href="assets/privacy-policy-by.html" rel="noopener noreferrer">Политика конфиденциальности (Республика Беларусь)</a>
-      <a href="assets/terms-of-service-by.html" rel="noopener noreferrer">Условия использования (Республика Беларусь)</a>
+      <a href="assets/privacy-policy-by.html" rel="noopener noreferrer">
+        {{ 'footer.privacy' | translate }}
+      </a>
+      <a href="assets/terms-of-service-by.html" rel="noopener noreferrer">
+        {{ 'footer.terms' | translate }}
+      </a>
     </div>
   </div>
 </footer>

@@ -51,41 +51,133 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Image data with titles and descriptions
-  const imageData = [
-    {
-      title: "Парковка во дворе жилого дома",
-      description: "Коллекция `Ice latte`"
+  const supportedLangs = ['ru', 'be', 'zh'];
+  const translations = {
+    ru: {
+      imageData: [
+        {
+          title: 'Парковка во дворе жилого дома',
+          description: 'Коллекция `Ice latte`'
+        },
+        {
+          title: 'Площадь перед частным домом',
+          description: 'Коллекция `Южный город`'
+        },
+        {
+          title: 'Крупноформатные плиты для отмостки',
+          description: 'Коллекция `Мраморные ступени` с черной окантовкой'
+        },
+        {
+          title: 'Благоустройство территории частного дома плитами 60 * 30 см',
+          description: 'Коллекция `Метель`'
+        },
+        {
+          title: 'Реконструкция улицы Раковская',
+          description: 'Коллекция `Осенний костёр`'
+        },
+        {
+          title: 'Входная зона жилого дома',
+          description: 'Коллекция `Зимний лес`'
+        },
+        {
+          title: 'Ступени на входе в частный дом',
+          description: 'Коллекция `Вулканический ландшафт`'
+        },
+        {
+          title: 'Отмостка вокруг дома',
+          description: 'Коллекция `Ледяное озеро`'
+        }
+      ],
+      formSubmit: 'Спасибо за сообщение! Мы скоро свяжемся с вами.'
     },
-    {
-      title: "Площадь перед частным домом",
-      description: "Коллекция `Южный город`"
+    be: {
+      imageData: [
+        {
+          title: 'Паркоўка ў двары жылога дома',
+          description: 'Калекцыя «Ice latte»'
+        },
+        {
+          title: 'Плошча перад прыватным домам',
+          description: 'Калекцыя «Паўднёвы горад»'
+        },
+        {
+          title: 'Крупнафарматныя пліты для адмасткі',
+          description: 'Калекцыя «Мармуровыя прыступкі» з чорнай акантоўкай'
+        },
+        {
+          title: 'Упарадкаванне тэрыторыі прыватнага дома плітамі 60 × 30 см',
+          description: 'Калекцыя «Мяцеліца»'
+        },
+        {
+          title: 'Рэканструкцыя вуліцы Ракоўская',
+          description: 'Калекцыя «Восеньскае вогнішча»'
+        },
+        {
+          title: 'Уваходная зона жылога дома',
+          description: 'Калекцыя «Зімовы лес»'
+        },
+        {
+          title: 'Прыступкі пры ўваходзе ў прыватны дом',
+          description: 'Калекцыя «Вулканічны ландшафт»'
+        },
+        {
+          title: 'Адмастка вакол дома',
+          description: 'Калекцыя «Ледзяное возера»'
+        }
+      ],
+      formSubmit: 'Дзякуй за паведамленне! Мы хутка звяжамся з вамі.'
     },
-    {
-      title: "Крупноформатные плиты для отмостки",
-      description: "Коллекция `Мраморные ступени` с черной окантовкой"
-    },
-    {
-      title: "Благоустройство территории частного дома плитами 60 * 30 см",
-      description: "Коллекция `Метель`"
-    },
-    {
-      title: "Реконструкция улицы Раковская",
-      description: "Коллекция `Осенний костёр`"
-    },
-    {
-      title: "Входная зона жилого дома",
-      description: "Коллекция `Зимний лес`"
-    },
-    {
-      title: "Ступени на входе в частный дом",
-      description: "Коллекция `Вулканический ландшафт`"
-    },
-    {
-      title: "Отмостка вокруг дома",
-      description: "Коллекция `Ледяное озеро`"
+    zh: {
+      imageData: [
+        {
+          title: '住宅小区庭院停车区',
+          description: '系列「Ice latte」'
+        },
+        {
+          title: '私人住宅前广场',
+          description: '系列「南方城市」'
+        },
+        {
+          title: '用于散水的大规格板材',
+          description: '系列「大理石台阶」带黑色边框'
+        },
+        {
+          title: '私人住宅庭院铺装，60 × 30 厘米',
+          description: '系列「暴风雪」'
+        },
+        {
+          title: 'Rakovskaya 街道改造',
+          description: '系列「秋日篝火」'
+        },
+        {
+          title: '住宅入口区域',
+          description: '系列「冬日森林」'
+        },
+        {
+          title: '私人住宅入口台阶',
+          description: '系列「火山地貌」'
+        },
+        {
+          title: '房屋周围散水',
+          description: '系列「冰湖」'
+        }
+      ],
+      formSubmit: '感谢你的留言！我们会尽快联系你。'
     }
-  ];
+  };
+
+  function resolveLang(lang) {
+    return supportedLangs.includes(lang) ? lang : 'ru';
+  }
+
+  function getActiveLang() {
+    const stored = localStorage.getItem('lang');
+    const htmlLang = document.documentElement.lang;
+    return resolveLang(stored || htmlLang || 'ru');
+  }
+
+  let currentLang = getActiveLang();
+  let imageData = translations[currentLang].imageData;
 
   // Create dots
   items.forEach((_, index) => {
@@ -96,6 +188,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const dots = document.querySelectorAll('.dot');
+
+  function updateTitleDescription() {
+    const currentData = imageData[currentIndex];
+    if (!currentData) return;
+
+    currentTitle.textContent = currentData.title;
+    currentDescription.textContent = currentData.description;
+
+    currentTitle.style.animation = 'none';
+    currentDescription.style.animation = 'none';
+    setTimeout(() => {
+      currentTitle.style.animation = 'fadeIn 0.6s forwards';
+      currentDescription.style.animation = 'fadeIn 0.6s forwards';
+    }, 10);
+  }
 
   function updateCoverflow() {
     if (isAnimating) return;
@@ -139,16 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dot.classList.toggle('active', index === currentIndex);
     });
 
-    const currentData = imageData[currentIndex];
-    currentTitle.textContent = currentData.title;
-    currentDescription.textContent = currentData.description;
-
-    currentTitle.style.animation = 'none';
-    currentDescription.style.animation = 'none';
-    setTimeout(() => {
-      currentTitle.style.animation = 'fadeIn 0.6s forwards';
-      currentDescription.style.animation = 'fadeIn 0.6s forwards';
-    }, 10);
+    updateTitleDescription();
 
     setTimeout(() => {
       isAnimating = false;
@@ -401,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Form submission
   function handleSubmit(event) {
     event.preventDefault();
-    alert('Thank you for your message! We\'ll get back to you soon.');
+    alert(translations[currentLang].formSubmit);
     event.target.reset();
   }
 
@@ -436,7 +534,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize
+  updateTitleDescription();
   updateCoverflow();
   container.focus();
   startAutoplay();
+
+  window.addEventListener('app:language-change', (event) => {
+    const nextLang = resolveLang(event?.detail?.lang || 'ru');
+    if (nextLang === currentLang) return;
+    currentLang = nextLang;
+    imageData = translations[currentLang].imageData;
+    updateTitleDescription();
+  });
 });
