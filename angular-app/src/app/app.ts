@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, HostListener, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [TranslateModule],
+  imports: [TranslateModule, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -19,6 +20,27 @@ export class App {
   ];
 
   currentLang = 'ru';
+  currentImageIndex = 0;
+  isLightboxOpen = false;
+
+  portfolioImages = [
+    'slab1.jpg',
+    'slab2.jpg',
+    'slab3.jpg',
+    'slab4.jpg',
+    'slab5.jpg',
+    'slab6.jpg',
+    'slab7.jpg',
+    'slab8.jpg',
+    'slab9.jpg',
+    'slab10.jpg',
+    'slab11.jpg',
+    'slab12.jpg',
+    'slab13.jpg',
+    'slab2-1.jpg',
+    'slab6-1.jpg',
+    'slab9-1.jpg'
+  ];
 
   constructor() {
     const savedLang = localStorage.getItem('lang');
@@ -32,6 +54,48 @@ export class App {
 
   setLanguage(lang: string) {
     this.useLanguage(lang);
+  }
+
+  openLightbox(index: number) {
+    this.currentImageIndex = index;
+    this.isLightboxOpen = true;
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  closeLightbox() {
+    this.isLightboxOpen = false;
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+  }
+
+  nextImage(event: Event) {
+    event.stopPropagation();
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.portfolioImages.length;
+  }
+
+  prevImage(event: Event) {
+    event.stopPropagation();
+    this.currentImageIndex = (this.currentImageIndex - 1 + this.portfolioImages.length) % this.portfolioImages.length;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (!this.isLightboxOpen) return;
+
+    switch (event.key) {
+      case 'Escape':
+        this.closeLightbox();
+        break;
+      case 'ArrowLeft':
+        this.prevImage(event);
+        break;
+      case 'ArrowRight':
+        this.nextImage(event);
+        break;
+    }
   }
 
   private useLanguage(lang: string) {

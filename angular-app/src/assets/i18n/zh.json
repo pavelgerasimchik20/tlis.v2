@@ -68,76 +68,45 @@
     }
   },
   "portfolio": {
-    "title": "发现 3D Coverflow",
-    "lead": "以震撼的 3D 效果与流畅交互展示视觉内容的全新方式",
-    "showcase": {
-      "title": "3D Coverflow",
-      "subtitle": "将图片画廊变成沉浸式 3D 体验"
-    },
-    "badges": {
-      "html": "HTML5",
-      "css": "CSS3",
-      "js": "JavaScript",
-      "responsive": "响应式"
-    },
-    "info": {
-      "title": "提升你的画廊体验",
-      "paragraph1": "3D Coverflow 由 TemplateMo 提供。借助先进的 3D 技术，改变你展示图片的方式。创建沉浸式、互动性强的画廊，吸引观众并留下深刻印象。",
-      "paragraph2": "无论是作品集、产品图片，还是互动故事，3D coverflow 通过流畅动画与直观控制让内容栩栩如生。"
-    },
-    "features": {
-      "1": "硬件加速的平滑 3D 过渡",
-      "2": "支持移动设备触控导航",
-      "3": "可定制自动播放与时间控制",
-      "4": "支持键盘导航",
-      "5": "反射效果增强层次感"
-    },
-    "cta": "开始项目",
-    "stats": {
-      "performance": "流畅性能",
-      "responsive": "响应式设计",
-      "effects": "视觉效果",
-      "customization": "可定制"
-    }
+    "title": "项目画廊",
+    "lead": "我们和合作伙伴的作品示例"
   },
-  "contact": {
-    "title": "联系我们",
-    "lead": "有项目想法吗？让我们一起创造精彩作品。",
+  "order": {
+    "title": "订购铺砖",
+    "lead": "订购铺路砖。填写表格，我们会尽快与您联系。",
     "info": {
-      "title": "保持联系",
-      "text": "我们将帮助你实现愿景。无论是精美画廊、网站改版，还是定制开发，都欢迎联系。"
+      "title": "如何订购",
+      "text": "填写订购表格，注明所需的铺砖参数。我们的经理将与您联系，确认细节并计算成本。"
     },
     "items": {
-      "email": {
-        "title": "邮箱",
-        "value": "hello@3dcoverflow.com"
-      },
       "phone": {
         "title": "电话",
-        "value": "+1 (555) 123-4567"
+        "value": "+37529 6582576"
+      },
+      "email": {
+        "title": "邮箱",
+        "value": "info@tlis.by"
       },
       "address": {
         "title": "地址",
-        "value": "123 Design Street, San Francisco, CA 94102"
+        "value": "白俄罗斯共和国"
       },
       "hours": {
         "title": "营业时间",
-        "value": "周一-周五：9:00 - 18:00 (PST)"
+        "value": "周一-周五：9:00 - 18:00，周六-周日：9:00 - 13:00"
       }
-    },
-    "social": {
-      "title": "关注我们",
-      "facebook": "Facebook",
-      "twitter": "Twitter",
-      "linkedin": "LinkedIn",
-      "instagram": "Instagram"
     },
     "form": {
       "name": "姓名",
-      "email": "邮箱地址",
-      "subject": "主题",
-      "message": "留言",
-      "submit": "发送消息"
+      "phone": "电话",
+      "email": "邮箱",
+      "size": "铺砖尺寸",
+      "color": "颜色 (COLOR Mix)",
+      "selectColor": "选择颜色",
+      "quantity": "数量 (平方米)",
+      "address": "送货地址",
+      "message": "评论",
+      "submit": "提交订单"
     }
   },
   "footer": {

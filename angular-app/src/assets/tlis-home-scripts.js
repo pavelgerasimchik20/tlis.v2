@@ -1,4 +1,3 @@
-// JavaScript Document
 document.addEventListener('DOMContentLoaded', () => {
   // Coverflow functionality
   const items = document.querySelectorAll('.coverflow-item');
@@ -56,113 +55,113 @@ document.addEventListener('DOMContentLoaded', () => {
     ru: {
       imageData: [
         {
-          title: 'Парковка во дворе жилого дома',
-          description: 'Коллекция `Ice latte`'
+          title: 'COLOR Mix "Кафель"',
+          description: 'COLOR Mix "Кафель"'
         },
         {
-          title: 'Площадь перед частным домом',
-          description: 'Коллекция `Южный город`'
+          title: 'COLOR Mix "Ракушечник"',
+          description: 'COLOR Mix "Ракушечник"'
         },
         {
-          title: 'Крупноформатные плиты для отмостки',
-          description: 'Коллекция `Мраморные ступени` с черной окантовкой'
+          title: 'COLOR Mix "Старая Италия"',
+          description: 'COLOR Mix "Старая Италия"'
         },
         {
-          title: 'Благоустройство территории частного дома плитами 60 * 30 см',
-          description: 'Коллекция `Метель`'
+          title: 'COLOR Mix "Капучино new"',
+          description: 'COLOR Mix "Капучино new"'
         },
         {
-          title: 'Реконструкция улицы Раковская',
-          description: 'Коллекция `Осенний костёр`'
+          title: 'COLOR Mix "Новый закат"',
+          description: 'COLOR Mix "Новый закат"'
         },
         {
-          title: 'Входная зона жилого дома',
-          description: 'Коллекция `Зимний лес`'
+          title: 'COLOR Mix "Луговая трава"',
+          description: 'COLOR Mix "Луговая трава"'
         },
         {
-          title: 'Ступени на входе в частный дом',
-          description: 'Коллекция `Вулканический ландшафт`'
+          title: 'COLOR Mix "Пламя"',
+          description: 'COLOR Mix "Пламя"'
         },
         {
-          title: 'Отмостка вокруг дома',
-          description: 'Коллекция `Ледяное озеро`'
+          title: 'COLOR Mix "Осенние листья"',
+          description: 'COLOR Mix "Осенние листья"'
         }
       ],
-      formSubmit: 'Спасибо за сообщение! Мы скоро свяжемся с вами.'
+      formSubmit: 'Спасибо за заказ! Мы свяжемся с вами в ближайшее время для уточнения деталей.'
     },
     be: {
       imageData: [
         {
-          title: 'Паркоўка ў двары жылога дома',
-          description: 'Калекцыя «Ice latte»'
+          title: 'COLOR Mix "Кафля"',
+          description: 'COLOR Mix "Кафля"'
         },
         {
-          title: 'Плошча перад прыватным домам',
-          description: 'Калекцыя «Паўднёвы горад»'
+          title: 'COLOR Mix "Ракавіннік"',
+          description: 'COLOR Mix "Ракавіннік"'
         },
         {
-          title: 'Крупнафарматныя пліты для адмасткі',
-          description: 'Калекцыя «Мармуровыя прыступкі» з чорнай акантоўкай'
+          title: 'COLOR Mix "Старая Італія"',
+          description: 'COLOR Mix "Старая Італія"'
         },
         {
-          title: 'Упарадкаванне тэрыторыі прыватнага дома плітамі 60 × 30 см',
-          description: 'Калекцыя «Мяцеліца»'
+          title: 'COLOR Mix "Капучына new"',
+          description: 'COLOR Mix "Капучына new"'
         },
         {
-          title: 'Рэканструкцыя вуліцы Ракоўская',
-          description: 'Калекцыя «Восеньскае вогнішча»'
+          title: 'COLOR Mix "Новы захад"',
+          description: 'COLOR Mix "Новы захад"'
         },
         {
-          title: 'Уваходная зона жылога дома',
-          description: 'Калекцыя «Зімовы лес»'
+          title: 'COLOR Mix "Лугавая трава"',
+          description: 'COLOR Mix "Лугавая трава"'
         },
         {
-          title: 'Прыступкі пры ўваходзе ў прыватны дом',
-          description: 'Калекцыя «Вулканічны ландшафт»'
+          title: 'COLOR Mix "Полымя"',
+          description: 'COLOR Mix "Полымя"'
         },
         {
-          title: 'Адмастка вакол дома',
-          description: 'Калекцыя «Ледзяное возера»'
+          title: 'COLOR Mix "Восеньскія лісце"',
+          description: 'COLOR Mix "Восеньскія лісце"'
         }
       ],
-      formSubmit: 'Дзякуй за паведамленне! Мы хутка звяжамся з вамі.'
+      formSubmit: 'Дзякуй за замову! Мы звяжамся з вамі ў бліжэйшы час для ўдакладнення дэталяў.'
     },
     zh: {
       imageData: [
         {
-          title: '住宅小区庭院停车区',
-          description: '系列「Ice latte」'
+          title: 'COLOR Mix "瓷砖"',
+          description: 'COLOR Mix "瓷砖"'
         },
         {
-          title: '私人住宅前广场',
-          description: '系列「南方城市」'
+          title: 'COLOR Mix "贝壳石"',
+          description: 'COLOR Mix "贝壳石"'
         },
         {
-          title: '用于散水的大规格板材',
-          description: '系列「大理石台阶」带黑色边框'
+          title: 'COLOR Mix "古老意大利"',
+          description: 'COLOR Mix "古老意大利"'
         },
         {
-          title: '私人住宅庭院铺装，60 × 30 厘米',
-          description: '系列「暴风雪」'
+          title: 'COLOR Mix "卡布奇诺 new"',
+          description: 'COLOR Mix "卡布奇诺 new"'
         },
         {
-          title: 'Rakovskaya 街道改造',
-          description: '系列「秋日篝火」'
+          title: 'COLOR Mix "新日落"',
+          description: 'COLOR Mix "新日落"'
         },
         {
-          title: '住宅入口区域',
-          description: '系列「冬日森林」'
+          title: 'COLOR Mix "草地"',
+          description: 'COLOR Mix "草地"'
         },
         {
-          title: '私人住宅入口台阶',
-          description: '系列「火山地貌」'
+          title: 'COLOR Mix "火焰"',
+          description: 'COLOR Mix "火焰"'
         },
         {
-          title: '房屋周围散水',
-          description: '系列「冰湖」'
+          title: 'COLOR Mix "秋叶"',
+          description: 'COLOR Mix "秋叶"'
         }
       ],
-      formSubmit: '感谢你的留言！我们会尽快联系你。'
+      formSubmit: '感谢您的订单！我们会尽快与您联系以确认详细信息。'
     }
   };
 
@@ -503,8 +502,8 @@ document.addEventListener('DOMContentLoaded', () => {
     event.target.reset();
   }
 
-  const contactForm = document.querySelector('.contact-form');
-  contactForm?.addEventListener('submit', handleSubmit);
+  const orderForm = document.querySelector('.order-form');
+  orderForm?.addEventListener('submit', handleSubmit);
 
   function applyTheme(theme) {
     const isLight = theme === 'light';
@@ -536,7 +535,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize
   updateTitleDescription();
   updateCoverflow();
-  container.focus();
+  // Remove auto-focus to prevent outline and shift issues
+  // container.focus();
   startAutoplay();
 
   window.addEventListener('app:language-change', (event) => {
