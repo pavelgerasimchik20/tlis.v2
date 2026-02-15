@@ -960,6 +960,12 @@
 .form-group select {
     cursor: pointer;
     appearance: none;
+    padding-right: 15px;
+}
+
+/* Стрелка только для select выбора цвета */
+.form-group select#order-color,
+.form-group select[name="color"] {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 15px center;
@@ -1671,8 +1677,16 @@
     color: #1a1a1a;
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.2);
-    background-image: none;
     padding-right: 15px;
+}
+
+/* Стрелка только для select выбора цвета в светлой теме */
+:host-context(.light-theme) .form-group select#order-color,
+:host-context(.light-theme) .form-group select[name="color"] {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231a1a1a' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px;
 }
 
 :host-context(.light-theme) .form-group input:focus,
