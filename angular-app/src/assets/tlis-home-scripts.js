@@ -495,11 +495,131 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+  // Telegram Bot Configuration
+  // TODO: Replace with your actual bot token and chat ID
+  // To get bot token: Create bot via @BotFather on Telegram
+  // To get chat ID: Send message to your bot, then visit: https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
+  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Replace with your bot token
+  const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE'; // Replace with your Telegram chat ID (phone number or user ID)
+
+  // Send message to Telegram
+  async function sendToTelegram(message) {
+    if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE') {
+      console.error('Telegram bot token not configured');
+      return false;
+    }
+
+    if (!TELEGRAM_CHAT_ID || TELEGRAM_CHAT_ID === 'YOUR_CHAT_ID_HERE') {
+      console.error('Telegram chat ID not configured');
+      return false;
+    }
+
+    try {
+      const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: 'HTML',
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (response.ok && data.ok) {
+        console.log('Message sent to Telegram successfully');
+        return true;
+      } else {
+        console.error('Telegram API error:', data);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error sending to Telegram:', error);
+      return false;
+    }
+  }
+
+  // Format order data for Telegram
+  function formatOrderMessage(formData) {
+    const name = formData.get('name') || 'Не указано';
+    const phone = formData.get('phone') || 'Не указано';
+    const email = formData.get('email') || 'Не указано';
+    const size = formData.get('size') || 'Не указано';
+    const color = formData.get('color') || 'Не указано';
+    const quantity = formData.get('quantity') || 'Не указано';
+    const address = formData.get('address') || 'Не указано';
+    const message = formData.get('message') || 'Нет комментария';
+
+    const orderMessage = `
+<b>🆕 Новый заказ плитки</b>
+
+<b>👤 Контактная информация:</b>
+• Имя: ${name}
+• Телефон: ${phone}
+• Email: ${email || 'Не указан'}
+
+<b>📦 Детали заказа:</b>
+• Размер плитки: ${size}
+• Цвет (COLOR Mix): ${color}
+• Количество: ${quantity} м²
+• Адрес доставки: ${address || 'Не указан'}
+
+<b>💬 Комментарий:</b>
+${message}
+
+<b>🕐 Время заказа:</b>
+${new Date().toLocaleString('ru-BY', { 
+  timeZone: 'Europe/Minsk',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit'
+})}
+    `.trim();
+
+    return orderMessage;
+  }
+
   // Form submission
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    alert(translations[currentLang].formSubmit);
-    event.target.reset();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('.submit-btn');
+    
+    // Disable submit button to prevent double submission
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = translations[currentLang].formSubmit || 'Отправка...';
+    }
+
+    try {
+      // Format and send message to Telegram
+      const message = formatOrderMessage(formData);
+      const success = await sendToTelegram(message);
+
+      if (success) {
+        alert(translations[currentLang].formSubmit || 'Спасибо за заказ! Мы скоро свяжемся с вами.');
+        form.reset();
+      } else {
+        alert('Произошла ошибка при отправке заказа. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Произошла ошибка при отправке заказа. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.');
+    } finally {
+      // Re-enable submit button
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = translations[currentLang]?.form?.submit || 'Отправить заказ';
+      }
+    }
   }
 
   const orderForm = document.querySelector('.order-form');
