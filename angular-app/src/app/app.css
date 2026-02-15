@@ -388,6 +388,18 @@
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
 }
 
+/* Hover effect for coverflow items */
+.coverflow-item:hover .cover {
+    transform: scale(1.1);
+    box-shadow: 0 35px 70px rgba(255, 140, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.coverflow-item.active:hover .cover {
+    transform: scale(1.1);
+    box-shadow: 0 40px 80px rgba(255, 140, 0, 0.5);
+}
+
 /* Navigation */
 .nav-button {
     position: absolute;

@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuItems = document.querySelectorAll('.menu-item');
   const header = document.getElementById('header');
   const scrollToTopBtn = document.getElementById('scrollToTop');
-  const playIcon = document.querySelector('.play-icon');
-  const pauseIcon = document.querySelector('.pause-icon');
   const themeToggle = document.getElementById('themeToggle');
 
   if (!items.length || !dotsContainer || !currentTitle || !currentDescription || !container) {
@@ -359,10 +357,6 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCoverflow();
     }, 4000);
     isPlaying = true;
-    if (playIcon && pauseIcon) {
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
-    }
   }
 
   function stopAutoplay() {
@@ -371,10 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
       autoplayInterval = null;
     }
     isPlaying = false;
-    if (playIcon && pauseIcon) {
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-    }
   }
 
   function toggleAutoplay() {
@@ -403,9 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navigate(1);
   });
 
-  document.getElementById('playPauseBtn')?.addEventListener('click', () => {
-    toggleAutoplay();
-  });
+  // Play-pause button removed
 
   dots.forEach((dot) => {
     dot.addEventListener('click', handleUserInteraction);
