@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визитка TLIS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Verdana', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .print-area {
+            width: 90mm;
+            height: 50mm;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2422 100%);
+            padding: 8mm;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .business-card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .logo-svg {
+            width: 25mm;
+            height: 25mm;
+            flex-shrink: 0;
+        }
+        
+        .company-info {
+            flex: 1;
+        }
+        
+        .company-name {
+            font-size: 16pt;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+        }
+        
+        .company-name .highlight {
+            color: rgb(218, 103, 8);
+        }
+        
+        .company-desc {
+            font-size: 7pt;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.2;
+        }
+        
+        .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: auto;
+        }
+        
+        .contact-info {
+            font-size: 7.5pt;
+            line-height: 1.6;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 3px;
+        }
+        
+        .contact-icon {
+            width: 8px;
+            height: 8px;
+            flex-shrink: 0;
+        }
+        
+        .website {
+            font-size: 7pt;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: right;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .print-area {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            
+            @page {
+                size: 90mm 50mm;
+                margin: 0;
+            }
+        }
+        
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: rgb(218, 103, 8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: rgb(180, 85, 6);
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button onclick="window.print()">Печать визитки</button>
+        <button onclick="exportCard()">Экспорт в PNG</button>
+    </div>
+    
+    <div class="print-area" id="card">
+        <div class="business-card">
+            <div class="card-header">
+                <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="60" y="60" width="30" height="30" fill="white" opacity="0.9"></rect>
+                    <rect x="110" y="60" width="30" height="30" fill="white" opacity="0.9"></rect>
+                    <rect x="60" y="110" width="30" height="30" fill="rgb(218, 103, 8)" opacity="0.9"></rect>
+                    <rect x="110" y="110" width="30" height="30" fill="white" opacity="0.9"></rect>
+                    <line x1="90" y1="75" x2="110" y2="75" stroke="white" stroke-width="2"></line>
+                    <line x1="75" y1="90" x2="75" y2="110" stroke="white" stroke-width="2"></line>
+                    <line x1="125" y1="90" x2="125" y2="110" stroke="white" stroke-width="2"></line>
+                    <line x1="90" y1="125" x2="110" y2="125" stroke="white" stroke-width="2"></line>
+                    <text x="100" y="195" text-anchor="middle" fill="white" font-family="Verdana, sans-serif" font-size="22" letter-spacing="3.5">TLIS</text>
+                </svg>
+                <div class="company-info">
+                    <div class="company-name">TLI<span class="highlight">S</span></div>
+                    <div class="company-desc">Производственная компания</div>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="white">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
+                        </svg>
+                        <span>+375 29 658-25-76</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="white">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+                        </svg>
+                        <span>zava.dir@mail.ru</span>
+                    </div>
+                </div>
+                <div class="website">www.tlis.by</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function exportCard() {
+            const card = document.getElementById('card');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Размеры визитки в пикселях (90mm x 50mm при 300 DPI)
+            const width = 1063; // 90mm * 300 / 25.4
+            const height = 591; // 50mm * 300 / 25.4
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Фон
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#1a1a1a');
+            gradient.addColorStop(1, '#2a2422');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Используем html2canvas для более точного рендеринга
+            if (typeof html2canvas !== 'undefined') {
+                html2canvas(card, {
+                    scale: 3,
+                    backgroundColor: null,
+                    useCORS: true
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'tlis-business-card.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+            } else {
+                // Простой экспорт через canvas
+                canvas.toBlob(function(blob) {
+                    const link = document.createElement('a');
+                    link.download = 'tlis-business-card.png';
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+

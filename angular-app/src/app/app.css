@@ -815,6 +815,197 @@
     backdrop-filter: blur(10px);
 }
 
+/* Catalog Modal */
+.catalog-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+    padding: 20px;
+}
+
+.catalog-modal-content {
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    max-height: 95vh;
+    background: rgba(42, 36, 34, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.catalog-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10001;
+    line-height: 1;
+    padding: 0;
+}
+
+.catalog-modal-close:hover {
+    background: rgba(255, 140, 0, 0.8);
+    border-color: #FF8C00;
+    transform: rotate(90deg);
+}
+
+.catalog-modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 50px 35px 30px;
+    overflow: hidden;
+    max-height: calc(95vh - 30px);
+}
+
+.catalog-modal-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.catalog-modal-image img {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.catalog-modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: white;
+    overflow: hidden;
+}
+
+.catalog-modal-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.catalog-modal-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(135deg, #FF8C00 0%, #CC6600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.catalog-modal-price {
+    font-size: 20px;
+    color: #FF8C00;
+    font-weight: 600;
+}
+
+.catalog-modal-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.catalog-modal-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spec-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+.spec-row:last-child {
+    border-bottom: none;
+}
+
+.spec-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.spec-row:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.spec-label {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+}
+
+.spec-value {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    text-align: right;
+}
+
+.catalog-modal-order-btn {
+    background: linear-gradient(135deg, #FF8C00 0%, #CC6600 100%);
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.catalog-modal-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 140, 0, 0.5);
+    border-radius: 30px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* Order Section */
 .order-content {
     max-width: 1200px;
@@ -1302,6 +1493,26 @@
     .footer-links {
         gap: 20px;
     }
+
+    /* Catalog Modal Tablet */
+    .catalog-modal-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 50px 30px 25px;
+        overflow: hidden;
+    }
+
+    .catalog-modal-image img {
+        max-height: 40vh;
+    }
+
+    .catalog-modal-title {
+        font-size: 36px;
+    }
+
+    .catalog-modal-info {
+        gap: 15px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1589,6 +1800,64 @@
         flex-wrap: wrap;
         justify-content: center;
     }
+
+    /* Catalog Modal Mobile */
+    .catalog-modal-body {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 45px 20px 20px;
+        overflow: hidden;
+    }
+
+    .catalog-modal-image img {
+        max-height: 35vh;
+    }
+
+    .catalog-modal-title {
+        font-size: 32px;
+    }
+
+    .catalog-modal-price {
+        font-size: 18px;
+    }
+
+    .catalog-modal-description {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .catalog-modal-info {
+        gap: 12px;
+    }
+
+    .spec-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding: 10px 15px;
+    }
+
+    .spec-label,
+    .spec-value {
+        font-size: 12px;
+    }
+
+    .spec-value {
+        text-align: left;
+    }
+
+    .catalog-modal-order-btn {
+        padding: 12px 25px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .catalog-modal-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
 }
 
 @media (max-width: 420px) {
@@ -1759,6 +2028,72 @@
 
 :host-context(.light-theme) .theme-slider::after {
     background: #1a1a1a;
+}
+
+/* Catalog Modal Light Theme */
+:host-context(.light-theme) .catalog-modal {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+:host-context(.light-theme) .catalog-modal-content {
+    background: rgba(247, 228, 208, 0.98);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+:host-context(.light-theme) .catalog-modal-close {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+}
+
+:host-context(.light-theme) .catalog-modal-close:hover {
+    background: rgba(255, 140, 0, 0.8);
+    border-color: #FF8C00;
+    color: white;
+}
+
+:host-context(.light-theme) .catalog-modal-info {
+    color: #1a1a1a;
+}
+
+:host-context(.light-theme) .catalog-modal-title {
+    background: linear-gradient(135deg, #FF8C00 0%, #CC6600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+:host-context(.light-theme) .catalog-modal-price {
+    color: #FF8C00;
+}
+
+:host-context(.light-theme) .catalog-modal-description {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+:host-context(.light-theme) .catalog-modal-specs {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+:host-context(.light-theme) .spec-row {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+:host-context(.light-theme) .spec-row:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+:host-context(.light-theme) .spec-row:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+:host-context(.light-theme) .spec-label {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+:host-context(.light-theme) .spec-value {
+    color: rgba(0, 0, 0, 0.7);
 }
 
 :host-context(.light-theme) .header {

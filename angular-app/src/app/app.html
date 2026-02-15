@@ -72,7 +72,7 @@
       <div class="phone-number">
         <span style="color: rgb(229 197 171);">+37529</span><span style="color: rgb(218, 103, 8);">6582576</span>
       </div>
-      <div class="email">info@tlis.by</div>
+      <div class="email">zava.dir@mail.ru</div>
       <div class="working-hours">{{ 'header.hoursWeekdays' | translate }}</div>
       <div class="working-hours">{{ 'header.hoursWeekend' | translate }}</div>
     </div>
@@ -94,7 +94,7 @@
 
     <div class="coverflow-container" tabindex="0">
       <div class="coverflow" id="coverflow">
-        <div class="coverflow-item" data-index="0">
+        <div class="coverflow-item" data-index="0" (click)="handleCatalogItemClick(0)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab1.jpg"
@@ -104,7 +104,7 @@
           </div>
           <div class="reflection"></div>
         </div>
-        <div class="coverflow-item" data-index="1">
+        <div class="coverflow-item" data-index="1" (click)="handleCatalogItemClick(1)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab2.jpg"
@@ -114,7 +114,7 @@
           </div>
           <div class="reflection"></div>
         </div>
-        <div class="coverflow-item" data-index="2">
+        <div class="coverflow-item" data-index="2" (click)="handleCatalogItemClick(2)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab3.jpg"
@@ -124,7 +124,7 @@
           </div>
           <div class="reflection"></div>
         </div>
-        <div class="coverflow-item" data-index="3">
+        <div class="coverflow-item" data-index="3" (click)="handleCatalogItemClick(3)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab4.jpg"
@@ -134,7 +134,7 @@
           </div>
           <div class="reflection"></div>
         </div>
-        <div class="coverflow-item" data-index="4">
+        <div class="coverflow-item" data-index="4" (click)="handleCatalogItemClick(4)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab5.jpg"
@@ -144,7 +144,7 @@
           </div>
           <div class="reflection"></div>
         </div>
-        <div class="coverflow-item" data-index="5">
+        <div class="coverflow-item" data-index="5" (click)="handleCatalogItemClick(5)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab6.jpg"
@@ -154,7 +154,7 @@
           </div>
           <div class="reflection"></div>
         </div>
-        <div class="coverflow-item" data-index="6">
+        <div class="coverflow-item" data-index="6" (click)="handleCatalogItemClick(6)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab7.jpg"
@@ -164,7 +164,7 @@
           </div>
           <div class="reflection"></div>
         </div>
-        <div class="coverflow-item" data-index="7">
+        <div class="coverflow-item" data-index="7" (click)="handleCatalogItemClick(7)">
           <div class="cover image-loading">
             <img
               src="assets/images/slabs/slab10.jpg"
@@ -180,6 +180,55 @@
       <button class="nav-button next">›</button>
 
       <div class="dots-container" id="dots"></div>
+    </div>
+  </div>
+
+  <!-- Catalog Modal -->
+  <div class="catalog-modal" *ngIf="isCatalogModalOpen" (click)="closeCatalogModal()">
+    <div class="catalog-modal-content" (click)="$event.stopPropagation()">
+      <button class="catalog-modal-close" (click)="closeCatalogModal()">&times;</button>
+      
+      <div class="catalog-modal-body">
+        <div class="catalog-modal-image">
+          <img [src]="'assets/images/slabs/' + catalogImages[selectedCatalogIndex]" [alt]="'Catalog item ' + selectedCatalogIndex" />
+        </div>
+        
+        <div class="catalog-modal-info">
+          <div class="catalog-modal-header">
+            <h2 class="catalog-modal-title">{{ getCatalogTitle(selectedCatalogIndex) }}</h2>
+            <span class="catalog-modal-price">{{ 'catalog.modal.price' | translate }}</span>
+          </div>
+          
+          <p class="catalog-modal-description">{{ 'catalog.modal.description' | translate }}</p>
+          
+          <div class="catalog-modal-specs">
+            <div class="spec-row">
+              <div class="spec-label">{{ 'catalog.modal.specs.concreteClass' | translate }}</div>
+              <div class="spec-value">{{ 'catalog.modal.specs.concreteClassValue' | translate }}</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-label">{{ 'catalog.modal.specs.frostResistance' | translate }}</div>
+              <div class="spec-value">{{ 'catalog.modal.specs.frostResistanceValue' | translate }}</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-label">{{ 'catalog.modal.specs.abrasion' | translate }}</div>
+              <div class="spec-value">{{ 'catalog.modal.specs.abrasionValue' | translate }}</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-label">{{ 'catalog.modal.specs.technology' | translate }}</div>
+              <div class="spec-value">{{ 'catalog.modal.specs.technologyValue' | translate }}</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-label">{{ 'catalog.modal.specs.waterAbsorption' | translate }}</div>
+              <div class="spec-value">{{ 'catalog.modal.specs.waterAbsorptionValue' | translate }}</div>
+            </div>
+          </div>
+          
+          <button class="catalog-modal-order-btn" (click)="onOrderButtonClick()">
+            {{ 'catalog.modal.orderButton' | translate }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>

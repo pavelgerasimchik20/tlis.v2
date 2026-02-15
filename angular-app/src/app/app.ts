@@ -22,6 +22,54 @@ export class App {
   currentLang = 'ru';
   currentImageIndex = 0;
   isLightboxOpen = false;
+  
+  // Catalog modal
+  isCatalogModalOpen = false;
+  selectedCatalogIndex = 0;
+  
+  catalogImages = [
+    'slab1.jpg',
+    'slab2.jpg',
+    'slab3.jpg',
+    'slab4.jpg',
+    'slab5.jpg',
+    'slab6.jpg',
+    'slab7.jpg',
+    'slab10.jpg'
+  ];
+
+  // Названия плиток для модалки (соответствуют индексам)
+  // Используем переводы из i18n для поддержки разных языков
+  catalogTitleKeys = [
+    'catalog.slabs.slab1',
+    'catalog.slabs.slab2',
+    'catalog.slabs.slab3',
+    'catalog.slabs.slab4',
+    'catalog.slabs.slab5',
+    'catalog.slabs.slab6',
+    'catalog.slabs.slab7',
+    'catalog.slabs.slab10'
+  ];
+
+  // Соответствие между индексами плиток и значениями в select формы заказа
+  // Значения должны точно совпадать с value в option элементах
+  catalogToColorValue: { [key: number]: string } = {
+    0: 'Кафель',              // slab1 -> Кафель
+    1: 'Ракушечник',          // slab2 -> Ракушечник
+    2: 'Старая Италия',        // slab3 -> Старая Италия
+    3: 'Капучино new',         // slab4 -> Капучино new
+    4: 'Новый закат',          // slab5 -> Новый закат
+    5: 'Луговая трава',        // slab6 -> Луговая трава
+    6: 'Пламя',                // slab7 -> Пламя
+    7: 'Осенние листья'        // slab10 -> Осенние листья
+  };
+
+  getCatalogTitle(index: number): string {
+    if (index >= 0 && index < this.catalogTitleKeys.length) {
+      return this.translate.instant(this.catalogTitleKeys[index]);
+    }
+    return `Плита ${index + 1}`;
+  }
 
   portfolioImages = [
     'slab1.jpg',
@@ -81,20 +129,74 @@ export class App {
     this.currentImageIndex = (this.currentImageIndex - 1 + this.portfolioImages.length) % this.portfolioImages.length;
   }
 
+  handleCatalogItemClick(index: number) {
+    this.selectedCatalogIndex = index;
+    this.isCatalogModalOpen = true;
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  closeCatalogModal() {
+    this.isCatalogModalOpen = false;
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+  }
+
+  scrollToOrder() {
+    if (typeof document !== 'undefined') {
+      const orderSection = document.querySelector('#order');
+      if (orderSection) {
+        orderSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Заполняем поле выбора цвета выбранной плиткой
+        this.setSelectedColorInForm();
+      }
+    }
+  }
+
+  onOrderButtonClick() {
+    this.closeCatalogModal();
+    // Небольшая задержка, чтобы модалка успела закрыться перед скроллом
+    setTimeout(() => {
+      this.scrollToOrder();
+    }, 100);
+  }
+
+  setSelectedColorInForm() {
+    if (typeof document !== 'undefined') {
+      const colorSelect = document.getElementById('order-color') as HTMLSelectElement;
+      if (colorSelect && this.catalogToColorValue[this.selectedCatalogIndex] !== undefined) {
+        const colorValue = this.catalogToColorValue[this.selectedCatalogIndex];
+        colorSelect.value = colorValue;
+        
+        // Триггерим событие change для обновления UI
+        colorSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+  }
+
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
-    if (!this.isLightboxOpen) return;
-
-    switch (event.key) {
-      case 'Escape':
-        this.closeLightbox();
-        break;
-      case 'ArrowLeft':
-        this.prevImage(event);
-        break;
-      case 'ArrowRight':
-        this.nextImage(event);
-        break;
+    if (this.isLightboxOpen) {
+      switch (event.key) {
+        case 'Escape':
+          this.closeLightbox();
+          break;
+        case 'ArrowLeft':
+          this.prevImage(event);
+          break;
+        case 'ArrowRight':
+          this.nextImage(event);
+          break;
+      }
+    }
+    
+    if (this.isCatalogModalOpen) {
+      if (event.key === 'Escape') {
+        this.closeCatalogModal();
+      }
     }
   }
 

@@ -276,9 +276,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'ArrowRight') navigate(1);
   });
 
+  // Handle catalog item click
+  function handleCatalogItemClick(index, item) {
+    // Empty method - can be extended with custom logic
+    // Example: open modal, show details, navigate to page, etc.
+  }
+
   // Click on items to select
   items.forEach((item, index) => {
-    item.addEventListener('click', () => goToIndex(index));
+    item.addEventListener('click', () => {
+      handleCatalogItemClick(index, item);
+      goToIndex(index);
+    });
   });
 
   // Touch/swipe support
@@ -487,42 +496,63 @@ document.addEventListener('DOMContentLoaded', () => {
   // TODO: Replace with your actual bot token and chat ID
   // To get bot token: Create bot via @BotFather on Telegram
   // To get chat ID: Send message to your bot, then visit: https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
-  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Replace with your bot token
-  const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE'; // Replace with your Telegram chat ID (phone number or user ID)
+  const TELEGRAM_BOT_TOKEN = '8258683759:AAHqj-B0jbISgCWAMQ1t_xpwqlAh8Nw5MoI';
+  // Chat ID получателя заказов (человек, который должен получать заказы)
+  // Чтобы получить chat_id другого человека:
+  // 1. Этот человек должен отправить сообщение боту
+  // 2. Откройте getUpdates и найдите его chat_id в ответе
+  const TELEGRAM_CHAT_ID = '5034535540';
 
   // Send message to Telegram
-  async function sendToTelegram(message) {
+  async function sendToTelegram(message, chatId = null) {
     if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE') {
       console.error('Telegram bot token not configured');
       return false;
     }
 
-    if (!TELEGRAM_CHAT_ID || TELEGRAM_CHAT_ID === 'YOUR_CHAT_ID_HERE') {
+    const targetChatId = chatId || TELEGRAM_CHAT_ID;
+    
+    if (!targetChatId || targetChatId === 'YOUR_CHAT_ID_HERE') {
       console.error('Telegram chat ID not configured');
       return false;
     }
 
     try {
       const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+      
+      const requestBody = {
+        chat_id: targetChatId,
+        text: message,
+        parse_mode: 'HTML',
+      };
+      
+      console.log('Sending to Telegram:', { chat_id: targetChatId, message_length: message.length });
+      
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message,
-          parse_mode: 'HTML',
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const data = await response.json();
       
       if (response.ok && data.ok) {
-        console.log('Message sent to Telegram successfully');
+        console.log('Message sent to Telegram successfully to chat:', targetChatId);
         return true;
       } else {
         console.error('Telegram API error:', data);
+        
+        // Provide helpful error messages
+        if (data.error_code === 400 && data.description?.includes('chat not found')) {
+          console.error('Chat not found. Please check:');
+          console.error('1. Человек, которому нужно отправлять заказы, должен отправить сообщение боту');
+          console.error('2. Получите его chat_id: https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/getUpdates');
+          console.error('3. Найдите в ответе "chat":{"id":XXXXX} для этого человека');
+          console.error('4. Обновите TELEGRAM_CHAT_ID на его chat_id');
+        }
+        
         return false;
       }
     } catch (error) {
@@ -533,17 +563,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Format order data for Telegram
   function formatOrderMessage(formData) {
-    const name = formData.get('name') || 'Не указано';
-    const phone = formData.get('phone') || 'Не указано';
-    const email = formData.get('email') || 'Не указано';
-    const size = formData.get('size') || 'Не указано';
-    const color = formData.get('color') || 'Не указано';
-    const quantity = formData.get('quantity') || 'Не указано';
-    const address = formData.get('address') || 'Не указано';
-    const message = formData.get('message') || 'Нет комментария';
+    // Get form values by ID or name
+    const nameInput = document.getElementById('order-name');
+    const phoneInput = document.getElementById('order-phone');
+    const emailInput = document.getElementById('order-email');
+    const sizeInput = document.getElementById('order-size');
+    const colorInput = document.getElementById('order-color');
+    const quantityInput = document.getElementById('order-quantity');
+    const addressInput = document.getElementById('order-address');
+    const messageInput = document.getElementById('order-message');
 
-    const orderMessage = `
-<b>🆕 Новый заказ плитки</b>
+    const name = (nameInput?.value || formData.get('name') || '').trim() || 'Не указано';
+    const phone = (phoneInput?.value || formData.get('phone') || '').trim() || 'Не указано';
+    const email = (emailInput?.value || formData.get('email') || '').trim() || 'Не указано';
+    const size = (sizeInput?.value || formData.get('size') || '').trim() || 'Не указано';
+    const color = (colorInput?.value || formData.get('color') || '').trim() || 'Не указано';
+    const quantity = (quantityInput?.value || formData.get('quantity') || '').trim() || 'Не указано';
+    const address = (addressInput?.value || formData.get('address') || '').trim() || 'Не указано';
+    const message = (messageInput?.value || formData.get('message') || '').trim() || 'Нет комментария';
+
+    const orderMessage = `<b>🆕 Новый заказ плитки</b>
 
 <b>👤 Контактная информация:</b>
 • Имя: ${name}
@@ -567,10 +606,15 @@ ${new Date().toLocaleString('ru-BY', {
   day: '2-digit',
   hour: '2-digit',
   minute: '2-digit'
-})}
-    `.trim();
+})}`;
 
-    return orderMessage;
+    // Validate that message is not empty
+    if (!orderMessage || orderMessage.trim().length === 0) {
+      console.error('Formatted message is empty');
+      return 'Новый заказ плитки\n\nОшибка: данные формы не получены.';
+    }
+
+    return orderMessage.trim();
   }
 
   // Form submission
@@ -590,6 +634,15 @@ ${new Date().toLocaleString('ru-BY', {
     try {
       // Format and send message to Telegram
       const message = formatOrderMessage(formData);
+      
+      // Validate message before sending
+      if (!message || message.trim().length === 0) {
+        console.error('Message is empty, cannot send to Telegram');
+        alert('Ошибка: не удалось сформировать сообщение. Пожалуйста, проверьте заполнение формы.');
+        return;
+      }
+      
+      console.log('Sending message to Telegram:', message);
       const success = await sendToTelegram(message);
 
       if (success) {

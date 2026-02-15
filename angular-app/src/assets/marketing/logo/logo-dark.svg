@@ -1,0 +1,15 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Темный вариант для светлого фона -->
+  <rect x="60" y="60" width="30" height="30" fill="#1a1a1a" opacity="0.9"></rect>
+  <rect x="110" y="60" width="30" height="30" fill="#1a1a1a" opacity="0.9"></rect>
+  <rect x="60" y="110" width="30" height="30" fill="rgb(218, 103, 8)" opacity="0.9"></rect>
+  <rect x="110" y="110" width="30" height="30" fill="#1a1a1a" opacity="0.9"></rect>
+  <line x1="90" y1="75" x2="110" y2="75" stroke="#1a1a1a" stroke-width="2"></line>
+  <line x1="75" y1="90" x2="75" y2="110" stroke="#1a1a1a" stroke-width="2"></line>
+  <line x1="125" y1="90" x2="125" y2="110" stroke="#1a1a1a" stroke-width="2"></line>
+  <line x1="90" y1="125" x2="110" y2="125" stroke="#1a1a1a" stroke-width="2"></line>
+  <text x="100" y="195" text-anchor="middle" fill="#1a1a1a" font-family="Verdana, sans-serif" font-size="22" letter-spacing="3.5">
+    TLIS
+  </text>
+</svg>
+

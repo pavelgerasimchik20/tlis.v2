@@ -19,14 +19,31 @@
     "description": "点击作品示例查看系列",
     "playPause": "播放/暂停",
     "slabs": {
-      "slab1": "板材 1",
-      "slab2": "板材 2",
-      "slab3": "板材 3",
-      "slab4": "板材 4",
-      "slab5": "板材 5",
-      "slab6": "板材 6",
-      "slab7": "板材 7",
-      "slab10": "板材 10"
+      "slab1": "COLOR Mix \"瓷砖\"",
+      "slab2": "COLOR Mix \"贝壳石\"",
+      "slab3": "COLOR Mix \"古老意大利\"",
+      "slab4": "COLOR Mix \"卡布奇诺 new\"",
+      "slab5": "COLOR Mix \"新日落\"",
+      "slab6": "COLOR Mix \"草地\"",
+      "slab7": "COLOR Mix \"火焰\"",
+      "slab10": "COLOR Mix \"秋叶\""
+    },
+    "modal": {
+      "price": "40 卢布/平方米",
+      "description": "铺砖采用黑白对比色调。具有高耐磨性和实用性。适用于花园小径、人行区、人行道和停车场铺装。",
+      "specs": {
+        "concreteClass": "混凝土强度等级",
+        "concreteClassValue": "B22,5 B25 B27,5 B30 B35",
+        "frostResistance": "抗冻性",
+        "frostResistanceValue": "F250",
+        "abrasion": "耐磨性",
+        "abrasionValue": "不超过 0.7 克/平方厘米",
+        "technology": "技术",
+        "technologyValue": "双层振动压制",
+        "waterAbsorption": "吸水率",
+        "waterAbsorptionValue": "不超过 6%"
+      },
+      "orderButton": "提交订单"
     }
   },
   "about": {
@@ -69,7 +86,7 @@
   },
   "portfolio": {
     "title": "项目画廊",
-    "lead": "我们和合作伙伴的作品示例"
+    "lead": "我们项目实施的示例"
   },
   "order": {
     "title": "订购铺砖",
@@ -85,7 +102,7 @@
       },
       "email": {
         "title": "邮箱",
-        "value": "info@tlis.by"
+        "value": "zava.dir@mail.ru"
       },
       "address": {
         "title": "地址",

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Экспорт логотипа TLIS в PNG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 30px;
+        }
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .logo-item {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .logo-item h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        .logo-preview {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        .logo-preview.dark-bg {
+            background: #1a1a1a;
+        }
+        .logo-preview.light-bg {
+            background: #f7e4d0;
+        }
+        button {
+            background: rgb(218, 103, 8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        button:hover {
+            background: rgb(180, 85, 6);
+        }
+        .instructions {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .instructions h2 {
+            margin-top: 0;
+            color: #1a1a1a;
+        }
+        .instructions ol {
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Экспорт логотипа TLIS в PNG</h1>
+        
+        <div class="logo-grid">
+            <!-- Цветной вариант -->
+            <div class="logo-item">
+                <h3>Цветной вариант</h3>
+                <div class="logo-preview dark-bg" id="preview-color">
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="30" height="30" fill="white" opacity="0.9"></rect>
+                        <rect x="110" y="60" width="30" height="30" fill="white" opacity="0.9"></rect>
+                        <rect x="60" y="110" width="30" height="30" fill="rgb(218, 103, 8)" opacity="0.9"></rect>
+                        <rect x="110" y="110" width="30" height="30" fill="white" opacity="0.9"></rect>
+                        <line x1="90" y1="75" x2="110" y2="75" stroke="white" stroke-width="2"></line>
+                        <line x1="75" y1="90" x2="75" y2="110" stroke="white" stroke-width="2"></line>
+                        <line x1="125" y1="90" x2="125" y2="110" stroke="white" stroke-width="2"></line>
+                        <line x1="90" y1="125" x2="110" y2="125" stroke="white" stroke-width="2"></line>
+                        <text x="100" y="195" text-anchor="middle" fill="white" font-family="Verdana, sans-serif" font-size="22" letter-spacing="3.5">TLIS</text>
+                    </svg>
+                </div>
+                <button onclick="exportLogo('preview-color', 'logo-color', 200)">200x200</button>
+                <button onclick="exportLogo('preview-color', 'logo-color', 400)">400x400</button>
+                <button onclick="exportLogo('preview-color', 'logo-color', 800)">800x800</button>
+                <button onclick="exportLogo('preview-color', 'logo-color', 1200)">1200x1200</button>
+            </div>
+
+            <!-- Белый вариант -->
+            <div class="logo-item">
+                <h3>Белый на прозрачном</h3>
+                <div class="logo-preview dark-bg" id="preview-white">
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="30" height="30" fill="white" opacity="0.9"></rect>
+                        <rect x="110" y="60" width="30" height="30" fill="white" opacity="0.9"></rect>
+                        <rect x="60" y="110" width="30" height="30" fill="white" opacity="0.9"></rect>
+                        <rect x="110" y="110" width="30" height="30" fill="white" opacity="0.9"></rect>
+                        <line x1="90" y1="75" x2="110" y2="75" stroke="white" stroke-width="2"></line>
+                        <line x1="75" y1="90" x2="75" y2="110" stroke="white" stroke-width="2"></line>
+                        <line x1="125" y1="90" x2="125" y2="110" stroke="white" stroke-width="2"></line>
+                        <line x1="90" y1="125" x2="110" y2="125" stroke="white" stroke-width="2"></line>
+                        <text x="100" y="195" text-anchor="middle" fill="white" font-family="Verdana, sans-serif" font-size="22" letter-spacing="3.5">TLIS</text>
+                    </svg>
+                </div>
+                <button onclick="exportLogo('preview-white', 'logo-white', 200)">200x200</button>
+                <button onclick="exportLogo('preview-white', 'logo-white', 400)">400x400</button>
+                <button onclick="exportLogo('preview-white', 'logo-white', 800)">800x800</button>
+                <button onclick="exportLogo('preview-white', 'logo-white', 1200)">1200x1200</button>
+            </div>
+
+            <!-- Темный вариант -->
+            <div class="logo-item">
+                <h3>Темный для светлого фона</h3>
+                <div class="logo-preview light-bg" id="preview-dark">
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="30" height="30" fill="#1a1a1a" opacity="0.9"></rect>
+                        <rect x="110" y="60" width="30" height="30" fill="#1a1a1a" opacity="0.9"></rect>
+                        <rect x="60" y="110" width="30" height="30" fill="rgb(218, 103, 8)" opacity="0.9"></rect>
+                        <rect x="110" y="110" width="30" height="30" fill="#1a1a1a" opacity="0.9"></rect>
+                        <line x1="90" y1="75" x2="110" y2="75" stroke="#1a1a1a" stroke-width="2"></line>
+                        <line x1="75" y1="90" x2="75" y2="110" stroke="#1a1a1a" stroke-width="2"></line>
+                        <line x1="125" y1="90" x2="125" y2="110" stroke="#1a1a1a" stroke-width="2"></line>
+                        <line x1="90" y1="125" x2="110" y2="125" stroke="#1a1a1a" stroke-width="2"></line>
+                        <text x="100" y="195" text-anchor="middle" fill="#1a1a1a" font-family="Verdana, sans-serif" font-size="22" letter-spacing="3.5">TLIS</text>
+                    </svg>
+                </div>
+                <button onclick="exportLogo('preview-dark', 'logo-dark', 200)">200x200</button>
+                <button onclick="exportLogo('preview-dark', 'logo-dark', 400)">400x400</button>
+                <button onclick="exportLogo('preview-dark', 'logo-dark', 800)">800x800</button>
+                <button onclick="exportLogo('preview-dark', 'logo-dark', 1200)">1200x1200</button>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>Инструкция по экспорту:</h2>
+            <ol>
+                <li>Нажмите на кнопку с нужным размером</li>
+                <li>Изображение откроется в новой вкладке</li>
+                <li>Правой кнопкой мыши → "Сохранить изображение как..."</li>
+                <li>Выберите формат PNG и сохраните</li>
+                <li><strong>Альтернатива:</strong> Используйте инструменты разработчика браузера (F12) для экспорта SVG в PNG</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function exportLogo(previewId, logoName, size) {
+            const preview = document.getElementById(previewId);
+            const svg = preview.querySelector('svg');
+            
+            // Создаем новый SVG с нужным размером
+            const svgClone = svg.cloneNode(true);
+            svgClone.setAttribute('width', size);
+            svgClone.setAttribute('height', size);
+            
+            // Создаем canvas для конвертации
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Определяем фон
+            if (previewId === 'preview-color' || previewId === 'preview-white') {
+                ctx.fillStyle = '#1a1a1a';
+            } else {
+                ctx.fillStyle = '#f7e4d0';
+            }
+            ctx.fillRect(0, 0, size, size);
+            
+            // Конвертируем SVG в изображение
+            const img = new Image();
+            const svgBlob = new Blob([new XMLSerializer().serializeToString(svgClone)], {type: 'image/svg+xml;charset=utf-8'});
+            const url = URL.createObjectURL(svgBlob);
+            
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, size, size);
+                URL.revokeObjectURL(url);
+                
+                // Создаем ссылку для скачивания
+                canvas.toBlob(function(blob) {
+                    const link = document.createElement('a');
+                    link.download = `${logoName}-${size}x${size}.png`;
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+                });
+            };
+            
+            img.src = url;
+        }
+    </script>
+</body>
+</html>
+
