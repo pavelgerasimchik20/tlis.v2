@@ -505,31 +505,178 @@ document.addEventListener('DOMContentLoaded', () => {
   const orderForm = document.querySelector('.order-form');
   orderForm?.addEventListener('submit', handleSubmit);
 
-  function applyTheme(theme) {
+  // Auto theme based on sunrise/sunset in Belarus (Minsk coordinates)
+  // Coordinates: ~53.9°N, 27.6°E
+  function calculateSunriseSunset(date) {
+    const lat = 53.9; // Minsk latitude
+    const lon = 27.6; // Minsk longitude
+    
+    // Day of year (1-365)
+    const startOfYear = new Date(date.getFullYear(), 0, 1);
+    const dayOfYear = Math.floor((date - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
+    
+    // Solar declination angle in radians
+    const declinationRad = 23.45 * (Math.PI / 180) * Math.sin((2 * Math.PI / 365) * (284 + dayOfYear));
+    
+    // Hour angle calculation
+    const latRad = lat * (Math.PI / 180);
+    const cosHourAngle = -Math.tan(latRad) * Math.tan(declinationRad);
+    
+    // Clamp to valid range [-1, 1]
+    const hourAngleRad = Math.acos(Math.max(-1, Math.min(1, cosHourAngle)));
+    
+    // Convert to degrees
+    const hourAngleDeg = hourAngleRad * (180 / Math.PI);
+    
+    // Calculate sunrise and sunset in minutes from midnight (local time)
+    // Equation of time approximation (simplified)
+    const B = (360 / 365) * (dayOfYear - 81);
+    const equationOfTime = 9.87 * Math.sin(2 * B * Math.PI / 180) - 7.53 * Math.cos(B * Math.PI / 180) - 1.5 * Math.sin(B * Math.PI / 180);
+    
+    // Time offset for longitude (Minsk is UTC+3, so +3 hours = +180 minutes)
+    const timeOffset = 3 * 60; // UTC+3 in minutes
+    
+    // Solar noon
+    const solarNoon = 720 + equationOfTime - (lon * 4) + timeOffset;
+    
+    // Sunrise and sunset
+    const sunriseMinutes = solarNoon - (hourAngleDeg * 4);
+    const sunsetMinutes = solarNoon + (hourAngleDeg * 4);
+    
+    // Create date objects
+    const sunrise = new Date(date);
+    sunrise.setHours(0, Math.round(sunriseMinutes), 0, 0);
+    
+    const sunset = new Date(date);
+    sunset.setHours(0, Math.round(sunsetMinutes), 0, 0);
+    
+    return { sunrise, sunset };
+  }
+
+  function getAutoTheme() {
+    const now = new Date();
+    const { sunrise, sunset } = calculateSunriseSunset(now);
+    
+    // Add 30 minutes buffer for twilight
+    const sunriseWithBuffer = new Date(sunrise.getTime() + 30 * 60 * 1000);
+    const sunsetWithBuffer = new Date(sunset.getTime() - 30 * 60 * 1000);
+    
+    // Debug info (can be removed later)
+    console.log('Current time:', now.toLocaleTimeString('ru-BY'));
+    console.log('Sunrise:', sunrise.toLocaleTimeString('ru-BY'));
+    console.log('Sunset:', sunset.toLocaleTimeString('ru-BY'));
+    console.log('Sunrise with buffer:', sunriseWithBuffer.toLocaleTimeString('ru-BY'));
+    console.log('Sunset with buffer:', sunsetWithBuffer.toLocaleTimeString('ru-BY'));
+    
+    // Light theme during day (after sunrise + buffer, before sunset - buffer)
+    const isDay = now >= sunriseWithBuffer && now < sunsetWithBuffer;
+    const theme = isDay ? 'light' : 'dark';
+    console.log('Auto theme determined:', theme);
+    
+    return theme;
+  }
+
+  function applyTheme(theme, isAuto = false) {
     const isLight = theme === 'light';
     document.body.classList.toggle('light-theme', isLight);
     if (themeToggle) {
       themeToggle.checked = isLight;
     }
+    
+    // Save theme mode (auto or manual)
+    if (isAuto) {
+      localStorage.setItem('themeMode', 'auto');
+      localStorage.setItem('autoTheme', theme);
+    } else {
+      localStorage.setItem('themeMode', 'manual');
+      localStorage.setItem('theme', theme);
+    }
   }
 
+  // Always use auto theme on page load, but respect manual override if user explicitly disabled it
+  // Check if user has explicitly disabled auto theme
+  const themeMode = localStorage.getItem('themeMode');
+  const isAutoTheme = themeMode !== 'manual'; // Auto by default, unless explicitly set to manual
+  
+  // On page load, always check and apply auto theme
+  const autoTheme = getAutoTheme();
+  
   if (themeToggle) {
-    const storedTheme = localStorage.getItem('theme');
-    const initialTheme = storedTheme === 'light' || storedTheme === 'dark'
-      ? storedTheme
-      : 'dark';
-    if (!storedTheme) {
-      localStorage.setItem('theme', 'dark');
+    let initialTheme;
+    
+    // Always use auto theme on page load
+    initialTheme = autoTheme;
+    applyTheme(initialTheme, true);
+    
+    if (isAutoTheme) {
+      
+      // Schedule theme updates at sunrise and sunset
+      function scheduleThemeUpdate() {
+        const now = new Date();
+        const { sunrise, sunset } = calculateSunriseSunset(now);
+        
+        // Add 30 minutes buffer
+        const sunriseWithBuffer = new Date(sunrise.getTime() + 30 * 60 * 1000);
+        const sunsetWithBuffer = new Date(sunset.getTime() - 30 * 60 * 1000);
+        
+        let nextUpdate;
+        if (now < sunriseWithBuffer) {
+          // Before sunrise, update at sunrise
+          nextUpdate = sunriseWithBuffer;
+        } else if (now < sunsetWithBuffer) {
+          // During day, update at sunset
+          nextUpdate = sunsetWithBuffer;
+        } else {
+          // After sunset, update at next sunrise
+          const tomorrow = new Date(now);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          const { sunrise: tomorrowSunrise } = calculateSunriseSunset(tomorrow);
+          nextUpdate = new Date(tomorrowSunrise.getTime() + 30 * 60 * 1000);
+        }
+        
+        const timeUntilUpdate = nextUpdate.getTime() - now.getTime();
+        
+        setTimeout(() => {
+          if (localStorage.getItem('themeMode') === 'auto') {
+            const newTheme = getAutoTheme();
+            applyTheme(newTheme, true);
+            scheduleThemeUpdate(); // Schedule next update
+          }
+        }, timeUntilUpdate);
+      }
+      
+      scheduleThemeUpdate();
+      
+      // Also check every hour in case of timezone changes or system time changes
+      setInterval(() => {
+        if (localStorage.getItem('themeMode') === 'auto') {
+          const newTheme = getAutoTheme();
+          const currentTheme = localStorage.getItem('autoTheme') || 'dark';
+          if (newTheme !== currentTheme) {
+            applyTheme(newTheme, true);
+          }
+        }
+      }, 60 * 60 * 1000); // Check every hour
+      
+    } else {
+      // Manual mode was explicitly set, but we still applied auto theme on load
+      // User can manually override if needed
+      console.log('Manual mode detected, but auto theme applied on load');
     }
-    applyTheme(initialTheme);
 
     themeToggle.addEventListener('change', () => {
+      // When user manually toggles, switch to manual mode
       const nextTheme = themeToggle.checked ? 'light' : 'dark';
+      localStorage.setItem('themeMode', 'manual');
       localStorage.setItem('theme', nextTheme);
-      applyTheme(nextTheme);
+      applyTheme(nextTheme, false);
     });
   } else {
-    applyTheme(localStorage.getItem('theme') || 'dark');
+    if (isAutoTheme) {
+      applyTheme(getAutoTheme(), true);
+    } else {
+      applyTheme(localStorage.getItem('theme') || 'dark', false);
+    }
   }
 
   // Initialize
