@@ -1394,6 +1394,13 @@
         display: flex;
     }
 
+    /* Mobile menu light theme - only for mobile devices */
+    :host-context(.light-theme) .main-menu {
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+
     .menu-toggle {
         display: flex;
     }
@@ -2013,12 +2020,6 @@
     color: #000;
 }
 
-/* Mobile menu light theme */
-:host-context(.light-theme) .main-menu {
-    background: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-}
 
 :host-context(.light-theme) .contacts .email,
 :host-context(.light-theme) .contacts .working-hours,
