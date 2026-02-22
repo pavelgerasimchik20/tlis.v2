@@ -354,7 +354,10 @@
     </div>
 
     <div class="portfolio-gallery" id="portfolioGallery">
-      <div class="portfolio-item" *ngFor="let image of portfolioImages; let i = index" (click)="openLightbox(i)">
+      <div class="portfolio-item" 
+           *ngFor="let image of portfolioImages; let i = index" 
+           [class.portfolio-item-hidden-mobile]="!showAllPortfolioImages && i >= 4"
+           (click)="openLightbox(i)">
         <div class="portfolio-image-wrapper">
           <img [src]="'assets/images/portfolioImages/' + image" [alt]="'Portfolio image ' + (i + 1)" loading="lazy" />
           <div class="portfolio-overlay">
@@ -365,6 +368,12 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="portfolio-show-more-container" *ngIf="!showAllPortfolioImages && portfolioImages.length > 4">
+      <button class="portfolio-show-more-btn" (click)="toggleShowAllPortfolio()">
+        {{ 'portfolio.showMore' | translate }}
+      </button>
     </div>
   </div>
 

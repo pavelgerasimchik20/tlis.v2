@@ -22,6 +22,7 @@ export class App {
   currentLang = 'ru';
   currentImageIndex = 0;
   isLightboxOpen = false;
+  showAllPortfolioImages = false;
   
   // Catalog modal
   isCatalogModalOpen = false;
@@ -228,5 +229,9 @@ export class App {
 
   private resolveLanguage(lang: string) {
     return this.languages.some((language) => language.code === lang) ? lang : 'ru';
+  }
+
+  toggleShowAllPortfolio() {
+    this.showAllPortfolioImages = !this.showAllPortfolioImages;
   }
 }

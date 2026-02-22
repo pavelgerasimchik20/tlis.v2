@@ -94,7 +94,8 @@
   },
   "portfolio": {
     "title": "项目画廊",
-    "lead": "我们项目实施的示例"
+    "lead": "我们项目实施的示例",
+    "showMore": "显示更多"
   },
   "order": {
     "title": "订购铺砖",
