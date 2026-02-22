@@ -26,6 +26,7 @@ export class App {
   // Catalog modal
   isCatalogModalOpen = false;
   selectedCatalogIndex = 0;
+  selectedSize = '';
   
   catalogImages = [
     'slab1.jpg',
@@ -131,6 +132,7 @@ export class App {
 
   handleCatalogItemClick(index: number) {
     this.selectedCatalogIndex = index;
+    this.selectedSize = ''; // Сбрасываем выбранный размер при открытии модального окна
     this.isCatalogModalOpen = true;
     if (typeof document !== 'undefined') {
       document.body.style.overflow = 'hidden';
@@ -152,6 +154,8 @@ export class App {
         
         // Заполняем поле выбора цвета выбранной плиткой
         this.setSelectedColorInForm();
+        // Заполняем поле выбора размера, если размер был выбран
+        this.setSelectedSizeInForm();
       }
     }
   }
@@ -173,6 +177,18 @@ export class App {
         
         // Триггерим событие change для обновления UI
         colorSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+  }
+
+  setSelectedSizeInForm() {
+    if (typeof document !== 'undefined' && this.selectedSize) {
+      const sizeSelect = document.getElementById('order-size') as HTMLSelectElement;
+      if (sizeSelect) {
+        sizeSelect.value = this.selectedSize;
+        
+        // Триггерим событие change для обновления UI
+        sizeSelect.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }
   }

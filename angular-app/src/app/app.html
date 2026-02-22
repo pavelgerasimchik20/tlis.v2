@@ -201,6 +201,18 @@
           
           <p class="catalog-modal-description">{{ 'catalog.modal.description' | translate }}</p>
           
+          <!-- Size selection -->
+          <div class="catalog-modal-size-selector">
+            <label for="catalog-modal-size" class="catalog-modal-size-label">{{ 'catalog.modal.size' | translate }}</label>
+            <select id="catalog-modal-size" class="catalog-modal-size-select" [value]="selectedSize" (change)="selectedSize = $any($event.target).value">
+              <option value="">{{ 'catalog.modal.selectSize' | translate }}</option>
+              <option value="20×10">{{ 'catalog.modal.sizes.size1' | translate }}</option>
+              <option value="24×16">{{ 'catalog.modal.sizes.size2' | translate }}</option>
+              <option value="30×30">{{ 'catalog.modal.sizes.size3' | translate }}</option>
+              <option value="16×16">{{ 'catalog.modal.sizes.size4' | translate }}</option>
+            </select>
+          </div>
+          
           <div class="catalog-modal-specs">
             <div class="spec-row">
               <div class="spec-label">{{ 'catalog.modal.specs.concreteClass' | translate }}</div>
@@ -445,7 +457,13 @@
           <div class="form-row">
             <div class="form-group">
               <label for="order-size">{{ 'order.form.size' | translate }}</label>
-              <input type="text" id="order-size" name="size" placeholder="60×30 см" required />
+              <select id="order-size" name="size" required>
+                <option value="">{{ 'order.form.selectSize' | translate }}</option>
+                <option value="20×10">{{ 'order.form.sizes.size1' | translate }}</option>
+                <option value="24×16">{{ 'order.form.sizes.size2' | translate }}</option>
+                <option value="30×30">{{ 'order.form.sizes.size3' | translate }}</option>
+                <option value="16×16">{{ 'order.form.sizes.size4' | translate }}</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="order-color">{{ 'order.form.color' | translate }}</label>

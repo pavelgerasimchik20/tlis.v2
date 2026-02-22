@@ -937,6 +937,51 @@
     margin: 0;
 }
 
+.catalog-modal-size-selector {
+    margin-bottom: 20px;
+}
+
+.catalog-modal-size-label {
+    display: block;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.catalog-modal-size-select {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    transition: all 0.3s ease;
+}
+
+.catalog-modal-size-select:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.catalog-modal-size-select:focus {
+    outline: none;
+    border-color: #FF8C00;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.catalog-modal-size-select option {
+    background: #2a2422;
+    color: white;
+}
+
 .catalog-modal-specs {
     display: flex;
     flex-direction: column;
@@ -1169,9 +1214,11 @@
     padding-right: 15px;
 }
 
-/* Стрелка только для select выбора цвета */
+/* Стрелка для всех select элементов */
 .form-group select#order-color,
-.form-group select[name="color"] {
+.form-group select[name="color"],
+.form-group select#order-size,
+.form-group select[name="size"] {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 15px center;
@@ -1555,6 +1602,20 @@
     .catalog-modal-info {
         gap: 15px;
     }
+
+    .catalog-modal-size-selector {
+        margin-bottom: 15px;
+    }
+
+    .catalog-modal-size-label {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .catalog-modal-size-select {
+        font-size: 15px;
+        padding: 10px 35px 10px 12px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1930,6 +1991,20 @@
         overflow: hidden;
     }
 
+    .catalog-modal-size-selector {
+        margin-bottom: 12px;
+    }
+
+    .catalog-modal-size-label {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .catalog-modal-size-select {
+        font-size: 14px;
+        padding: 10px 35px 10px 12px;
+    }
+
     .catalog-modal-image img {
         max-height: 35vh;
     }
@@ -2083,9 +2158,11 @@
     padding-right: 15px;
 }
 
-/* Стрелка только для select выбора цвета в светлой теме */
+/* Стрелка для всех select элементов в светлой теме */
 :host-context(.light-theme) .form-group select#order-color,
-:host-context(.light-theme) .form-group select[name="color"] {
+:host-context(.light-theme) .form-group select[name="color"],
+:host-context(.light-theme) .form-group select#order-size,
+:host-context(.light-theme) .form-group select[name="size"] {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231a1a1a' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 15px center;

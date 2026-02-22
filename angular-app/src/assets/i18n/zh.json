@@ -31,6 +31,14 @@
     "modal": {
       "price": "40 卢布/平方米",
       "description": "铺砖采用黑白对比色调。具有高耐磨性和实用性。适用于花园小径、人行区、人行道和停车场铺装。",
+      "size": "尺寸",
+      "selectSize": "选择尺寸",
+      "sizes": {
+        "size1": "20×10 厘米",
+        "size2": "24×16 厘米",
+        "size3": "30×30 厘米",
+        "size4": "16×16 厘米"
+      },
       "specs": {
         "concreteClass": "混凝土强度等级",
         "concreteClassValue": "B22,5 B25 B27,5 B30 B35",
@@ -118,6 +126,13 @@
       "phone": "电话",
       "email": "邮箱",
       "size": "铺砖尺寸",
+      "selectSize": "选择尺寸",
+      "sizes": {
+        "size1": "20×10 厘米",
+        "size2": "24×16 厘米",
+        "size3": "30×30 厘米",
+        "size4": "16×16 厘米"
+      },
       "color": "颜色 (COLOR Mix)",
       "selectColor": "选择颜色",
       "quantity": "数量 (平方米)",
