@@ -201,42 +201,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 10);
   }
 
+  // Check if mobile view (tablets and phones)
+  function isMobileView() {
+    return window.innerWidth <= 768;
+  }
+
   function updateCoverflow() {
     if (isAnimating) return;
     isAnimating = true;
 
+    const isMobile = isMobileView();
+
     items.forEach((item, index) => {
-      let offset = index - currentIndex;
+      const isActive = index === currentIndex;
+      item.classList.toggle('active', isActive);
 
-      if (offset > items.length / 2) {
-        offset = offset - items.length;
-      } else if (offset < -items.length / 2) {
-        offset = offset + items.length;
+      if (isMobile) {
+        // Mobile: show only active item, centered
+        if (isActive) {
+          item.style.display = 'block';
+          item.style.opacity = '1';
+          item.style.transform = 'translateX(0) translateZ(0) rotateY(0deg) scale(1)';
+          item.style.zIndex = '100';
+        } else {
+          item.style.display = 'none';
+          item.style.opacity = '0';
+        }
+      } else {
+        // Desktop: original coverflow effect
+        let offset = index - currentIndex;
+
+        if (offset > items.length / 2) {
+          offset = offset - items.length;
+        } else if (offset < -items.length / 2) {
+          offset = offset + items.length;
+        }
+
+        const absOffset = Math.abs(offset);
+        const sign = Math.sign(offset);
+
+        let translateX = offset * 253;
+        let translateZ = -absOffset * 200;
+        let rotateY = -sign * Math.min(absOffset * 60, 60);
+        let opacity = 1 - (absOffset * 0.2);
+        let scale = 1 - (absOffset * 0.1);
+
+        if (absOffset > 3) {
+          opacity = 0;
+          translateX = sign * 920;
+        }
+
+        item.style.display = 'block';
+        item.style.transform = `
+          translateX(${translateX}px) 
+          translateZ(${translateZ}px) 
+          rotateY(${rotateY}deg)
+          scale(${scale})
+        `;
+        item.style.opacity = opacity;
+        item.style.zIndex = 100 - absOffset;
       }
-
-      const absOffset = Math.abs(offset);
-      const sign = Math.sign(offset);
-
-      let translateX = offset * 253;
-      let translateZ = -absOffset * 200;
-      let rotateY = -sign * Math.min(absOffset * 60, 60);
-      let opacity = 1 - (absOffset * 0.2);
-      let scale = 1 - (absOffset * 0.1);
-
-      if (absOffset > 3) {
-        opacity = 0;
-        translateX = sign * 920;
-      }
-
-      item.style.transform = `
-        translateX(${translateX}px) 
-        translateZ(${translateZ}px) 
-        rotateY(${rotateY}deg)
-        scale(${scale})
-      `;
-      item.style.opacity = opacity;
-      item.style.zIndex = 100 - absOffset;
-      item.classList.toggle('active', index === currentIndex);
     });
 
     dots.forEach((dot, index) => {
@@ -846,6 +870,15 @@ ${new Date().toLocaleString('ru-BY', {
   // Remove auto-focus to prevent outline and shift issues
   // container.focus();
   startAutoplay();
+
+  // Handle window resize for responsive behavior
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      updateCoverflow();
+    }, 150);
+  });
 
   window.addEventListener('app:language-change', (event) => {
     const nextLang = resolveLang(event?.detail?.lang || 'ru');
