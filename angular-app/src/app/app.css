@@ -1984,11 +1984,21 @@
     }
 
     /* Catalog Modal Mobile */
+    .catalog-modal-content {
+        max-height: 95vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
     .catalog-modal-body {
         grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 45px 20px 20px;
-        overflow: hidden;
+        gap: 12px;
+        padding: 40px 15px 15px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex: 1;
+        -webkit-overflow-scrolling: touch;
     }
 
     .catalog-modal-size-selector {
@@ -2006,30 +2016,49 @@
     }
 
     .catalog-modal-image img {
-        max-height: 35vh;
+        max-height: 25vh;
     }
 
     .catalog-modal-title {
-        font-size: 32px;
+        font-size: 24px;
     }
 
     .catalog-modal-price {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .catalog-modal-description {
-        font-size: 13px;
-        line-height: 1.5;
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 0;
     }
 
     .catalog-modal-info {
-        gap: 12px;
+        gap: 10px;
+    }
+
+    .catalog-modal-size-selector {
+        margin-bottom: 10px;
+    }
+
+    .catalog-modal-size-label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .catalog-modal-size-select {
+        font-size: 13px;
+        padding: 8px 30px 8px 10px;
     }
 
     .spec-row {
         grid-template-columns: 1fr;
-        gap: 5px;
-        padding: 10px 15px;
+        gap: 4px;
+        padding: 8px 12px;
+    }
+
+    .catalog-modal-specs {
+        margin-bottom: 10px;
     }
 
     .spec-label,
@@ -2042,9 +2071,10 @@
     }
 
     .catalog-modal-order-btn {
-        padding: 12px 25px;
+        padding: 12px 20px;
         font-size: 14px;
-        margin-top: 5px;
+        margin-top: 8px;
+        margin-bottom: 10px;
     }
 
     .catalog-modal-close {
@@ -2129,9 +2159,7 @@
 :host-context(.light-theme) .nav-button,
 :host-context(.light-theme) .play-pause-button,
 :host-context(.light-theme) .menu-toggle span {
-    color: #1a1a1a;
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
+    background: #1a1a1a;
 }
 
 :host-context(.light-theme) .dot {
@@ -2242,7 +2270,7 @@
 :host-context(.light-theme) .catalog-modal-close {
     background: rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
+    color: #1a1a1a !important;
 }
 
 :host-context(.light-theme) .catalog-modal-close:hover {
@@ -2281,6 +2309,34 @@
 
 :host-context(.light-theme) .spec-row:hover {
     background: rgba(0, 0, 0, 0.05);
+}
+
+:host-context(.light-theme) .catalog-modal-size-label {
+    color: #1a1a1a;
+}
+
+:host-context(.light-theme) .catalog-modal-size-select {
+    color: #1a1a1a;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231a1a1a' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+}
+
+:host-context(.light-theme) .catalog-modal-size-select:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+:host-context(.light-theme) .catalog-modal-size-select:focus {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: #FF8C00;
+}
+
+:host-context(.light-theme) .catalog-modal-size-select option {
+    background: #f7e4d0;
+    color: #1a1a1a;
 }
 
 :host-context(.light-theme) .spec-row:nth-child(even) {
