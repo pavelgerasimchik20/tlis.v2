@@ -234,4 +234,10 @@ export class App {
   toggleShowAllPortfolio() {
     this.showAllPortfolioImages = !this.showAllPortfolioImages;
   }
+
+  getPortfolioShowMoreText(): string {
+    const translation = this.translate.instant('portfolio.showMore');
+    // Если перевод не найден (вернулся ключ), используем fallback
+    return translation !== 'portfolio.showMore' ? translation : 'Показать больше';
+  }
 }

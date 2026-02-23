@@ -372,7 +372,7 @@
 
     <div class="portfolio-show-more-container" *ngIf="!showAllPortfolioImages && portfolioImages.length > 4">
       <button class="portfolio-show-more-btn" (click)="toggleShowAllPortfolio()">
-        {{ 'portfolio.showMore' | translate }}
+        {{ getPortfolioShowMoreText() }}
       </button>
     </div>
   </div>
