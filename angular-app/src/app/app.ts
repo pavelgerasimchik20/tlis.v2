@@ -236,8 +236,12 @@ export class App {
   }
 
   getPortfolioShowMoreText(): string {
-    const translation = this.translate.instant('portfolio.showMore');
-    // Если перевод не найден (вернулся ключ), используем fallback
-    return translation !== 'portfolio.showMore' ? translation : 'Показать больше';
+    const raw = this.translate.instant('portfolio.showMore');
+    const translation = typeof raw === 'string' ? raw.trim() : '';
+    // Если перевод не найден (вернулся ключ с любыми пробелами/кавычками), используем fallback
+    if (!translation || translation.replace(/["']/g, '') === 'portfolio.showMore') {
+      return 'Показать больше';
+    }
+    return translation;
   }
 }

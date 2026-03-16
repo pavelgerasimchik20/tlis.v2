@@ -25,6 +25,7 @@
     <div class="menu-items">
       <a href="#catalog" class="menu-item active">{{ 'menu.catalog' | translate }}</a>
       <a href="#about-us" class="menu-item">{{ 'menu.about' | translate }}</a>
+      <a href="#contacts" class="menu-item">{{ 'menu.contacts' | translate }}</a>
       <a href="#portfolio" class="menu-item">{{ 'menu.portfolio' | translate }}</a>
       <a href="#order" class="menu-item">{{ 'menu.order' | translate }}</a>
     </div>
@@ -340,6 +341,79 @@
             <h4>{{ 'about.quality.8.title' | translate }}</h4>
             <p>{{ 'about.quality.8.text' | translate }}</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts" class="section">
+  <div class="contacts-page">
+    <div class="contacts-page-header">
+      <h2>{{ 'contacts.title' | translate }}</h2>
+      <p>{{ 'contacts.lead' | translate }}</p>
+    </div>
+
+    <div class="contacts-page-content">
+      <div class="contacts-page-list">
+        <div class="contacts-card">
+          <h3>{{ 'contacts.cards.marketing.title' | translate }}</h3>
+          <p class="contacts-card-desc">{{ 'contacts.cards.marketing.desc' | translate }}</p>
+          <p class="contacts-card-line">
+            <span>{{ 'contacts.cards.marketing.phoneLabel' | translate }}</span>
+            {{ 'contacts.cards.marketing.phone' | translate }}
+          </p>
+          <p class="contacts-card-line">
+            <span>{{ 'contacts.cards.marketing.emailLabel' | translate }}</span>
+            {{ 'contacts.cards.marketing.email' | translate }}
+          </p>
+        </div>
+
+        <div class="contacts-card">
+          <h3>{{ 'contacts.cards.sales.title' | translate }}</h3>
+          <p class="contacts-card-desc">{{ 'contacts.cards.sales.desc' | translate }}</p>
+          <p class="contacts-card-line">
+            <span>{{ 'contacts.cards.sales.phoneLabel' | translate }}</span>
+            {{ 'contacts.cards.sales.phone' | translate }}
+          </p>
+          <p class="contacts-card-line">
+            <span>{{ 'contacts.cards.sales.emailLabel' | translate }}</span>
+            {{ 'contacts.cards.sales.email' | translate }}
+          </p>
+        </div>
+
+        <div class="contacts-card">
+          <h3>{{ 'contacts.cards.address.title' | translate }}</h3>
+          <p class="contacts-card-desc">{{ 'contacts.cards.address.desc' | translate }}</p>
+          <p class="contacts-card-line" [innerHTML]="'contacts.cards.address.value' | translate"></p>
+        </div>
+
+        <div class="contacts-card">
+          <h3>{{ 'contacts.cards.director.title' | translate }}</h3>
+          <p class="contacts-card-desc">{{ 'contacts.cards.director.desc' | translate }}</p>
+          <p class="contacts-card-line">
+            <span>{{ 'contacts.cards.director.phoneLabel' | translate }}</span>
+            {{ 'contacts.cards.director.phone' | translate }}
+          </p>
+          <p class="contacts-card-line">
+            <span>{{ 'contacts.cards.director.emailLabel' | translate }}</span>
+            {{ 'contacts.cards.director.email' | translate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="contacts-page-map">
+        <h3>{{ 'contacts.map.title' | translate }}</h3>
+        <p class="contacts-card-desc">
+          {{ 'contacts.map.desc' | translate }}
+        </p>
+        <div class="contacts-map-wrapper">
+          <iframe
+            src="https://www.google.com/maps?q=53.84686463888486,27.78845280989554&z=16&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </div>

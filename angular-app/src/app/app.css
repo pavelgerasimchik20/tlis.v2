@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    scroll-margin-top: 90px;
 }
 
 #home {
@@ -95,7 +96,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10rem;
+    gap: 4rem;
 }
 
 .menu-item {
@@ -147,7 +148,6 @@
     display: flex;
     gap: 2rem;
     align-items: center;
-
 }
 
 .header-controls {
@@ -277,6 +277,93 @@
     font-size: 16px;
     /* Средний размер */
     opacity: 0.9;
+}
+
+/* Contacts page (section after "About us") */
+.contacts-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px 0 40px;
+    color: white;
+}
+
+.contacts-page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contacts-page-header h2 {
+    font-size: 36px;
+    margin-bottom: 12px;
+    color: rgb(218, 103, 8);
+}
+
+.contacts-page-header p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contacts-page-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.contacts-page-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.contacts-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.contacts-card h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: rgb(218, 103, 8);
+}
+
+.contacts-card-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+}
+
+.contacts-card-line {
+    font-size: 15px;
+    margin: 2px 0;
+}
+
+.contacts-card-line span {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.contacts-page-map h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: rgb(218, 103, 8);
+}
+
+.contacts-map-wrapper {
+    margin-top: 12px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.contacts-map-wrapper iframe {
+    width: 100%;
+    height: 320px;
+    border: 0;
 }
 
 /* Mobile menu toggle */
@@ -620,6 +707,42 @@
 @media (max-width: 768px) {
     .quality-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contacts-page {
+        padding: 40px 20px 0 20px;
+    }
+
+    .contacts-page-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .contacts-page {
+        padding: 32px 16px 0 16px;
+    }
+
+    .contacts-page-header h2 {
+        font-size: 28px;
+    }
+
+    .contacts-page-header p {
+        font-size: 16px;
+    }
+
+    .contacts-card {
+        padding: 16px 18px;
+    }
+
+    .contacts-card-line {
+        font-size: 14px;
+    }
+
+    .contacts-map-wrapper iframe {
+        height: 260px;
     }
 }
 
@@ -1475,6 +1598,16 @@
         display: flex;
     }
 
+    .menu-items {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 16px;
+    }
+
+    .menu-item {
+        font-size: 14px;
+    }
+
     /* Mobile menu light theme - only for mobile devices */
     :host-context(.light-theme) .main-menu {
         background: rgba(255, 255, 255, 0.98) !important;
@@ -1865,7 +1998,7 @@
 
 @media (max-width: 1280px) {
     .main-menu {
-        gap: 4rem;
+        gap: 1rem;
     }
 
     .menu-items {
@@ -2188,6 +2321,32 @@
 :host-context(.light-theme) .footer-copyright,
 :host-context(.light-theme) .footer-links a {
     color: rgba(0, 0, 0, 0.7);
+}
+
+/* Contacts page text colors in light theme */
+:host-context(.light-theme) .contacts-page {
+    color: #1a1a1a;
+}
+
+:host-context(.light-theme) .contacts-page-header h2 {
+    color: rgb(218, 103, 8);
+}
+
+:host-context(.light-theme) .contacts-page-header p {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+:host-context(.light-theme) .contacts-card h3,
+:host-context(.light-theme) .contacts-page-map h3,
+:host-context(.light-theme) .contacts-card-desc,
+:host-context(.light-theme) .contacts-card-line {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+:host-context(.light-theme) .contacts-card {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
 }
 
 :host-context(.light-theme) .quality-item .text-content h4,

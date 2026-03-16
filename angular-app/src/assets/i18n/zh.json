@@ -11,6 +11,7 @@
   "menu": {
     "catalog": "目录",
     "about": "关于我们",
+    "contacts": "联系方式",
     "portfolio": "作品",
     "order": "订购铺砖"
   },
@@ -96,6 +97,45 @@
     "title": "项目画廊",
     "lead": "我们项目实施的示例",
     "showMore": "显示更多"
+  },
+  "contacts": {
+    "title": "联系方式",
+    "lead": "请选择合适的部门与我们联系。",
+    "cards": {
+      "marketing": {
+        "title": "市场推广",
+        "desc": "广告、合作与品牌推广相关事宜。",
+        "phoneLabel": "电话：",
+        "emailLabel": "E‑mail：",
+        "phone": "+375 (29) 000‑00‑01",
+        "email": "marketing@example.by"
+      },
+      "sales": {
+        "title": "销售部门",
+        "desc": "产品、库存与价格咨询。",
+        "phoneLabel": "电话：",
+        "emailLabel": "E‑mail：",
+        "phone": "+375 (29) 000‑00‑02",
+        "email": "sales@example.by"
+      },
+      "address": {
+        "title": "法人邮寄地址",
+        "desc": "用于正式函件与文件寄送。",
+        "value": "220000，白俄罗斯共和国，明斯克市，<br />示例街 10 号，5 室"
+      },
+      "director": {
+        "title": "总经理",
+        "desc": "战略合作与重要事务洽谈。",
+        "phoneLabel": "电话：",
+        "emailLabel": "E‑mail：",
+        "phone": "+375 (29) 000‑00‑03",
+        "email": "director@example.by"
+      }
+    },
+    "map": {
+      "title": "如何到达我们这里",
+      "desc": "下方为生产基地位置。您可以缩放和拖动地图以查看路线。"
+    }
   },
   "order": {
     "title": "订购铺砖",
