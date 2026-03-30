@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (isActive) {
             item.style.display = 'block';
             item.style.opacity = '1';
-            item.style.transform = 'translateX(0) translateZ(0) rotateY(0deg) scale(1)';
+            item.style.transform = 'translateX(0) translateZ(0) rotateY(0deg) scale(1.5)';
             item.style.zIndex = '100';
           } else {
             item.style.display = 'none';
@@ -223,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let rotateY = -sign * Math.min(absOffset * 60, 60);
         let opacity = 1 - (absOffset * 0.2);
         let scale = 1 - (absOffset * 0.1);
+        if (absOffset === 0) scale = 1.1;
         if (absOffset > 3) {
           opacity = 0;
           translateX = sign * 920;

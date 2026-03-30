@@ -318,7 +318,7 @@
 }
 
 .contacts-page-header h2 {
-    font-size: 36px;
+    font-size: 30px;
     margin-bottom: 12px;
     color: rgb(218, 103, 8);
 }
@@ -408,13 +408,13 @@
     border-radius: 2px;
 }
 
-/* Catalog Section with Coverflow */
+/* Catalog Section with Coverflow — табы сразу под каруселью */
 .catalog-tabs {
     position: relative;
     flex-shrink: 0;
     align-self: center;
     align-items: stretch;
-    margin-top: clamp(10px, 2vh, 20px);
+    margin-top: 20px;
     margin-bottom: clamp(14px, 2.5vh, 28px);
     left: auto;
     top: auto;
@@ -522,6 +522,8 @@
     align-items: stretch;
     justify-content: flex-start;
     padding-top: 0;
+    /* место под фиксированные табы + 20px от низа экрана */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
 }
 
@@ -552,14 +554,14 @@
     transform-style: preserve-3d;
     position: relative;
     width: 100%;
-    height: 50vh;
+    height: 62vh;
 }
 
 .coverflow-item {
     position: absolute;
-    width: 25vw;
-    height: 35vh;
-    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    width: 21vw;
+    height: 29vh;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.0);
     cursor: pointer;
     user-select: none;
 }
@@ -698,9 +700,9 @@
 
 .info h1,
 .info h2 {
-    font-size: 36px;
+    font-size: 30px;
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 6px;
     background: linear-gradient(135deg, #ff8c00 0%, #cc6600 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -767,7 +769,7 @@
 }
 
 .about-header h2 {
-    font-size: 36px;
+    font-size: 30px;
     margin-top: 60px;
     margin-bottom: 20px;
     background: linear-gradient(135deg, #FF8C00 0%, #CC6600 100%);
@@ -869,7 +871,7 @@
     }
 
     .contacts-page-header h2 {
-        font-size: 28px;
+        font-size: 23px;
     }
 
     .contacts-page-header p {
@@ -1369,7 +1371,7 @@
 }
 
 .order-header h2 {
-    font-size: 36px;
+    font-size: 30px;
     margin-bottom: 20px;
     background: linear-gradient(135deg, #FF8C00 0%, #CC6600 100%);
     -webkit-background-clip: text;
@@ -1691,7 +1693,7 @@
     }
 
     .about-header h2 {
-        font-size: 32px;
+        font-size: 27px;
         margin-top: 50px;
     }
 
@@ -1701,7 +1703,7 @@
 
     .info h1,
     .info h2 {
-        font-size: 32px;
+        font-size: 27px;
     }
 
     .info p {
@@ -1734,7 +1736,8 @@
         justify-content: center;
         gap: 4px;
         padding: 9px 5px;
-        margin-bottom: 20px;
+        margin-top: 20px;
+        margin-bottom: 16px;
     }
 
     .catalog-tab-btn {
@@ -1754,6 +1757,11 @@
 
     .catalog-tab-label--mobile {
         display: inline;
+    }
+
+    /* Отступ между подписью под тайтлом галереи и каруселью */
+    #catalog .info p {
+        margin-bottom: 20px;
     }
 
     .header {
@@ -1864,7 +1872,7 @@
 
     .info h1,
     .info h2 {
-        font-size: 36px;
+        font-size: 30px;
     }
 
     .info p {
@@ -1876,7 +1884,7 @@
     }
 
     .about-header h2 {
-        font-size: 36px;
+        font-size: 30px;
     }
 
     .about-header p {
@@ -1925,7 +1933,7 @@
 
     .order-content h2,
     .order-header h2 {
-        font-size: 36px;
+        font-size: 30px;
     }
 
     .footer-content {
@@ -2053,7 +2061,7 @@
     }
 
     .about-header h2 {
-        font-size: 28px;
+        font-size: 23px;
         margin-top: 40px;
         margin-bottom: 15px;
     }
@@ -2064,7 +2072,7 @@
 
     .info h1,
     .info h2 {
-        font-size: 28px;
+        font-size: 23px;
     }
 
     .info p {
@@ -2082,7 +2090,7 @@
     }
 
     .order-header h2 {
-        font-size: 32px;
+        font-size: 27px;
         margin-bottom: 15px;
     }
 
@@ -2201,10 +2209,10 @@
     .contacts .phone-number {
         font-size: 1.1rem;
     }
-
+/* 
     .coverflow {
-        height: 360px;
-    }
+        height: 300px;
+    } */
 }
 
 @media (max-width: 992px) {
@@ -2231,13 +2239,14 @@
     }
 
     .coverflow {
-        height: 320px;
+        height: 270px;
     }
 }
 
 @media (max-width: 640px) {
     .catalog-tabs {
         padding: 11px 5px;
+        margin-top: 20px;
         margin-bottom: 16px;
     }
 
@@ -2247,20 +2256,20 @@
 
     /* Mobile gallery: single card view, 90% width, centered */
     .coverflow {
-        height: 55vh;
-        min-height: 350px;
+        height: 46vh;
+        min-height: 300px;
         position: relative;
     }
 
     .coverflow-item {
-        width: 90vw;
-        max-width: 90vw;
-        height: 50vh;
-        max-height: 50vh;
+        width: 78vw;
+        max-width: 78vw;
+        height: 42vh;
+        max-height: 42vh;
         left: 50%;
         top: 50%;
-        margin-left: -45vw;
-        margin-top: -25vh;
+        margin-left: -39vw;
+        margin-top: -21vh;
     }
 
     .coverflow-item:not(.active) {
@@ -2317,7 +2326,7 @@
     }
 
     .about-header h2 {
-        font-size: 24px;
+        font-size: 20px;
         margin-top: 30px;
         margin-bottom: 10px;
     }
@@ -2328,7 +2337,7 @@
 
     .info h1,
     .info h2 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .info p {
@@ -2568,6 +2577,21 @@
 :host-context(.light-theme) .coverflow-item .cover {
     background: #e9e9e9;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+:host-context(.light-theme) .coverflow-item:hover .cover {
+    transform: scale(1.1);
+    box-shadow:
+        0 35px 70px rgba(255, 140, 0, 0.45),
+        0 0 0 1px rgba(255, 140, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+:host-context(.light-theme) .coverflow-item.active:hover .cover {
+    transform: scale(1.1);
+    box-shadow:
+        0 40px 80px rgba(255, 140, 0, 0.55),
+        0 0 0 1px rgba(255, 140, 0, 0.35);
 }
 
 :host-context(.light-theme) .nav-button,
