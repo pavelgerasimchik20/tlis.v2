@@ -380,15 +380,46 @@
 .contacts-map-wrapper {
     margin-top: 12px;
     border-radius: 16px;
-    overflow: hidden;
+    /* overflow: hidden обрезал жесты/контролы встраиваемой карты на мобильных */
+    overflow: visible;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 0;
 }
 
 .contacts-map-wrapper iframe {
     width: 100%;
     height: 320px;
     border: 0;
+    display: block;
+    border-radius: 16px;
+}
+
+/* На мобильных показываем явный переход в приложение/полную карту */
+.contacts-map-open-external {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(145deg, #ff9a2e 0%, #e07800 48%, #c45f00 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 24px rgba(255, 120, 0, 0.35);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+.contacts-map-open-external:active {
+    opacity: 0.92;
 }
 
 /* Mobile menu toggle */
@@ -863,6 +894,15 @@
     .contacts-page-content {
         grid-template-columns: 1fr;
     }
+
+    .contacts-map-wrapper iframe {
+        height: min(360px, 45vh);
+        min-height: 280px;
+    }
+
+    .contacts-map-open-external {
+        display: inline-flex;
+    }
 }
 
 @media (max-width: 640px) {
@@ -887,7 +927,8 @@
     }
 
     .contacts-map-wrapper iframe {
-        height: 260px;
+        height: min(320px, 42vh);
+        min-height: 260px;
     }
 }
 

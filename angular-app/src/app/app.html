@@ -469,12 +469,22 @@
         </p>
         <div class="contacts-map-wrapper">
           <iframe
-            src="https://www.google.com/maps?q=53.84686463888486,27.78845280989554&z=16&output=embed"
-            loading="lazy"
+            src="https://www.google.com/maps?q=53.84686463888486,27.78845280989554&amp;z=16&amp;hl=ru&amp;output=embed"
+            loading="eager"
             referrerpolicy="no-referrer-when-downgrade"
+            title="Google Maps — расположение производства"
             allowfullscreen
+            allow="fullscreen"
           ></iframe>
         </div>
+        <a
+          class="contacts-map-open-external"
+          href="https://www.google.com/maps/search/?api=1&amp;query=53.84686463888486,27.78845280989554"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ 'contacts.map.openInMaps' | translate }}
+        </a>
       </div>
     </div>
   </div>
