@@ -34,7 +34,6 @@ export class App {
     'slab2.jpg',
     'slab3.jpg',
     'slab4.jpg',
-    'slab5.jpg',
     'slab6.jpg',
     'slab7.jpg',
     'slab10.jpg'
@@ -47,7 +46,6 @@ export class App {
     'catalog.slabs.slab2',
     'catalog.slabs.slab3',
     'catalog.slabs.slab4',
-    'catalog.slabs.slab5',
     'catalog.slabs.slab6',
     'catalog.slabs.slab7',
     'catalog.slabs.slab10'
@@ -60,10 +58,9 @@ export class App {
     1: 'Ракушечник',          // slab2 -> Ракушечник
     2: 'Старая Италия',        // slab3 -> Старая Италия
     3: 'Капучино new',         // slab4 -> Капучино new
-    4: 'Новый закат',          // slab5 -> Новый закат
-    5: 'Луговая трава',        // slab6 -> Луговая трава
-    6: 'Пламя',                // slab7 -> Пламя
-    7: 'Осенние листья'        // slab10 -> Осенние листья
+    4: 'Луговая трава',        // slab6 -> Луговая трава
+    5: 'Пламя',                // slab7 -> Пламя
+    6: 'Осенние листья'        // slab10 -> Осенние листья
   };
 
   getCatalogTitle(index: number): string {

@@ -88,99 +88,159 @@
 
 <section id="catalog" class="section">
   <div class="coverflow-wrapper">
-    <div class="info">
-      <h1 id="current-title">{{ 'catalog.title' | translate }}</h1>
-      <p id="current-description">{{ 'catalog.description' | translate }}</p>
-    </div>
-
-    <div class="coverflow-container" tabindex="0">
-      <div class="coverflow" id="coverflow">
-        <div class="coverflow-item" data-index="0" (click)="handleCatalogItemClick(0)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab1.jpg"
-              [attr.alt]="'catalog.slabs.slab1' | translate"
-              loading="lazy"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
-        <div class="coverflow-item" data-index="1" (click)="handleCatalogItemClick(1)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab2.jpg"
-              [attr.alt]="'catalog.slabs.slab2' | translate"
-              loading="lazy"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
-        <div class="coverflow-item" data-index="2" (click)="handleCatalogItemClick(2)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab3.jpg"
-              [attr.alt]="'catalog.slabs.slab3' | translate"
-              loading="lazy"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
-        <div class="coverflow-item" data-index="3" (click)="handleCatalogItemClick(3)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab4.jpg"
-              [attr.alt]="'catalog.slabs.slab4' | translate"
-              loading="eager"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
-        <div class="coverflow-item" data-index="4" (click)="handleCatalogItemClick(4)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab5.jpg"
-              [attr.alt]="'catalog.slabs.slab5' | translate"
-              loading="lazy"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
-        <div class="coverflow-item" data-index="5" (click)="handleCatalogItemClick(5)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab6.jpg"
-              [attr.alt]="'catalog.slabs.slab6' | translate"
-              loading="lazy"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
-        <div class="coverflow-item" data-index="6" (click)="handleCatalogItemClick(6)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab7.jpg"
-              [attr.alt]="'catalog.slabs.slab7' | translate"
-              loading="lazy"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
-        <div class="coverflow-item" data-index="7" (click)="handleCatalogItemClick(7)">
-          <div class="cover image-loading">
-            <img
-              src="assets/images/slabs/slab10.jpg"
-              [attr.alt]="'catalog.slabs.slab10' | translate"
-              loading="lazy"
-            />
-          </div>
-          <div class="reflection"></div>
-        </div>
+    <div class="catalog-panel active" id="catalog-panel-colormix" data-gallery-type="colormix">
+      <div class="info">
+        <h1 class="current-title">{{ 'catalog.title' | translate }}</h1>
+        <p class="current-description">{{ 'catalog.description' | translate }}</p>
       </div>
 
-      <button class="nav-button prev">‹</button>
-      <button class="nav-button next">›</button>
+      <div class="coverflow-container" tabindex="0">
+        <div class="coverflow">
+          <div class="coverflow-item" data-index="0" (click)="handleCatalogItemClick(0)">
+            <div class="cover image-loading">
+              <img
+                src="assets/images/slabs/slab1.jpg"
+                [attr.alt]="'catalog.slabs.slab1' | translate"
+                loading="lazy"
+              />
+            </div>
+            <div class="reflection"></div>
+          </div>
+          <div class="coverflow-item" data-index="1" (click)="handleCatalogItemClick(1)">
+            <div class="cover image-loading">
+              <img
+                src="assets/images/slabs/slab2.jpg"
+                [attr.alt]="'catalog.slabs.slab2' | translate"
+                loading="lazy"
+              />
+            </div>
+            <div class="reflection"></div>
+          </div>
+          <div class="coverflow-item" data-index="2" (click)="handleCatalogItemClick(2)">
+            <div class="cover image-loading">
+              <img
+                src="assets/images/slabs/slab3.jpg"
+                [attr.alt]="'catalog.slabs.slab3' | translate"
+                loading="lazy"
+              />
+            </div>
+            <div class="reflection"></div>
+          </div>
+          <div class="coverflow-item" data-index="3" (click)="handleCatalogItemClick(3)">
+            <div class="cover image-loading">
+              <img
+                src="assets/images/slabs/slab4.jpg"
+                [attr.alt]="'catalog.slabs.slab4' | translate"
+                loading="eager"
+              />
+            </div>
+            <div class="reflection"></div>
+          </div>
+          <div class="coverflow-item" data-index="4" (click)="handleCatalogItemClick(4)">
+            <div class="cover image-loading">
+              <img
+                src="assets/images/slabs/slab6.jpg"
+                [attr.alt]="'catalog.slabs.slab6' | translate"
+                loading="lazy"
+              />
+            </div>
+            <div class="reflection"></div>
+          </div>
+          <div class="coverflow-item" data-index="5" (click)="handleCatalogItemClick(5)">
+            <div class="cover image-loading">
+              <img
+                src="assets/images/slabs/slab7.jpg"
+                [attr.alt]="'catalog.slabs.slab7' | translate"
+                loading="lazy"
+              />
+            </div>
+            <div class="reflection"></div>
+          </div>
+          <div class="coverflow-item" data-index="6" (click)="handleCatalogItemClick(6)">
+            <div class="cover image-loading">
+              <img
+                src="assets/images/slabs/slab10.jpg"
+                [attr.alt]="'catalog.slabs.slab10' | translate"
+                loading="lazy"
+              />
+            </div>
+            <div class="reflection"></div>
+          </div>
+        </div>
 
-      <div class="dots-container" id="dots"></div>
+        <button class="nav-button prev">‹</button>
+        <button class="nav-button next">›</button>
+
+        <div class="dots-container"></div>
+      </div>
+
+      <div class="catalog-tabs" role="tablist" aria-label="Тип продукции">
+        <button class="catalog-tab-btn catalog-tab-btn--colormix active" type="button" data-tab-target="catalog-panel-colormix">COLOR MIX</button>
+        <button class="catalog-tab-btn" type="button" data-tab-target="catalog-panel-mono">Одноцветная</button>
+        <button class="catalog-tab-btn catalog-tab-btn--border" type="button" data-tab-target="catalog-panel-border" aria-label="Бордюрный камень">
+          <span class="catalog-tab-label catalog-tab-label--desktop">Бордюрный камень</span>
+          <span class="catalog-tab-label catalog-tab-label--mobile">Бордюры</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="catalog-panel" id="catalog-panel-mono" data-gallery-type="mono">
+      <div class="info">
+        <h1 class="current-title">Одноцветная плитка</h1>
+        <p class="current-description">Моковые карточки. Описания и изображения заполнятся позже.</p>
+      </div>
+
+      <div class="coverflow-container" tabindex="0">
+        <div class="coverflow">
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23666'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EWhite%3C/text%3E%3C/svg%3E" alt="Белая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23777777'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGray%3C/text%3E%3C/svg%3E" alt="Серая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23992626'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3ERed%3C/text%3E%3C/svg%3E" alt="Красная" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23b18b19'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EYellow%3C/text%3E%3C/svg%3E" alt="Желтая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%233c7c3c'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGreen%3C/text%3E%3C/svg%3E" alt="Зеленая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%232d4f93'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlue%3C/text%3E%3C/svg%3E" alt="Синяя" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%2361422a'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBrown%3C/text%3E%3C/svg%3E" alt="Коричневая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23222222'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlack%3C/text%3E%3C/svg%3E" alt="Черная" loading="lazy" /></div><div class="reflection"></div></div>
+        </div>
+
+        <button class="nav-button prev">‹</button>
+        <button class="nav-button next">›</button>
+        <div class="dots-container"></div>
+      </div>
+
+      <div class="catalog-tabs" role="tablist" aria-label="Тип продукции">
+        <button class="catalog-tab-btn catalog-tab-btn--colormix" type="button" data-tab-target="catalog-panel-colormix">COLOR MIX</button>
+        <button class="catalog-tab-btn active" type="button" data-tab-target="catalog-panel-mono">Одноцветная</button>
+        <button class="catalog-tab-btn catalog-tab-btn--border" type="button" data-tab-target="catalog-panel-border" aria-label="Бордюрный камень">
+          <span class="catalog-tab-label catalog-tab-label--desktop">Бордюрный камень</span>
+          <span class="catalog-tab-label catalog-tab-label--mobile">Бордюры</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="catalog-panel" id="catalog-panel-border" data-gallery-type="border">
+      <div class="info">
+        <h1 class="current-title">Бордюрный камень</h1>
+        <p class="current-description">Моковые карточки для двух позиций: тротуарный и дорожный.</p>
+      </div>
+
+      <div class="coverflow-container" tabindex="0">
+        <div class="coverflow">
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23555555'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EБорт тротуарный%3C/text%3E%3C/svg%3E" alt="Борт тротуарный" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23444444'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EБорт дорожный%3C/text%3E%3C/svg%3E" alt="Борт дорожный" loading="lazy" /></div><div class="reflection"></div></div>
+        </div>
+        <button class="nav-button prev">‹</button>
+        <button class="nav-button next">›</button>
+        <div class="dots-container"></div>
+      </div>
+
+      <div class="catalog-tabs" role="tablist" aria-label="Тип продукции">
+        <button class="catalog-tab-btn catalog-tab-btn--colormix" type="button" data-tab-target="catalog-panel-colormix">COLOR MIX</button>
+        <button class="catalog-tab-btn" type="button" data-tab-target="catalog-panel-mono">Одноцветная</button>
+        <button class="catalog-tab-btn catalog-tab-btn--border active" type="button" data-tab-target="catalog-panel-border" aria-label="Бордюрный камень">
+          <span class="catalog-tab-label catalog-tab-label--desktop">Бордюрный камень</span>
+          <span class="catalog-tab-label catalog-tab-label--mobile">Бордюры</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -553,7 +613,6 @@
               <select id="order-color" name="color" required>
                 <option value="">{{ 'order.form.selectColor' | translate }}</option>
                 <option value="Капучино new">"Капучино new"</option>
-                <option value="Новый закат">"Новый закат"</option>
                 <option value="Луговая трава">"Луговая трава"</option>
                 <option value="Пламя">"Пламя"</option>
                 <option value="Осенние листья">"Осенние листья"</option>

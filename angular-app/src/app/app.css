@@ -8,16 +8,41 @@
     scroll-margin-top: 90px;
 }
 
-#home {
-    background: radial-gradient(ellipse at center, #3b2f2a 0%, #2a2422 100%);
+/* Как у галереи (каталог): без отдельного градиента — сплошной цвет как у body */
+#home,
+#catalog,
+#about-us,
+#contact,
+#contacts,
+#portfolio,
+#order {
+    background: #2a2422;
 }
 
-#about {
-    background: linear-gradient(135deg, #2a2422 0%, #3b2f2a 100%);
+/* Иначе #id перебивает :host-context(.light-theme) .section — в светлой теме снова кремовый фон */
+:host-context(.light-theme) #home,
+:host-context(.light-theme) #catalog,
+:host-context(.light-theme) #about-us,
+:host-context(.light-theme) #contact,
+:host-context(.light-theme) #contacts,
+:host-context(.light-theme) #portfolio,
+:host-context(.light-theme) #order {
+    background: #f7e4d0;
 }
 
-#contact {
-    background: radial-gradient(ellipse at center, #3b2f2a 0%, #2a2422 100%);
+/* Каталог: отступ под фиксированный хедер на секции + max() чтобы не недооценить высоту при смене --header-current-height */
+#catalog.section {
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    scroll-margin-top: calc(max(120px, var(--header-current-height, 120px)) + 8px);
+    padding-top: calc(max(120px, var(--header-current-height, 120px)) + 16px);
+}
+
+#about-us.section {
+    align-items: flex-start;
+    justify-content: flex-start;
+    scroll-margin-top: calc(var(--header-current-height, 120px) + 8px);
 }
 
 /* Header Styles */
@@ -384,13 +409,120 @@
 }
 
 /* Catalog Section with Coverflow */
+.catalog-tabs {
+    position: relative;
+    flex-shrink: 0;
+    align-self: center;
+    align-items: stretch;
+    margin-top: clamp(10px, 2vh, 20px);
+    margin-bottom: clamp(14px, 2.5vh, 28px);
+    left: auto;
+    top: auto;
+    transform: none;
+    z-index: 310;
+    display: flex;
+    width: min(482px, calc(100vw - 48px));
+    max-width: 100%;
+    gap: 4px;
+    padding: 3px;
+    border-radius: 8px;
+    background:
+        linear-gradient(165deg, rgba(255, 140, 0, 0.12) 0%, transparent 42%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.12) 100%),
+        #2a2422;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 7px 27px rgba(0, 0, 0, 0.45),
+        0 1px 0 rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.catalog-tab-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.82);
+    padding: 8px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+}
+
+.catalog-tab-btn:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18%;
+    right: 0;
+    width: 1px;
+    height: 64%;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+    pointer-events: none;
+}
+
+.catalog-tab-btn.active:not(:last-child)::after,
+.catalog-tab-btn:hover:not(:last-child)::after {
+    opacity: 0.35;
+}
+
+.catalog-tab-btn--colormix {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+}
+
+.catalog-tab-label--mobile {
+    display: none;
+}
+
+.catalog-tab-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.catalog-tab-btn.active {
+    color: #fff;
+    background: linear-gradient(145deg, #ff9a2e 0%, #e07800 48%, #c45f00 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 4px 12px rgba(255, 120, 0, 0.38),
+        0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.catalog-panel {
+    display: none;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    flex-direction: column;
+    position: relative;
+}
+
+.catalog-panel.active {
+    display: flex;
+}
+
+/* Без flex-grow — табы остаются сразу под каруселью, а не у низа вьюпорта */
+.catalog-panel .coverflow-container {
+    flex: 0 1 auto;
+    min-height: 260px;
+}
+
 .coverflow-wrapper {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 80px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-top: 0;
+    box-sizing: border-box;
 }
 
 .coverflow-container {
@@ -549,12 +681,16 @@
     transform: scale(1.3);
 }
 
-/* Info display */
+/* Заголовок галереи — как .about-header / портфолио / заказ */
 .info {
-    position: absolute;
-    top: 150px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    left: auto;
+    transform: none;
+    width: 100%;
+    flex-shrink: 0;
+    padding: 0 clamp(12px, 4vw, 24px);
+    margin: 0 auto 8px;
+    box-sizing: border-box;
     color: white;
     text-align: center;
     z-index: 200;
@@ -562,14 +698,21 @@
 
 .info h1,
 .info h2 {
-    font-size: 32px;
-    margin-bottom: 10px;
-    animation: fadeIn 0.6s forwards;
+    font-size: 36px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ff8c00 0%, #cc6600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .info p {
-    font-size: 16px;
-    opacity: 0.7;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.2;
 }
 
 @keyframes fadeIn {
@@ -615,7 +758,7 @@
     max-width: 1400px;
     margin: 0 auto;
     color: white;
-    padding-top: 30px;
+    padding-top: 0;
 }
 
 .about-header {
@@ -653,7 +796,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
-    padding: 40px 0 0 0;
+    padding: 0;
     max-width: 900px;
     margin: 0 auto;
 }
@@ -1556,6 +1699,15 @@
         font-size: 18px;
     }
 
+    .info h1,
+    .info h2 {
+        font-size: 32px;
+    }
+
+    .info p {
+        font-size: 18px;
+    }
+
     /* Order section responsive */
     .order-container {
         grid-template-columns: 1fr;
@@ -1576,6 +1728,34 @@
 }
 
 @media (max-width: 768px) {
+    .catalog-tabs {
+        width: calc(100% - 24px);
+        max-width: 760px;
+        justify-content: center;
+        gap: 4px;
+        padding: 9px 5px;
+        margin-bottom: 20px;
+    }
+
+    .catalog-tab-btn {
+        font-size: 10px;
+        padding: 7px 6px;
+        white-space: nowrap;
+    }
+
+    .catalog-tab-btn--colormix {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+    }
+
+    .catalog-tab-label--desktop {
+        display: none;
+    }
+
+    .catalog-tab-label--mobile {
+        display: inline;
+    }
+
     .header {
         padding: 0 20px;
     }
@@ -1684,11 +1864,11 @@
 
     .info h1,
     .info h2 {
-        font-size: 24px;
+        font-size: 36px;
     }
 
     .info p {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .logo-text {
@@ -1864,6 +2044,10 @@
         padding: 20px;
     }
 
+    #about-us .about-content {
+        padding: 0 20px 20px;
+    }
+
     .portfolio-content {
         padding: 20px 30px;
     }
@@ -1875,6 +2059,15 @@
     }
 
     .about-header p {
+        font-size: 16px;
+    }
+
+    .info h1,
+    .info h2 {
+        font-size: 28px;
+    }
+
+    .info p {
         font-size: 16px;
     }
 
@@ -2034,7 +2227,7 @@
     .coverflow-wrapper {
         height: auto;
         min-height: 100vh;
-        padding-top: 100px;
+        padding-top: 0;
     }
 
     .coverflow {
@@ -2043,18 +2236,13 @@
 }
 
 @media (max-width: 640px) {
+    .catalog-tabs {
+        padding: 11px 5px;
+        margin-bottom: 16px;
+    }
+
     .info {
-        top: 120px;
         padding: 0 12px;
-    }
-
-    .info h1,
-    .info h2 {
-        font-size: 22px;
-    }
-
-    .info p {
-        font-size: 13px;
     }
 
     /* Mobile gallery: single card view, 90% width, centered */
@@ -2135,6 +2323,15 @@
     }
 
     .about-header p {
+        font-size: 14px;
+    }
+
+    .info h1,
+    .info h2 {
+        font-size: 24px;
+    }
+
+    .info p {
         font-size: 14px;
     }
 
@@ -2323,6 +2520,14 @@
     color: rgba(0, 0, 0, 0.7);
 }
 
+:host-context(.light-theme) .info h1,
+:host-context(.light-theme) .info h2 {
+    background: linear-gradient(135deg, #ff8c00 0%, #cc6600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 /* Contacts page text colors in light theme */
 :host-context(.light-theme) .contacts-page {
     color: #1a1a1a;
@@ -2388,6 +2593,44 @@
 
 :host-context(.light-theme) .dot.active {
     background: rgba(0, 0, 0, 0.6);
+}
+
+:host-context(.light-theme) .catalog-tabs {
+    background:
+        linear-gradient(165deg, rgba(255, 140, 0, 0.14) 0%, transparent 45%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(247, 228, 208, 0.98) 100%),
+        #f7e4d0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 7px 24px rgba(0, 0, 0, 0.1);
+}
+
+:host-context(.light-theme) .catalog-tab-btn {
+    color: rgba(0, 0, 0, 0.72);
+}
+
+:host-context(.light-theme) .catalog-tab-btn:not(:last-child)::after {
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+}
+
+/* Как в тёмой теме: сразу «основной» оранжевый на hover; активная такая же и не сбивается при наведении */
+:host-context(.light-theme) .catalog-tab-btn:hover {
+    color: rgba(0, 0, 0, 0.88);
+    background: rgb(252, 218, 176);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 4px 12px rgba(255, 120, 0, 0.42),
+        0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+:host-context(.light-theme) .catalog-tab-btn.active {
+    color: #fff;
+    background: linear-gradient(145deg, #ff9a2e 0%, #e07800 48%, #c45f00 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 4px 12px rgba(255, 120, 0, 0.42),
+        0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 :host-context(.light-theme) .order-item,
@@ -2590,4 +2833,9 @@
 
 :host-context(.light-theme) .logo svg text[fill="white"] {
     fill: #1a1a1a !important;
+}
+
+/* «О нас»: заголовок без доп. margin-top во всех брейкпоинтах */
+#about-us .about-header h2 {
+    margin-top: 0;
 }

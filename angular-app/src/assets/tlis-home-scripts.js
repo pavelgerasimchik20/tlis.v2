@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Coverflow functionality
-  const items = document.querySelectorAll('.coverflow-item');
-  const dotsContainer = document.getElementById('dots');
-  const currentTitle = document.getElementById('current-title');
-  const currentDescription = document.getElementById('current-description');
-  const container = document.querySelector('.coverflow-container');
+  // Coverflow functionality (supports multiple tab panels)
+  const catalogPanels = Array.from(document.querySelectorAll('.catalog-panel'));
+  const catalogTabButtons = Array.from(document.querySelectorAll('.catalog-tab-btn'));
   const menuToggle = document.getElementById('menuToggle');
   const mainMenu = document.getElementById('mainMenu');
   const emailElement = document.querySelector('.contacts .email');
@@ -15,14 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollToTopBtn = document.getElementById('scrollToTop');
   const themeToggle = document.getElementById('themeToggle');
 
-  if (!items.length || !dotsContainer || !currentTitle || !currentDescription || !container) {
-    return;
+  function syncHeaderHeightVar() {
+    if (!header) return;
+    const height = header.offsetHeight || 120;
+    document.documentElement.style.setProperty('--header-current-height', `${height}px`);
   }
-
-  let currentIndex = 3;
-  let isAnimating = false;
-  let autoplayInterval = null;
-  let isPlaying = true;
 
   // Mobile menu toggle
   if (menuToggle && mainMenu) {
@@ -51,114 +45,87 @@ document.addEventListener('DOMContentLoaded', () => {
   const supportedLangs = ['ru', 'be', 'zh'];
   const translations = {
     ru: {
-      imageData: [
-        {
-          title: 'COLOR Mix "Кафель"',
-          description: 'COLOR Mix "Кафель"'
-        },
-        {
-          title: 'COLOR Mix "Ракушечник"',
-          description: 'COLOR Mix "Ракушечник"'
-        },
-        {
-          title: 'COLOR Mix "Старая Италия"',
-          description: 'COLOR Mix "Старая Италия"'
-        },
-        {
-          title: 'COLOR Mix "Капучино new"',
-          description: 'COLOR Mix "Капучино new"'
-        },
-        {
-          title: 'COLOR Mix "Новый закат"',
-          description: 'COLOR Mix "Новый закат"'
-        },
-        {
-          title: 'COLOR Mix "Луговая трава"',
-          description: 'COLOR Mix "Луговая трава"'
-        },
-        {
-          title: 'COLOR Mix "Пламя"',
-          description: 'COLOR Mix "Пламя"'
-        },
-        {
-          title: 'COLOR Mix "Осенние листья"',
-          description: 'COLOR Mix "Осенние листья"'
-        }
-      ],
+      imageDataByType: {
+        colormix: [
+          { title: 'COLOR Mix "Кафель"', description: 'COLOR Mix "Кафель"' },
+          { title: 'COLOR Mix "Ракушечник"', description: 'COLOR Mix "Ракушечник"' },
+          { title: 'COLOR Mix "Старая Италия"', description: 'COLOR Mix "Старая Италия"' },
+          { title: 'COLOR Mix "Капучино new"', description: 'COLOR Mix "Капучино new"' },
+          { title: 'COLOR Mix "Луговая трава"', description: 'COLOR Mix "Луговая трава"' },
+          { title: 'COLOR Mix "Пламя"', description: 'COLOR Mix "Пламя"' },
+          { title: 'COLOR Mix "Осенние листья"', description: 'COLOR Mix "Осенние листья"' }
+        ],
+        mono: [
+          { title: 'Одноцветная "Белая"', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Одноцветная "Серая"', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Одноцветная "Красная"', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Одноцветная "Желтая"', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Одноцветная "Зеленая"', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Одноцветная "Синяя"', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Одноцветная "Коричневая"', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Одноцветная "Черная"', description: 'Моковая карточка. Описание будет добавлено.' }
+        ],
+        border: [
+          { title: 'Борт тротуарный', description: 'Моковая карточка. Описание будет добавлено.' },
+          { title: 'Борт дорожный', description: 'Моковая карточка. Описание будет добавлено.' }
+        ]
+      },
       formSubmit: 'Спасибо за заказ! Мы свяжемся с вами в ближайшее время для уточнения деталей.'
     },
     be: {
-      imageData: [
-        {
-          title: 'COLOR Mix "Кафля"',
-          description: 'COLOR Mix "Кафля"'
-        },
-        {
-          title: 'COLOR Mix "Ракавіннік"',
-          description: 'COLOR Mix "Ракавіннік"'
-        },
-        {
-          title: 'COLOR Mix "Старая Італія"',
-          description: 'COLOR Mix "Старая Італія"'
-        },
-        {
-          title: 'COLOR Mix "Капучына new"',
-          description: 'COLOR Mix "Капучына new"'
-        },
-        {
-          title: 'COLOR Mix "Новы захад"',
-          description: 'COLOR Mix "Новы захад"'
-        },
-        {
-          title: 'COLOR Mix "Лугавая трава"',
-          description: 'COLOR Mix "Лугавая трава"'
-        },
-        {
-          title: 'COLOR Mix "Полымя"',
-          description: 'COLOR Mix "Полымя"'
-        },
-        {
-          title: 'COLOR Mix "Восеньскія лісце"',
-          description: 'COLOR Mix "Восеньскія лісце"'
-        }
-      ],
+      imageDataByType: {
+        colormix: [
+          { title: 'COLOR Mix "Кафля"', description: 'COLOR Mix "Кафля"' },
+          { title: 'COLOR Mix "Ракавіннік"', description: 'COLOR Mix "Ракавіннік"' },
+          { title: 'COLOR Mix "Старая Італія"', description: 'COLOR Mix "Старая Італія"' },
+          { title: 'COLOR Mix "Капучына new"', description: 'COLOR Mix "Капучына new"' },
+          { title: 'COLOR Mix "Лугавая трава"', description: 'COLOR Mix "Лугавая трава"' },
+          { title: 'COLOR Mix "Полымя"', description: 'COLOR Mix "Полымя"' },
+          { title: 'COLOR Mix "Восеньскія лісце"', description: 'COLOR Mix "Восеньскія лісце"' }
+        ],
+        mono: [
+          { title: 'Аднаколерная "Белая"', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Аднаколерная "Шэрая"', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Аднаколерная "Чырвоная"', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Аднаколерная "Жоўтая"', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Аднаколерная "Зялёная"', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Аднаколерная "Сіняя"', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Аднаколерная "Карычневая"', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Аднаколерная "Чорная"', description: 'Мокавая картка. Апісанне будзе дададзена.' }
+        ],
+        border: [
+          { title: 'Борт тратуарны', description: 'Мокавая картка. Апісанне будзе дададзена.' },
+          { title: 'Борт дарожны', description: 'Мокавая картка. Апісанне будзе дададзена.' }
+        ]
+      },
       formSubmit: 'Дзякуй за замову! Мы звяжамся з вамі ў бліжэйшы час для ўдакладнення дэталяў.'
     },
     zh: {
-      imageData: [
-        {
-          title: 'COLOR Mix "瓷砖"',
-          description: 'COLOR Mix "瓷砖"'
-        },
-        {
-          title: 'COLOR Mix "贝壳石"',
-          description: 'COLOR Mix "贝壳石"'
-        },
-        {
-          title: 'COLOR Mix "古老意大利"',
-          description: 'COLOR Mix "古老意大利"'
-        },
-        {
-          title: 'COLOR Mix "卡布奇诺 new"',
-          description: 'COLOR Mix "卡布奇诺 new"'
-        },
-        {
-          title: 'COLOR Mix "新日落"',
-          description: 'COLOR Mix "新日落"'
-        },
-        {
-          title: 'COLOR Mix "草地"',
-          description: 'COLOR Mix "草地"'
-        },
-        {
-          title: 'COLOR Mix "火焰"',
-          description: 'COLOR Mix "火焰"'
-        },
-        {
-          title: 'COLOR Mix "秋叶"',
-          description: 'COLOR Mix "秋叶"'
-        }
-      ],
+      imageDataByType: {
+        colormix: [
+          { title: 'COLOR Mix "瓷砖"', description: 'COLOR Mix "瓷砖"' },
+          { title: 'COLOR Mix "贝壳石"', description: 'COLOR Mix "贝壳石"' },
+          { title: 'COLOR Mix "古老意大利"', description: 'COLOR Mix "古老意大利"' },
+          { title: 'COLOR Mix "卡布奇诺 new"', description: 'COLOR Mix "卡布奇诺 new"' },
+          { title: 'COLOR Mix "草地"', description: 'COLOR Mix "草地"' },
+          { title: 'COLOR Mix "火焰"', description: 'COLOR Mix "火焰"' },
+          { title: 'COLOR Mix "秋叶"', description: 'COLOR Mix "秋叶"' }
+        ],
+        mono: [
+          { title: '单色 "白色"', description: '占位卡片，后续补充描述。' },
+          { title: '单色 "灰色"', description: '占位卡片，后续补充描述。' },
+          { title: '单色 "红色"', description: '占位卡片，后续补充描述。' },
+          { title: '单色 "黄色"', description: '占位卡片，后续补充描述。' },
+          { title: '单色 "绿色"', description: '占位卡片，后续补充描述。' },
+          { title: '单色 "蓝色"', description: '占位卡片，后续补充描述。' },
+          { title: '单色 "棕色"', description: '占位卡片，后续补充描述。' },
+          { title: '单色 "黑色"', description: '占位卡片，后续补充描述。' }
+        ],
+        border: [
+          { title: '人行道路缘石', description: '占位卡片，后续补充描述。' },
+          { title: '道路路缘石', description: '占位卡片，后续补充描述。' }
+        ]
+      },
       formSubmit: '感谢您的订单！我们会尽快与您联系以确认详细信息。'
     }
   };
@@ -174,268 +141,188 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let currentLang = getActiveLang();
-  let imageData = translations[currentLang].imageData;
 
-  // Create dots
-  items.forEach((_, index) => {
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    dot.onclick = () => goToIndex(index);
-    dotsContainer.appendChild(dot);
-  });
-
-  const dots = document.querySelectorAll('.dot');
-
-  function updateTitleDescription() {
-    const currentData = imageData[currentIndex];
-    if (!currentData) return;
-
-    currentTitle.textContent = currentData.title;
-    currentDescription.textContent = currentData.description;
-
-    currentTitle.style.animation = 'none';
-    currentDescription.style.animation = 'none';
-    setTimeout(() => {
-      currentTitle.style.animation = 'fadeIn 0.6s forwards';
-      currentDescription.style.animation = 'fadeIn 0.6s forwards';
-    }, 10);
-  }
-
-  // Check if mobile view (tablets and phones)
   function isMobileView() {
     return window.innerWidth <= 768;
   }
 
-  function updateCoverflow() {
-    if (isAnimating) return;
-    isAnimating = true;
+  function createCoverflowController(panel) {
+    const galleryType = panel.dataset.galleryType || 'colormix';
+    const items = Array.from(panel.querySelectorAll('.coverflow-item'));
+    const dotsContainer = panel.querySelector('.dots-container');
+    const currentTitle = panel.querySelector('.current-title');
+    const currentDescription = panel.querySelector('.current-description');
+    const container = panel.querySelector('.coverflow-container');
+    const prevBtn = panel.querySelector('.nav-button.prev');
+    const nextBtn = panel.querySelector('.nav-button.next');
+    if (!items.length || !dotsContainer || !currentTitle || !currentDescription || !container) {
+      return null;
+    }
 
-    const isMobile = isMobileView();
+    let currentIndex = Math.floor(items.length / 2);
+    let isAnimating = false;
+    let autoplayInterval = null;
+    const getImageData = () => translations[currentLang]?.imageDataByType?.[galleryType] || [];
 
-    items.forEach((item, index) => {
-      const isActive = index === currentIndex;
-      item.classList.toggle('active', isActive);
+    const goToIndex = (index) => {
+      if (isAnimating || index === currentIndex) return;
+      currentIndex = index;
+      updateCoverflow();
+    };
 
-      if (isMobile) {
-        // Mobile: show only active item, centered
-        if (isActive) {
-          item.style.display = 'block';
-          item.style.opacity = '1';
-          item.style.transform = 'translateX(0) translateZ(0) rotateY(0deg) scale(1)';
-          item.style.zIndex = '100';
-        } else {
-          item.style.display = 'none';
-          item.style.opacity = '0';
+    dotsContainer.innerHTML = '';
+    items.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.onclick = () => goToIndex(index);
+      dotsContainer.appendChild(dot);
+    });
+    const dots = Array.from(dotsContainer.querySelectorAll('.dot'));
+
+    function updateTitleDescription() {
+      const imageData = getImageData();
+      const currentData = imageData[currentIndex] || imageData[0];
+      if (!currentData) return;
+      currentTitle.textContent = currentData.title;
+      currentDescription.textContent = currentData.description;
+      currentTitle.style.animation = 'none';
+      currentDescription.style.animation = 'none';
+      setTimeout(() => {
+        currentTitle.style.animation = 'fadeIn 0.6s forwards';
+        currentDescription.style.animation = 'fadeIn 0.6s forwards';
+      }, 10);
+    }
+
+    function updateCoverflow() {
+      if (isAnimating) return;
+      isAnimating = true;
+      const isMobile = isMobileView();
+      items.forEach((item, index) => {
+        const isActive = index === currentIndex;
+        item.classList.toggle('active', isActive);
+        if (isMobile) {
+          if (isActive) {
+            item.style.display = 'block';
+            item.style.opacity = '1';
+            item.style.transform = 'translateX(0) translateZ(0) rotateY(0deg) scale(1)';
+            item.style.zIndex = '100';
+          } else {
+            item.style.display = 'none';
+            item.style.opacity = '0';
+          }
+          return;
         }
-      } else {
-        // Desktop: original coverflow effect
         let offset = index - currentIndex;
-
-        if (offset > items.length / 2) {
-          offset = offset - items.length;
-        } else if (offset < -items.length / 2) {
-          offset = offset + items.length;
-        }
-
+        if (offset > items.length / 2) offset -= items.length;
+        else if (offset < -items.length / 2) offset += items.length;
         const absOffset = Math.abs(offset);
         const sign = Math.sign(offset);
-
         let translateX = offset * 253;
+        const translateY = -absOffset * 26;
         let translateZ = -absOffset * 200;
         let rotateY = -sign * Math.min(absOffset * 60, 60);
         let opacity = 1 - (absOffset * 0.2);
         let scale = 1 - (absOffset * 0.1);
-
         if (absOffset > 3) {
           opacity = 0;
           translateX = sign * 920;
         }
-
         item.style.display = 'block';
-        item.style.transform = `
-          translateX(${translateX}px) 
-          translateZ(${translateZ}px) 
-          rotateY(${rotateY}deg)
-          scale(${scale})
-        `;
+        item.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
         item.style.opacity = opacity;
         item.style.zIndex = 100 - absOffset;
-      }
-    });
-
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentIndex);
-    });
-
-    updateTitleDescription();
-
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
-  }
-
-  function navigate(direction) {
-    if (isAnimating) return;
-
-    currentIndex = currentIndex + direction;
-
-    if (currentIndex < 0) {
-      currentIndex = items.length - 1;
-    } else if (currentIndex >= items.length) {
-      currentIndex = 0;
+      });
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
+      updateTitleDescription();
+      setTimeout(() => { isAnimating = false; }, 600);
     }
 
-    updateCoverflow();
-  }
-
-  function goToIndex(index) {
-    if (isAnimating || index === currentIndex) return;
-    currentIndex = index;
-    updateCoverflow();
-  }
-
-  // Keyboard navigation
-  container.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') navigate(-1);
-    if (e.key === 'ArrowRight') navigate(1);
-  });
-
-  // Handle catalog item click
-  function handleCatalogItemClick(index, item) {
-    // Empty method - can be extended with custom logic
-    // Example: open modal, show details, navigate to page, etc.
-  }
-
-  // Click on items to select
-  items.forEach((item, index) => {
-    item.addEventListener('click', () => {
-      handleCatalogItemClick(index, item);
-      goToIndex(index);
-    });
-  });
-
-  // Touch/swipe support
-  let touchStartX = 0;
-  let touchEndX = 0;
-  let touchStartY = 0;
-  let touchEndY = 0;
-  let isSwiping = false;
-
-  container.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
-    isSwiping = true;
-  }, { passive: true });
-
-  container.addEventListener('touchmove', (e) => {
-    if (!isSwiping) return;
-
-    const currentX = e.changedTouches[0].screenX;
-    const diff = currentX - touchStartX;
-
-    if (Math.abs(diff) > 10) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  container.addEventListener('touchend', (e) => {
-    if (!isSwiping) return;
-
-    touchEndX = e.changedTouches[0].screenX;
-    touchEndY = e.changedTouches[0].screenY;
-    handleSwipe();
-    isSwiping = false;
-  }, { passive: true });
-
-  function handleSwipe() {
-    const swipeThreshold = 30;
-    const diffX = touchStartX - touchEndX;
-    const diffY = touchStartY - touchEndY;
-
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
-      handleUserInteraction();
-
-      if (diffX > 0) {
-        navigate(1);
-      } else {
-        navigate(-1);
-      }
-    }
-  }
-
-  // Initialize images and reflections
-  items.forEach((item) => {
-    const img = item.querySelector('img');
-    const reflection = item.querySelector('.reflection');
-
-    if (!img || !reflection) return;
-
-    img.onload = function() {
-      this.parentElement?.classList.remove('image-loading');
-      reflection.style.setProperty('--bg-image', `url(${this.src})`);
-      reflection.style.backgroundImage = `url(${this.src})`;
-      reflection.style.backgroundSize = 'cover';
-      reflection.style.backgroundPosition = 'center';
-    };
-
-    img.onerror = function() {
-      this.parentElement?.classList.add('image-loading');
-    };
-  });
-
-  // Autoplay functionality
-  function startAutoplay() {
-    autoplayInterval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % items.length;
+    function navigate(direction) {
+      if (isAnimating) return;
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = items.length - 1;
+      else if (currentIndex >= items.length) currentIndex = 0;
       updateCoverflow();
-    }, 4000);
-    isPlaying = true;
-  }
-
-  function stopAutoplay() {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      autoplayInterval = null;
     }
-    isPlaying = false;
-  }
 
-  function toggleAutoplay() {
-    if (isPlaying) {
-      stopAutoplay();
-    } else {
-      startAutoplay();
+    function startAutoplay() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(() => {
+        if (!panel.classList.contains('active')) return;
+        currentIndex = (currentIndex + 1) % items.length;
+        updateCoverflow();
+      }, 4000);
     }
+
+    items.forEach((item, index) => {
+      const img = item.querySelector('img');
+      const reflection = item.querySelector('.reflection');
+      if (img && reflection) {
+        img.onload = function() {
+          this.parentElement?.classList.remove('image-loading');
+          reflection.style.backgroundImage = `url(${this.src})`;
+          reflection.style.backgroundSize = 'cover';
+          reflection.style.backgroundPosition = 'center';
+        };
+        img.onerror = function() { this.parentElement?.classList.add('image-loading'); };
+      }
+      item.addEventListener('click', () => goToIndex(index));
+    });
+
+    prevBtn?.addEventListener('click', () => navigate(-1));
+    nextBtn?.addEventListener('click', () => navigate(1));
+    container.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let isSwiping = false;
+    container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+      isSwiping = true;
+    }, { passive: true });
+    container.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      const currentX = e.changedTouches[0].screenX;
+      if (Math.abs(currentX - touchStartX) > 10) e.preventDefault();
+    }, { passive: false });
+    container.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+        navigate(diffX > 0 ? 1 : -1);
+      }
+      isSwiping = false;
+    }, { passive: true });
+
+    updateCoverflow();
+    startAutoplay();
+    return {
+      panel,
+      refresh: () => updateCoverflow(),
+      updateText: () => updateTitleDescription()
+    };
   }
 
-  function handleUserInteraction() {
-    stopAutoplay();
-  }
+  const galleryControllers = catalogPanels.map(createCoverflowController).filter(Boolean);
 
-  // Add event listeners to stop autoplay on manual navigation
-  items.forEach((item) => {
-    item.addEventListener('click', handleUserInteraction);
-  });
-
-  document.querySelector('.nav-button.prev')?.addEventListener('click', () => {
-    handleUserInteraction();
-    navigate(-1);
-  });
-  document.querySelector('.nav-button.next')?.addEventListener('click', () => {
-    handleUserInteraction();
-    navigate(1);
-  });
-
-  // Play-pause button removed
-
-  dots.forEach((dot) => {
-    dot.addEventListener('click', handleUserInteraction);
-  });
-
-  container.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      handleUserInteraction();
-    }
+  catalogTabButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-tab-target');
+      catalogTabButtons.forEach((b) =>
+        b.classList.toggle('active', b.getAttribute('data-tab-target') === targetId)
+      );
+      catalogPanels.forEach((panel) => panel.classList.toggle('active', panel.id === targetId));
+      setTimeout(() => galleryControllers.forEach((c) => c.refresh()), 20);
+    });
   });
 
   // Update active menu item on scroll
@@ -485,9 +372,13 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollToTopBtn.classList.remove('visible');
       }
     }
+
+    syncHeaderHeightVar();
   }
 
   window.addEventListener('scroll', updateActiveMenuItem);
+  syncHeaderHeightVar();
+  updateActiveMenuItem();
 
   // Smooth scroll to section
   menuItems.forEach(item => {
@@ -550,7 +441,6 @@ document.addEventListener('DOMContentLoaded', () => {
         parse_mode: 'HTML',
       };
       
-      console.log('Sending to Telegram:', { chat_id: targetChatId, message_length: message.length });
       
       const response = await fetch(url, {
         method: 'POST',
@@ -563,7 +453,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       
       if (response.ok && data.ok) {
-        console.log('Message sent to Telegram successfully to chat:', targetChatId);
         return true;
       } else {
         console.error('Telegram API error:', data);
@@ -666,7 +555,6 @@ ${new Date().toLocaleString('ru-BY', {
         return;
       }
       
-      console.log('Sending message to Telegram:', message);
       const success = await sendToTelegram(message);
 
       if (success) {
@@ -746,18 +634,9 @@ ${new Date().toLocaleString('ru-BY', {
     const sunriseWithBuffer = new Date(sunrise.getTime() + 30 * 60 * 1000);
     const sunsetWithBuffer = new Date(sunset.getTime() - 30 * 60 * 1000);
     
-    // Debug info (can be removed later)
-    console.log('Current time:', now.toLocaleTimeString('ru-BY'));
-    console.log('Sunrise:', sunrise.toLocaleTimeString('ru-BY'));
-    console.log('Sunset:', sunset.toLocaleTimeString('ru-BY'));
-    console.log('Sunrise with buffer:', sunriseWithBuffer.toLocaleTimeString('ru-BY'));
-    console.log('Sunset with buffer:', sunsetWithBuffer.toLocaleTimeString('ru-BY'));
-    
     // Light theme during day (after sunrise + buffer, before sunset - buffer)
     const isDay = now >= sunriseWithBuffer && now < sunsetWithBuffer;
     const theme = isDay ? 'light' : 'dark';
-    console.log('Auto theme determined:', theme);
-    
     return theme;
   }
 
@@ -846,7 +725,6 @@ ${new Date().toLocaleString('ru-BY', {
     } else {
       // Manual mode was explicitly set, but we still applied auto theme on load
       // User can manually override if needed
-      console.log('Manual mode detected, but auto theme applied on load');
     }
 
     themeToggle.addEventListener('change', () => {
@@ -864,19 +742,13 @@ ${new Date().toLocaleString('ru-BY', {
     }
   }
 
-  // Initialize
-  updateTitleDescription();
-  updateCoverflow();
-  // Remove auto-focus to prevent outline and shift issues
-  // container.focus();
-  startAutoplay();
-
   // Handle window resize for responsive behavior
   let resizeTimeout;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      updateCoverflow();
+      syncHeaderHeightVar();
+      galleryControllers.forEach((controller) => controller.refresh());
     }, 150);
   });
 
@@ -884,7 +756,6 @@ ${new Date().toLocaleString('ru-BY', {
     const nextLang = resolveLang(event?.detail?.lang || 'ru');
     if (nextLang === currentLang) return;
     currentLang = nextLang;
-    imageData = translations[currentLang].imageData;
-    updateTitleDescription();
+    galleryControllers.forEach((controller) => controller.updateText());
   });
 });

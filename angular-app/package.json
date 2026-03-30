@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate:pricelists": "node src/assets/marketing/pricelist/generate-pricelists.mjs"
   },
   "prettier": {
     "printWidth": 100,
@@ -38,7 +39,9 @@
     "@angular/build": "^21.1.1",
     "@angular/cli": "^21.1.1",
     "@angular/compiler-cli": "^21.1.0",
+    "docx": "^9.6.1",
     "jsdom": "^27.1.0",
+    "sharp": "^0.34.5",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
