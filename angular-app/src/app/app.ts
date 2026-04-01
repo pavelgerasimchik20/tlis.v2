@@ -2,6 +2,12 @@ import { DOCUMENT } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  type CatalogGalleryId,
+  type CatalogModalCard,
+  catalogModalImageSrc,
+  catalogModalTitleRu
+} from './catalog-modal-data';
 
 @Component({
   selector: 'app-root',
@@ -26,9 +32,15 @@ export class App {
   
   // Catalog modal
   isCatalogModalOpen = false;
+  /** Какая галерея открыла модалку — влияет на источник фото и заголовка */
+  catalogModalGalleryId: CatalogGalleryId = 'colormix';
   selectedCatalogIndex = 0;
   selectedSize = '';
-  
+
+  /** Маркировка бордюра — совпадает с `value` в модалке и в форме заказа (#order-size) */
+  readonly borderSizeTrotuar = 'БР100.20.8 тротуарный';
+  readonly borderSizeRoad = 'БР100.30.15 дорожный';
+
   catalogImages = [
     'slab1.jpg',
     'slab2.jpg',
@@ -68,6 +80,47 @@ export class App {
       return this.translate.instant(this.catalogTitleKeys[index]);
     }
     return `Плита ${index + 1}`;
+  }
+
+  /** Картинка в модалке: slabs для COLOR MIX, иначе заглушки из catalog-modal-data */
+  getCatalogModalImageSrc(): string {
+    if (this.catalogModalGalleryId === 'colormix') {
+      const file = this.catalogImages[this.selectedCatalogIndex];
+      return file ? `assets/images/slabs/${file}` : '';
+    }
+    return catalogModalImageSrc(this.catalogModalGalleryId, this.selectedCatalogIndex);
+  }
+
+  /** Заголовок в модалке: i18n для COLOR MIX, иначе RU-строки как в карусели */
+  getCatalogModalTitle(): string {
+    if (this.catalogModalGalleryId === 'colormix') {
+      return this.getCatalogTitle(this.selectedCatalogIndex);
+    }
+    return catalogModalTitleRu(this.catalogModalGalleryId, this.selectedCatalogIndex);
+  }
+
+  /**
+   * Текущая карточка модалки (удобно смотреть в шаблоне или при отладке).
+   * Пример: { galleryId: 'mono', index: 2, imageSrc: 'data:image/svg+xml,...', title: 'Одноцветная «Красная»' }
+   */
+  get catalogModalCard(): CatalogModalCard {
+    return {
+      galleryId: this.catalogModalGalleryId,
+      index: this.selectedCatalogIndex,
+      imageSrc: this.getCatalogModalImageSrc(),
+      title: this.getCatalogModalTitle()
+    };
+  }
+
+  /** Подпись размера бордюра в модалке (маркировка БР по выбранной карточке) */
+  getCatalogBorderSizeLabel(): string {
+    if (this.selectedSize === this.borderSizeTrotuar) {
+      return this.translate.instant('catalog.modal.sizes.borderTrotuar');
+    }
+    if (this.selectedSize === this.borderSizeRoad) {
+      return this.translate.instant('catalog.modal.sizes.borderRoad');
+    }
+    return this.selectedSize || '';
   }
 
   portfolioImages = [
@@ -128,9 +181,14 @@ export class App {
     this.currentImageIndex = (this.currentImageIndex - 1 + this.portfolioImages.length) % this.portfolioImages.length;
   }
 
-  handleCatalogItemClick(index: number) {
+  handleCatalogItemClick(galleryId: CatalogGalleryId, index: number) {
+    this.catalogModalGalleryId = galleryId;
     this.selectedCatalogIndex = index;
-    this.selectedSize = ''; // Сбрасываем выбранный размер при открытии модального окна
+    if (galleryId === 'border') {
+      this.selectedSize = index === 0 ? this.borderSizeTrotuar : this.borderSizeRoad;
+    } else {
+      this.selectedSize = '';
+    }
     this.isCatalogModalOpen = true;
     if (typeof document !== 'undefined') {
       document.body.style.overflow = 'hidden';
@@ -167,6 +225,9 @@ export class App {
   }
 
   setSelectedColorInForm() {
+    if (this.catalogModalGalleryId !== 'colormix') {
+      return;
+    }
     if (typeof document !== 'undefined') {
       const colorSelect = document.getElementById('order-color') as HTMLSelectElement;
       if (colorSelect && this.catalogToColorValue[this.selectedCatalogIndex] !== undefined) {

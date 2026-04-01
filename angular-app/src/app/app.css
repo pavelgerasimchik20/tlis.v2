@@ -1317,9 +1317,27 @@
     background-color: rgba(255, 255, 255, 0.08);
 }
 
+/* Пока размер не выбран — подпись как плейсхолдер (первая option disabled+hidden) */
+.catalog-modal-size-select--placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
 .catalog-modal-size-select option {
     background: #2a2422;
     color: white;
+}
+
+/* Бордюры в модалке: размер фиксирован (без селекта) */
+.catalog-modal-size-readonly {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 16px;
+    line-height: 1.35;
 }
 
 .catalog-modal-specs {
@@ -2863,6 +2881,12 @@
 
 :host-context(.light-theme) .catalog-modal-size-select option {
     background: #f7e4d0;
+    color: #1a1a1a;
+}
+
+:host-context(.light-theme) .catalog-modal-size-readonly {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 0, 0, 0.15);
     color: #1a1a1a;
 }
 
