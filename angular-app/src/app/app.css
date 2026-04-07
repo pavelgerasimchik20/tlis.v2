@@ -27,7 +27,7 @@
 :host-context(.light-theme) #contacts,
 :host-context(.light-theme) #portfolio,
 :host-context(.light-theme) #order {
-    background: #f7e4d0;
+    background: #ead6c0;
 }
 
 /* Каталог: отступ под фиксированный хедер на секции + max() чтобы не недооценить высоту при смене --header-current-height */
@@ -337,6 +337,7 @@
 
 .contacts-page-list {
     display: grid;
+    margin-bottom: 18px;
     grid-template-columns: 1fr;
     gap: 20px;
 }
@@ -612,7 +613,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
 }
 
 /* Reflection */
@@ -731,8 +731,8 @@
 .info h1,
 .info h2 {
     font-size: 30px;
-    margin-top: 0;
-    margin-bottom: 6px;
+    margin-top: 1rem;
+    margin-bottom: 2px;
     background: linear-gradient(135deg, #ff8c00 0%, #cc6600 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -943,7 +943,7 @@
 .portfolio-content {
     width: 100%;
     margin: 0 auto;
-    padding: 40px 60px;
+    padding: 0px 60px;
     color: white;
 }
 
@@ -1271,6 +1271,7 @@
 }
 
 .catalog-modal-description {
+    display: none;
     font-size: 14px;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.8);
@@ -1817,8 +1818,8 @@
         display: inline;
     }
 
-    /* Отступ между подписью под тайтлом галереи и каруселью */
-    #catalog .info p {
+    /* Отступ между заголовком галереи и каруселью */
+    #catalog .info h1 {
         margin-bottom: 20px;
     }
 
@@ -2559,7 +2560,7 @@
 }
 
 :host-context(.light-theme) .footer {
-    background: #f7e4d0;
+    background: #ead6c0;
     border-top-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -2629,7 +2630,7 @@
 }
 
 :host-context(.light-theme) .section {
-    background: #f7e4d0;
+    background: #ead6c0;
 }
 
 :host-context(.light-theme) .coverflow-item .cover {
@@ -2680,8 +2681,8 @@
 :host-context(.light-theme) .catalog-tabs {
     background:
         linear-gradient(165deg, rgba(255, 140, 0, 0.14) 0%, transparent 45%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(247, 228, 208, 0.98) 100%),
-        #f7e4d0;
+        linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(234, 214, 192, 0.98) 100%),
+        #ead6c0;
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.85),
@@ -2751,7 +2752,7 @@
 }
 
 :host-context(.light-theme) .form-group select option {
-    background: #f7e4d0;
+    background: #ead6c0;
     color: #1a1a1a;
 }
 
@@ -2773,12 +2774,12 @@
 }
 
 :host-context(.light-theme) .theme-slider {
-    background: #f7e4d0;
+    background: #ead6c0;
     border-color: rgba(0, 0, 0, 0.2);
 }
 
 :host-context(.light-theme) .theme-toggle input:checked+.theme-slider {
-    background: #f7e4d0;
+    background: #ead6c0;
     border-color: rgba(0, 0, 0, 0.35);
 }
 
@@ -2808,7 +2809,7 @@
 }
 
 :host-context(.light-theme) .catalog-modal-content {
-    background: rgba(247, 228, 208, 0.98);
+    background: rgba(234, 214, 192, 0.98);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -2880,7 +2881,7 @@
 }
 
 :host-context(.light-theme) .catalog-modal-size-select option {
-    background: #f7e4d0;
+    background: #ead6c0;
     color: #1a1a1a;
 }
 
@@ -2903,12 +2904,12 @@
 }
 
 :host-context(.light-theme) .header {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, #f7e4d0 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, #ead6c0 100%);
     border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
 :host-context(.light-theme) .header.scrolled {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #f7e4d0 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ead6c0 100%);
 }
 
 :host-context(.light-theme) .logo svg rect[fill="white"] {

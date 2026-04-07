@@ -101,7 +101,7 @@ export class App {
 
   /**
    * Текущая карточка модалки (удобно смотреть в шаблоне или при отладке).
-   * Пример: { galleryId: 'mono', index: 2, imageSrc: 'data:image/svg+xml,...', title: 'Одноцветная «Красная»' }
+   * Пример: { galleryId: 'mono', index: 2, imageSrc: 'assets/images/mono/red.jpg', title: 'Одноцветная «Красная»' }
    */
   get catalogModalCard(): CatalogModalCard {
     return {

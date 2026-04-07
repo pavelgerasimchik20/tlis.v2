@@ -56,7 +56,7 @@ const logos = {
             <line x1="90" y1="125" x2="110" y2="125" stroke="#1a1a1a" stroke-width="2"></line>
             <text x="100" y="195" text-anchor="middle" fill="#1a1a1a" font-family="Verdana, sans-serif" font-size="22" letter-spacing="3.5">TLIS</text>
         </svg>`,
-        bgColor: '#f7e4d0'
+        bgColor: '#ead6c0'
     }
 };
 

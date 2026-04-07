@@ -1,5 +1,5 @@
 /**
- * Данные для модалки каталога: заглушки (как в разметке галереи) и заголовки (RU, как в tlis-home-scripts).
+ * Данные для модалки каталога: пути к изображениям (как в разметке галереи) и заголовки (RU, как в tlis-home-scripts).
  */
 
 export type CatalogGalleryId = 'colormix' | 'mono' | 'white-cement' | 'border';
@@ -12,33 +12,33 @@ export interface CatalogModalCard {
   title: string;
 }
 
-/** SVG-заглушки одноцветной линии (как в #catalog-panel-mono) */
+/** Фото одноцветной линии (как в #catalog-panel-mono) */
 export const CATALOG_MONO_PLACEHOLDER_SRCS: readonly string[] = [
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23666'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EWhite%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23777777'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGray%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23992626'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3ERed%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23b18b19'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EYellow%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%233c7c3c'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGreen%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%232d4f93'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlue%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%2361422a'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBrown%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23222222'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlack%3C/text%3E%3C/svg%3E"
+  'assets/images/mono/white.jpg',
+  'assets/images/mono/gray.jpg',
+  'assets/images/mono/red.jpg',
+  'assets/images/mono/yellow.jpg',
+  'assets/images/mono/green.jpg',
+  'assets/images/mono/blue.jpg',
+  'assets/images/mono/brown.jpg',
+  'assets/images/mono/black.jpg'
 ];
 
-/** SVG-заглушки «на белом цементе» (как в #catalog-panel-white-cement) */
+/** Фото «на белом цементе» (как в #catalog-panel-white-cement); чёрная — общее фото плитки */
 export const CATALOG_WHITE_CEMENT_PLACEHOLDER_SRCS: readonly string[] = [
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23e8e4dc'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EWhite%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23c8c4bc'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGray%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23d4a8a8'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3ERed%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23d9c9a0'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EYellow%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23b8d4b8'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGreen%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23a8bdd9'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlue%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23c9b8a8'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBrown%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%234a4a4a'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlack%3C/text%3E%3C/svg%3E"
+  'assets/images/white-cement/white.jpg',
+  'assets/images/white-cement/red.jpg',
+  'assets/images/white-cement/yellow.jpg',
+  'assets/images/white-cement/green.jpg',
+  'assets/images/white-cement/blue.jpg',
+  'assets/images/white-cement/braun.jpg',
+  'assets/images/mono/black.jpg'
 ];
 
+/** Фото бордюров: маркировка по габаритам в имени файла */
 export const CATALOG_BORDER_PLACEHOLDER_SRCS: readonly string[] = [
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23555555'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EБорт тротуарный%3C/text%3E%3C/svg%3E",
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23444444'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EБорт дорожный%3C/text%3E%3C/svg%3E"
+  'assets/images/road-borders/100.20.8.jpg',
+  'assets/images/road-borders/100.30.15.jpg'
 ];
 
 export const CATALOG_MONO_TITLES_RU: readonly string[] = [
@@ -54,7 +54,6 @@ export const CATALOG_MONO_TITLES_RU: readonly string[] = [
 
 export const CATALOG_WHITE_CEMENT_TITLES_RU: readonly string[] = [
   'Одноцветная на белом цементе «Белая»',
-  'Одноцветная на белом цементе «Серая»',
   'Одноцветная на белом цементе «Красная»',
   'Одноцветная на белом цементе «Желтая»',
   'Одноцветная на белом цементе «Зеленая»',

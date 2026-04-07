@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         'white-cement': [
           { title: 'Одноцветная на белом цементе «Белая»', description: 'Моковая карточка. Описание будет добавлено.' },
-          { title: 'Одноцветная на белом цементе «Серая»', description: 'Моковая карточка. Описание будет добавлено.' },
           { title: 'Одноцветная на белом цементе «Красная»', description: 'Моковая карточка. Описание будет добавлено.' },
           { title: 'Одноцветная на белом цементе «Желтая»', description: 'Моковая карточка. Описание будет добавлено.' },
           { title: 'Одноцветная на белом цементе «Зеленая»', description: 'Моковая карточка. Описание будет добавлено.' },
@@ -105,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         'white-cement': [
           { title: 'Аднаколерная на белым цэменце «Белая»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
-          { title: 'Аднаколерная на белым цэменце «Шэрая»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
           { title: 'Аднаколерная на белым цэменце «Чырвоная»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
           { title: 'Аднаколерная на белым цэменце «Жоўтая»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
           { title: 'Аднаколерная на белым цэменце «Зялёная»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
@@ -143,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         'white-cement': [
           { title: '白水泥单色 "白色"', description: '占位卡片，后续补充描述。' },
-          { title: '白水泥单色 "灰色"', description: '占位卡片，后续补充描述。' },
           { title: '白水泥单色 "红色"', description: '占位卡片，后续补充描述。' },
           { title: '白水泥单色 "黄色"', description: '占位卡片，后续补充描述。' },
           { title: '白水泥单色 "绿色"', description: '占位卡片，后续补充描述。' },
@@ -181,11 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = Array.from(panel.querySelectorAll('.coverflow-item'));
     const dotsContainer = panel.querySelector('.dots-container');
     const currentTitle = panel.querySelector('.current-title');
-    const currentDescription = panel.querySelector('.current-description');
     const container = panel.querySelector('.coverflow-container');
     const prevBtn = panel.querySelector('.nav-button.prev');
     const nextBtn = panel.querySelector('.nav-button.next');
-    if (!items.length || !dotsContainer || !currentTitle || !currentDescription || !container) {
+    if (!items.length || !dotsContainer || !currentTitle || !container) {
       return null;
     }
 
@@ -214,12 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentData = imageData[currentIndex] || imageData[0];
       if (!currentData) return;
       currentTitle.textContent = currentData.title;
-      currentDescription.textContent = currentData.description;
       currentTitle.style.animation = 'none';
-      currentDescription.style.animation = 'none';
       setTimeout(() => {
         currentTitle.style.animation = 'fadeIn 0.6s forwards';
-        currentDescription.style.animation = 'fadeIn 0.6s forwards';
       }, 10);
     }
 

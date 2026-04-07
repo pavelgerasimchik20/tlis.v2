@@ -91,7 +91,6 @@
     <div class="catalog-panel active" id="catalog-panel-colormix" data-gallery-type="colormix">
       <div class="info">
         <h1 class="current-title">{{ 'catalog.title' | translate }}</h1>
-        <p class="current-description">{{ 'catalog.description' | translate }}</p>
       </div>
 
       <div class="coverflow-container" tabindex="0">
@@ -191,19 +190,18 @@
     <div class="catalog-panel" id="catalog-panel-mono" data-gallery-type="mono">
       <div class="info">
         <h1 class="current-title">Одноцветная плитка</h1>
-        <p class="current-description">Моковые карточки. Описания и изображения заполнятся позже.</p>
       </div>
 
       <div class="coverflow-container" tabindex="0">
         <div class="coverflow">
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 0)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23666'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EWhite%3C/text%3E%3C/svg%3E" alt="Белая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 1)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23777777'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGray%3C/text%3E%3C/svg%3E" alt="Серая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 2)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23992626'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3ERed%3C/text%3E%3C/svg%3E" alt="Красная" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 3)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23b18b19'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EYellow%3C/text%3E%3C/svg%3E" alt="Желтая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 4)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%233c7c3c'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGreen%3C/text%3E%3C/svg%3E" alt="Зеленая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 5)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%232d4f93'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlue%3C/text%3E%3C/svg%3E" alt="Синяя" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 6)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%2361422a'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBrown%3C/text%3E%3C/svg%3E" alt="Коричневая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 7)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23222222'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlack%3C/text%3E%3C/svg%3E" alt="Черная" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 0)"><div class="cover image-loading"><img src="assets/images/mono/white.jpg" alt="Белая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 1)"><div class="cover image-loading"><img src="assets/images/mono/gray.jpg" alt="Серая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 2)"><div class="cover image-loading"><img src="assets/images/mono/red.jpg" alt="Красная" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 3)"><div class="cover image-loading"><img src="assets/images/mono/yellow.jpg" alt="Желтая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 4)"><div class="cover image-loading"><img src="assets/images/mono/green.jpg" alt="Зеленая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 5)"><div class="cover image-loading"><img src="assets/images/mono/blue.jpg" alt="Синяя" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 6)"><div class="cover image-loading"><img src="assets/images/mono/brown.jpg" alt="Коричневая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('mono', 7)"><div class="cover image-loading"><img src="assets/images/mono/black.jpg" alt="Черная" loading="lazy" /></div><div class="reflection"></div></div>
         </div>
 
         <button class="nav-button prev">‹</button>
@@ -228,19 +226,17 @@
     <div class="catalog-panel" id="catalog-panel-white-cement" data-gallery-type="white-cement">
       <div class="info">
         <h1 class="current-title">Одноцветная на белом цементе</h1>
-        <p class="current-description">Моковые карточки. Описания и изображения заполнятся позже.</p>
       </div>
 
       <div class="coverflow-container" tabindex="0">
         <div class="coverflow">
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 0)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23e8e4dc'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EWhite%3C/text%3E%3C/svg%3E" alt="Белая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 1)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23c8c4bc'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGray%3C/text%3E%3C/svg%3E" alt="Серая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 2)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23d4a8a8'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3ERed%3C/text%3E%3C/svg%3E" alt="Красная" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 3)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23d9c9a0'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EYellow%3C/text%3E%3C/svg%3E" alt="Желтая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 4)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23b8d4b8'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EGreen%3C/text%3E%3C/svg%3E" alt="Зеленая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 5)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23a8bdd9'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlue%3C/text%3E%3C/svg%3E" alt="Синяя" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 6)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23c9b8a8'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBrown%3C/text%3E%3C/svg%3E" alt="Коричневая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 7)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%234a4a4a'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EBlack%3C/text%3E%3C/svg%3E" alt="Черная" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 0)"><div class="cover image-loading"><img src="assets/images/white-cement/white.jpg" alt="Белая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 1)"><div class="cover image-loading"><img src="assets/images/white-cement/red.jpg" alt="Красная" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 2)"><div class="cover image-loading"><img src="assets/images/white-cement/yellow.jpg" alt="Желтая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 3)"><div class="cover image-loading"><img src="assets/images/white-cement/green.jpg" alt="Зеленая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 4)"><div class="cover image-loading"><img src="assets/images/white-cement/blue.jpg" alt="Синяя" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 5)"><div class="cover image-loading"><img src="assets/images/white-cement/braun.jpg" alt="Коричневая" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 6)"><div class="cover image-loading"><img src="assets/images/mono/black.jpg" alt="Черная" loading="lazy" /></div><div class="reflection"></div></div>
         </div>
 
         <button class="nav-button prev">‹</button>
@@ -265,13 +261,12 @@
     <div class="catalog-panel" id="catalog-panel-border" data-gallery-type="border">
       <div class="info">
         <h1 class="current-title">Бордюрный камень</h1>
-        <p class="current-description">Моковые карточки для двух позиций: тротуарный и дорожный.</p>
       </div>
 
       <div class="coverflow-container" tabindex="0">
         <div class="coverflow">
-          <div class="coverflow-item" (click)="handleCatalogItemClick('border', 0)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23555555'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EБорт тротуарный%3C/text%3E%3C/svg%3E" alt="Борт тротуарный" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('border', 1)"><div class="cover image-loading"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23444444'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='42' text-anchor='middle' dominant-baseline='middle'%3EБорт дорожный%3C/text%3E%3C/svg%3E" alt="Борт дорожный" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('border', 0)"><div class="cover image-loading"><img src="assets/images/road-borders/100.20.8.jpg" alt="Борт тротуарный" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('border', 1)"><div class="cover image-loading"><img src="assets/images/road-borders/100.30.15.jpg" alt="Борт дорожный" loading="lazy" /></div><div class="reflection"></div></div>
         </div>
         <button class="nav-button prev">‹</button>
         <button class="nav-button next">›</button>
