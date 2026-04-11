@@ -71,7 +71,7 @@
     </div>
     <div class="contacts">
       <div class="phone-number">
-        <span style="color: rgb(229 197 171);">+37529</span><span style="color: rgb(218, 103, 8);">6582576</span>
+        <span style="color: rgb(229 197 171);">+37525</span><span style="color: rgb(218, 103, 8);">6000555</span>
       </div>
       <div class="email">zava.dir@mail.ru</div>
       <div class="working-hours">{{ 'header.hoursWeekdays' | translate }}</div>
@@ -237,6 +237,8 @@
           <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 4)"><div class="cover image-loading"><img src="assets/images/white-cement/blue.jpg" alt="Синяя" loading="lazy" /></div><div class="reflection"></div></div>
           <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 5)"><div class="cover image-loading"><img src="assets/images/white-cement/braun.jpg" alt="Коричневая" loading="lazy" /></div><div class="reflection"></div></div>
           <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 6)"><div class="cover image-loading"><img src="assets/images/mono/black.jpg" alt="Черная" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 7)"><div class="cover image-loading"><img src="assets/images/white-cement/TP.jpg" alt="Тактильная предупреждающая ТП" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 8)"><div class="cover image-loading"><img src="assets/images/white-cement/TN.webp" alt="Тактильная направляющая ТН" loading="lazy" /></div><div class="reflection"></div></div>
         </div>
 
         <button class="nav-button prev">‹</button>
@@ -301,7 +303,9 @@
         <div class="catalog-modal-info">
           <div class="catalog-modal-header">
             <h2 class="catalog-modal-title">{{ getCatalogModalTitle() }}</h2>
-            <span class="catalog-modal-price">{{ 'catalog.modal.price' | translate }}</span>
+            <span class="catalog-modal-price">{{
+              (isWhiteCementTactileModal() ? 'catalog.modal.priceTactile' : 'catalog.modal.price') | translate
+            }}</span>
           </div>
           
           <p class="catalog-modal-description">{{ 'catalog.modal.description' | translate }}</p>
@@ -309,28 +313,37 @@
           <!-- Size selection: плитка — селект; бордюры — размер фиксирован по выбранной карточке -->
           <div class="catalog-modal-size-selector">
             <label
-              *ngIf="catalogModalGalleryId !== 'border'"
+              *ngIf="catalogModalGalleryId !== 'border' && !isWhiteCementTactileModal()"
               for="catalog-modal-size"
               class="catalog-modal-size-label"
               >{{ 'catalog.modal.size' | translate }}</label
             >
+            <div *ngIf="isWhiteCementTactileModal()" class="catalog-modal-size-label">
+              {{ 'catalog.modal.size' | translate }}
+            </div>
             <div *ngIf="catalogModalGalleryId === 'border'" class="catalog-modal-size-label">
               {{ 'catalog.modal.size' | translate }}
             </div>
             <select
-              *ngIf="catalogModalGalleryId !== 'border'"
+              *ngIf="catalogModalGalleryId !== 'border' && !isWhiteCementTactileModal()"
               id="catalog-modal-size"
               class="catalog-modal-size-select"
               [class.catalog-modal-size-select--placeholder]="!selectedSize"
               [value]="selectedSize"
-              (change)="selectedSize = $any($event.target).value"
+              (change)="onCatalogModalSizeChange($event)"
             >
               <option value="" disabled>{{ 'catalog.modal.selectSize' | translate }}</option>
-              <option value="20×10">{{ 'catalog.modal.sizes.size1' | translate }}</option>
-              <option value="24×16">{{ 'catalog.modal.sizes.size2' | translate }}</option>
-              <option value="30×30">{{ 'catalog.modal.sizes.size3' | translate }}</option>
-              <option value="16×16">{{ 'catalog.modal.sizes.size4' | translate }}</option>
+              @for (opt of pricelistTileSizeOptions; track opt.value) {
+                <option [value]="opt.value">{{ opt.i18nKey | translate }}</option>
+              }
             </select>
+            <div
+              *ngIf="isWhiteCementTactileModal()"
+              class="catalog-modal-size-readonly"
+              role="status"
+            >
+              {{ whiteCementTactileFixedSize }}
+            </div>
             <div
               *ngIf="catalogModalGalleryId === 'border'"
               class="catalog-modal-size-readonly"
@@ -367,6 +380,37 @@
             {{ 'catalog.modal.orderButton' | translate }}
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Десктоп: подсказка по компоновке «Новый город» (на ≤768px скрыта в CSS) -->
+  <div
+    class="novy-gorod-hint"
+    *ngIf="novyGorodHintOpen"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="novy-gorod-hint-title"
+  >
+    <div class="novy-gorod-hint__panel">
+      <button
+        type="button"
+        class="novy-gorod-hint__close"
+        (click)="closeNovyGorodHint()"
+        [attr.aria-label]="('catalog.modal.novyGorodHintClose' | translate)"
+      >
+        &times;
+      </button>
+      <h3 id="novy-gorod-hint-title" class="novy-gorod-hint__title">
+        {{ 'catalog.modal.novyGorodHintTitle' | translate }}
+      </h3>
+      <div class="novy-gorod-hint__schemes">
+        <figure class="novy-gorod-hint__figure">
+          <img [src]="novyGorodLayoutImages.set1" alt="" loading="lazy" />
+        </figure>
+        <figure class="novy-gorod-hint__figure">
+          <img [src]="novyGorodLayoutImages.set2" alt="" loading="lazy" />
+        </figure>
       </div>
     </div>
   </div>
@@ -676,12 +720,12 @@
           <div class="form-row">
             <div class="form-group">
               <label for="order-size">{{ 'order.form.size' | translate }}</label>
-              <select id="order-size" name="size" required>
+              <select id="order-size" name="size" required (change)="onOrderSizeChange($event)">
                 <option value="" disabled>{{ 'order.form.selectSize' | translate }}</option>
-                <option value="20×10">{{ 'order.form.sizes.size1' | translate }}</option>
-                <option value="24×16">{{ 'order.form.sizes.size2' | translate }}</option>
-                <option value="30×30">{{ 'order.form.sizes.size3' | translate }}</option>
-                <option value="16×16">{{ 'order.form.sizes.size4' | translate }}</option>
+                @for (opt of pricelistTileSizeOptions; track opt.value) {
+                  <option [value]="opt.value">{{ opt.i18nKey | translate }}</option>
+                }
+                <option value="20.10.9">{{ 'order.form.sizes.tactile209' | translate }}</option>
                 <option [value]="borderSizeTrotuar">{{ 'order.form.sizes.borderTrotuar' | translate }}</option>
                 <option [value]="borderSizeRoad">{{ 'order.form.sizes.borderRoad' | translate }}</option>
               </select>

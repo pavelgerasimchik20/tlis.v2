@@ -5,8 +5,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   type CatalogGalleryId,
   type CatalogModalCard,
+  NOVY_GOROD_LAYOUT_IMAGES,
+  PRICELIST_TILE_SIZE_OPTIONS,
+  WHITE_CEMENT_TACTILE_FIXED_SIZE,
   catalogModalImageSrc,
-  catalogModalTitleRu
+  catalogModalTitleRu,
+  isNovyGorodLayoutSize,
+  isWhiteCementTactileIndex
 } from './catalog-modal-data';
 
 @Component({
@@ -40,6 +45,16 @@ export class App {
   /** Маркировка бордюра — совпадает с `value` в модалке и в форме заказа (#order-size) */
   readonly borderSizeTrotuar = 'БР100.20.8 тротуарный';
   readonly borderSizeRoad = 'БР100.30.15 дорожный';
+
+  /** Тактильные ТП/ТН на белом цементе — фиксированный размер в модалке и в форме */
+  readonly whiteCementTactileFixedSize = WHITE_CEMENT_TACTILE_FIXED_SIZE;
+
+  /** Размеры плитки из прайса — селектор в модалке и в форме заказа (кроме бордюров и тактилки) */
+  readonly pricelistTileSizeOptions = PRICELIST_TILE_SIZE_OPTIONS;
+
+  /** Подсказка со схемами «Новый город» (только десктоп; см. CSS) */
+  novyGorodHintOpen = false;
+  readonly novyGorodLayoutImages = NOVY_GOROD_LAYOUT_IMAGES;
 
   catalogImages = [
     'slab1.jpg',
@@ -97,6 +112,14 @@ export class App {
       return this.getCatalogTitle(this.selectedCatalogIndex);
     }
     return catalogModalTitleRu(this.catalogModalGalleryId, this.selectedCatalogIndex);
+  }
+
+  /** Модалка: тактильные ТП/ТН — другая цена и без выбора размера */
+  isWhiteCementTactileModal(): boolean {
+    return (
+      this.catalogModalGalleryId === 'white-cement' &&
+      isWhiteCementTactileIndex(this.selectedCatalogIndex)
+    );
   }
 
   /**
@@ -186,6 +209,8 @@ export class App {
     this.selectedCatalogIndex = index;
     if (galleryId === 'border') {
       this.selectedSize = index === 0 ? this.borderSizeTrotuar : this.borderSizeRoad;
+    } else if (galleryId === 'white-cement' && isWhiteCementTactileIndex(index)) {
+      this.selectedSize = WHITE_CEMENT_TACTILE_FIXED_SIZE;
     } else {
       this.selectedSize = '';
     }
@@ -252,8 +277,51 @@ export class App {
     }
   }
 
+  onCatalogModalSizeChange(event: Event) {
+    const el = event.target as HTMLSelectElement;
+    this.selectedSize = el.value;
+    if (event.isTrusted) {
+      this.maybeOpenNovyGorodHint(el.value);
+    }
+  }
+
+  onOrderSizeChange(event: Event) {
+    const el = event.target as HTMLSelectElement;
+    if (event.isTrusted) {
+      this.maybeOpenNovyGorodHint(el.value);
+    }
+  }
+
+  closeNovyGorodHint() {
+    this.novyGorodHintOpen = false;
+  }
+
+  private maybeOpenNovyGorodHint(value: string) {
+    if (!isNovyGorodLayoutSize(value) || !this.isDesktopNovyGorodHintViewport()) {
+      return;
+    }
+    this.novyGorodHintOpen = true;
+  }
+
+  private isDesktopNovyGorodHintViewport(): boolean {
+    return typeof window !== 'undefined' && window.matchMedia('(min-width: 769px)').matches;
+  }
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    if (this.novyGorodHintOpen && !this.isDesktopNovyGorodHintViewport()) {
+      this.novyGorodHintOpen = false;
+    }
+  }
+
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
+    if (this.novyGorodHintOpen && event.key === 'Escape') {
+      this.closeNovyGorodHint();
+      event.preventDefault();
+      return;
+    }
+
     if (this.isLightboxOpen) {
       switch (event.key) {
         case 'Escape':

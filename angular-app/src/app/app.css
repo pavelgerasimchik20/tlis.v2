@@ -1415,6 +1415,97 @@
     }
 }
 
+/* «Новый город»: подсказка со схемами (только viewport ≥769px; на мобильных не показываем) */
+.novy-gorod-hint {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10002;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.2s ease;
+}
+
+@media (min-width: 769px) {
+    .novy-gorod-hint {
+        display: flex;
+    }
+}
+
+.novy-gorod-hint__panel {
+    position: relative;
+    max-width: 560px;
+    width: 100%;
+    padding: 22px 22px 20px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.07),
+        0 18px 40px rgba(0, 0, 0, 0.18);
+    color: #2a2422;
+}
+
+.novy-gorod-hint__title {
+    margin: 0 36px 16px 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.novy-gorod-hint__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.06);
+    color: #333;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s ease;
+}
+
+.novy-gorod-hint__close:hover {
+    background: rgba(218, 103, 8, 0.2);
+}
+
+.novy-gorod-hint__schemes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.novy-gorod-hint__figure {
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #faf7f4;
+}
+
+.novy-gorod-hint__figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+@media (max-width: 900px) {
+    .novy-gorod-hint__schemes {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Order Section */
 .order-content {
     max-width: 1200px;

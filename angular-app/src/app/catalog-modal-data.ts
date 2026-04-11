@@ -4,6 +4,35 @@
 
 export type CatalogGalleryId = 'colormix' | 'mono' | 'white-cement' | 'border';
 
+/**
+ * Размеры плитки из прайса (`generate-pricelists.mjs` → PRODUCT_ROWS), без тактилки и бордюров.
+ * Значение `value` совпадает с option в модалке и в форме заказа.
+ */
+/** «Новый город»: два варианта по толщине (значения для option и заявки) */
+export const NOVY_GOROD_SIZE_6 = '24×16 + 16×16 + 16×8 (6 см)';
+export const NOVY_GOROD_SIZE_8 = '24×16 + 16×16 + 16×8 (8 см)';
+
+const NOVY_GOROD_LAYOUT_SIZE_SET = new Set<string>([NOVY_GOROD_SIZE_6, NOVY_GOROD_SIZE_8]);
+
+export function isNovyGorodLayoutSize(value: string): boolean {
+  return NOVY_GOROD_LAYOUT_SIZE_SET.has(value);
+}
+
+/** Схемы компоновки 1 м² (подсказка на десктопе) */
+export const NOVY_GOROD_LAYOUT_IMAGES = {
+  set1: 'assets/images/sets/Set1.png',
+  set2: 'assets/images/sets/Set2.PNG'
+} as const;
+
+export const PRICELIST_TILE_SIZE_OPTIONS: readonly { value: string; i18nKey: string }[] = [
+  { value: '20×10×8', i18nKey: 'pricelist.tileSizes.standard208' },
+  { value: '20×10×6', i18nKey: 'pricelist.tileSizes.standard206' },
+  { value: '48×12×8', i18nKey: 'pricelist.tileSizes.parket48128' },
+  { value: '60×30×8', i18nKey: 'pricelist.tileSizes.megapolis60308' },
+  { value: NOVY_GOROD_SIZE_6, i18nKey: 'pricelist.tileSizes.novyGorod6' },
+  { value: NOVY_GOROD_SIZE_8, i18nKey: 'pricelist.tileSizes.novyGorod8' }
+];
+
 /** Текущая карточка в модалке — удобно смотреть в шаблоне / отладке */
 export interface CatalogModalCard {
   galleryId: CatalogGalleryId;
@@ -24,7 +53,7 @@ export const CATALOG_MONO_PLACEHOLDER_SRCS: readonly string[] = [
   'assets/images/mono/black.jpg'
 ];
 
-/** Фото «на белом цементе» (как в #catalog-panel-white-cement); чёрная — общее фото плитки */
+/** Фото «на белом цементе» (как в #catalog-panel-white-cement); чёрная — общее фото плитки; ТП/ТН — тактильные */
 export const CATALOG_WHITE_CEMENT_PLACEHOLDER_SRCS: readonly string[] = [
   'assets/images/white-cement/white.jpg',
   'assets/images/white-cement/red.jpg',
@@ -32,8 +61,17 @@ export const CATALOG_WHITE_CEMENT_PLACEHOLDER_SRCS: readonly string[] = [
   'assets/images/white-cement/green.jpg',
   'assets/images/white-cement/blue.jpg',
   'assets/images/white-cement/braun.jpg',
-  'assets/images/mono/black.jpg'
+  'assets/images/mono/black.jpg',
+  'assets/images/white-cement/TP.jpg',
+  'assets/images/white-cement/TN.webp'
 ];
+
+/** ТП/ТН: фиксированный размер, отдельная цена в модалке (индексы 7 и 8) */
+export const WHITE_CEMENT_TACTILE_FIXED_SIZE = '20.10.9';
+
+export function isWhiteCementTactileIndex(index: number): boolean {
+  return index === 7 || index === 8;
+}
 
 /** Фото бордюров: маркировка по габаритам в имени файла */
 export const CATALOG_BORDER_PLACEHOLDER_SRCS: readonly string[] = [
@@ -59,7 +97,9 @@ export const CATALOG_WHITE_CEMENT_TITLES_RU: readonly string[] = [
   'Одноцветная на белом цементе «Зеленая»',
   'Одноцветная на белом цементе «Синяя»',
   'Одноцветная на белом цементе «Коричневая»',
-  'Одноцветная на белом цементе «Черная»'
+  'Одноцветная на белом цементе «Черная»',
+  'Тактильная плитка предупреждающая (ТП)',
+  'Тактильная плитка направляющая (ТН)'
 ];
 
 export const CATALOG_BORDER_TITLES_RU: readonly string[] = ['Борт тротуарный', 'Борт дорожный'];

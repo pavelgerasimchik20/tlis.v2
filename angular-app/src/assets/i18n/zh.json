@@ -15,6 +15,16 @@
     "portfolio": "作品",
     "order": "订购铺砖"
   },
+  "pricelist": {
+    "tileSizes": {
+      "standard208": "20×10×8 厘米",
+      "standard206": "20×10×6 厘米",
+      "parket48128": "48×12×8 厘米（「拼花」）",
+      "megapolis60308": "60×30×8 厘米（「大都市」）",
+      "novyGorod6": "24×16 + 16×16 + 16×8（「新城」套装，1 平方米），厚 6 厘米",
+      "novyGorod8": "24×16 + 16×16 + 16×8（「新城」套装，1 平方米），厚 8 厘米"
+    }
+  },
   "catalog": {
     "title": "作品示例或目录",
     "description": "点击作品示例查看系列",
@@ -30,14 +40,11 @@
     },
     "modal": {
       "price": "40 卢布/平方米",
+      "priceTactile": "50 卢布/平方米",
       "description": "铺砖采用黑白对比色调。具有高耐磨性和实用性。适用于花园小径、人行区、人行道和停车场铺装。",
       "size": "尺寸",
       "selectSize": "选择尺寸",
       "sizes": {
-        "size1": "20×10 厘米",
-        "size2": "24×16 厘米",
-        "size3": "30×30 厘米",
-        "size4": "16×16 厘米",
         "borderTrotuar": "БР100.20.8 人行道缘石",
         "borderRoad": "БР100.30.15 道路缘石"
       },
@@ -53,6 +60,8 @@
         "waterAbsorption": "吸水率",
         "waterAbsorptionValue": "不超过 6%"
       },
+      "novyGorodHintTitle": "1 平方米铺砖排版",
+      "novyGorodHintClose": "关闭",
       "orderButton": "提交订单"
     }
   },
@@ -108,16 +117,16 @@
         "desc": "广告、合作与品牌推广相关事宜。",
         "phoneLabel": "电话：",
         "emailLabel": "E‑mail：",
-        "phone": "+375 (29) 000‑00‑01",
-        "email": "marketing@example.by"
+        "phone": "+375 (29) 111‑72‑41",
+        "email": "marketing@tlis.by"
       },
       "sales": {
         "title": "销售部门",
         "desc": "产品、库存与价格咨询。",
         "phoneLabel": "电话：",
         "emailLabel": "E‑mail：",
-        "phone": "+375 (29) 000‑00‑02",
-        "email": "sales@example.by"
+        "phone": "+375 (25) 600‑05‑55",
+        "email": "sales@tlis.by"
       },
       "address": {
         "title": "法人邮寄地址",
@@ -129,8 +138,8 @@
         "desc": "战略合作与重要事务洽谈。",
         "phoneLabel": "电话：",
         "emailLabel": "E‑mail：",
-        "phone": "+375 (29) 000‑00‑03",
-        "email": "director@example.by"
+        "phone": "+375 (29) 658‑25‑76",
+        "email": "director@tlis.by"
       }
     },
     "map": {
@@ -149,7 +158,7 @@
     "items": {
       "phone": {
         "title": "电话",
-        "value": "+37529 6582576"
+        "value": "+37525 6000555"
       },
       "email": {
         "title": "邮箱",
@@ -171,12 +180,9 @@
       "size": "铺砖尺寸",
       "selectSize": "选择尺寸",
       "sizes": {
-        "size1": "20×10 厘米",
-        "size2": "24×16 厘米",
-        "size3": "30×30 厘米",
-        "size4": "16×16 厘米",
         "borderTrotuar": "БР100.20.8 人行道缘石",
-        "borderRoad": "БР100.30.15 道路缘石"
+        "borderRoad": "БР100.30.15 道路缘石",
+        "tactile209": "20.10.9（盲道砖）"
       },
       "color": "颜色 (COLOR Mix)",
       "selectColor": "选择颜色",
