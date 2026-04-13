@@ -62,7 +62,9 @@
       },
       "novyGorodHintTitle": "1 平方米铺砖排版",
       "novyGorodHintClose": "关闭",
-      "orderButton": "提交订单"
+      "orderButton": "提交订单",
+      "tactileSizeTp": "20.10.9 — 警示盲道砖（TP）",
+      "tactileSizeTn": "20.10.9 — 导向盲道砖（TN）"
     }
   },
   "about": {
@@ -129,9 +131,9 @@
         "email": "sales@tlis.by"
       },
       "address": {
-        "title": "法人邮寄地址",
-        "desc": "用于正式函件与文件寄送。",
-        "value": "220000，白俄罗斯共和国，明斯克市，<br />示例街 10 号，5 室"
+        "title": "法定地址",
+        "desc": "法人注册所在地。",
+        "value": "220100，明斯克市，<br />库尔曼街 9-351/19 号，6 层"
       },
       "director": {
         "title": "总经理",
@@ -182,13 +184,47 @@
       "sizes": {
         "borderTrotuar": "БР100.20.8 人行道缘石",
         "borderRoad": "БР100.30.15 道路缘石",
-        "tactile209": "20.10.9（盲道砖）"
+        "tactile209Tp": "20.10.9 — 警示（TP）",
+        "tactile209Tn": "20.10.9 — 导向（TN）"
       },
-      "color": "颜色 (COLOR Mix)",
-      "selectColor": "选择颜色",
+      "colorGroup": "系列",
+      "color": "色号 / 颜色",
+      "colorLine": {
+        "colormix": "COLOR Mix",
+        "mono": "单色",
+        "whiteCement": "白水泥单色"
+      },
+      "colorsMono": {
+        "0": "单色「白」",
+        "1": "单色「灰」",
+        "2": "单色「红」",
+        "3": "单色「黄」",
+        "4": "单色「绿」",
+        "5": "单色「蓝」",
+        "6": "单色「棕」",
+        "7": "单色「黑」"
+      },
+      "colorsWhiteCement": {
+        "0": "白水泥单色「白」",
+        "1": "白水泥单色「红」",
+        "2": "白水泥单色「黄」",
+        "3": "白水泥单色「绿」",
+        "4": "白水泥单色「蓝」",
+        "5": "白水泥单色「棕」"
+      },
+      "selectColor": "选择色号",
       "quantity": "数量 (平方米)",
+      "quantityLinear": "数量 (延米)",
+      "roadBorderModalTitle": "道路缘石",
+      "roadBorderModalText": "默认为标准灰色。可按特殊订单定制任意颜色，详情请咨询经理。",
+      "roadBorderModalOk": "知道了",
       "address": "送货地址",
       "message": "评论",
+      "consent": {
+        "lead": "本人已阅读",
+        "policyLink": "《隐私政策（白俄罗斯共和国）》",
+        "tail": "，并同意按照白俄罗斯共和国《个人数据保护法》处理个人数据（姓名、电话、电子邮箱）。上述信息仅用于就本人购买铺路砖或路缘产品的意向与您联系。"
+      },
       "submit": "提交订单"
     }
   },

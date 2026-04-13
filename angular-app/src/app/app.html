@@ -236,9 +236,8 @@
           <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 3)"><div class="cover image-loading"><img src="assets/images/white-cement/green.jpg" alt="Зеленая" loading="lazy" /></div><div class="reflection"></div></div>
           <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 4)"><div class="cover image-loading"><img src="assets/images/white-cement/blue.jpg" alt="Синяя" loading="lazy" /></div><div class="reflection"></div></div>
           <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 5)"><div class="cover image-loading"><img src="assets/images/white-cement/braun.jpg" alt="Коричневая" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 6)"><div class="cover image-loading"><img src="assets/images/mono/black.jpg" alt="Черная" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 7)"><div class="cover image-loading"><img src="assets/images/white-cement/TP.jpg" alt="Тактильная предупреждающая ТП" loading="lazy" /></div><div class="reflection"></div></div>
-          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 8)"><div class="cover image-loading"><img src="assets/images/white-cement/TN.webp" alt="Тактильная направляющая ТН" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 6)"><div class="cover image-loading"><img src="assets/images/white-cement/TP.jpg" alt="Тактильная предупреждающая ТП" loading="lazy" /></div><div class="reflection"></div></div>
+          <div class="coverflow-item" (click)="handleCatalogItemClick('white-cement', 7)"><div class="cover image-loading"><img src="assets/images/white-cement/TN.webp" alt="Тактильная направляющая ТН" loading="lazy" /></div><div class="reflection"></div></div>
         </div>
 
         <button class="nav-button prev">‹</button>
@@ -342,7 +341,7 @@
               class="catalog-modal-size-readonly"
               role="status"
             >
-              {{ whiteCementTactileFixedSize }}
+              {{ getCatalogModalTactileSizeLine() }}
             </div>
             <div
               *ngIf="catalogModalGalleryId === 'border'"
@@ -725,27 +724,47 @@
                 @for (opt of pricelistTileSizeOptions; track opt.value) {
                   <option [value]="opt.value">{{ opt.i18nKey | translate }}</option>
                 }
-                <option value="20.10.9">{{ 'order.form.sizes.tactile209' | translate }}</option>
+                <option [value]="tactileOrderSizeTp">{{ 'order.form.sizes.tactile209Tp' | translate }}</option>
+                <option [value]="tactileOrderSizeTn">{{ 'order.form.sizes.tactile209Tn' | translate }}</option>
                 <option [value]="borderSizeTrotuar">{{ 'order.form.sizes.borderTrotuar' | translate }}</option>
                 <option [value]="borderSizeRoad">{{ 'order.form.sizes.borderRoad' | translate }}</option>
+              </select>
+            </div>
+          </div>
+          @if (orderFormShowsColor()) {
+            <div class="form-group">
+              <label for="order-color-group">{{ 'order.form.colorGroup' | translate }}</label>
+              <select
+                id="order-color-group"
+                name="colorGroup"
+                [(ngModel)]="orderFormColorGroup"
+                (change)="onOrderColorGroupChange($event)"
+              >
+                @if (orderFormShowsColorMixGroupOption()) {
+                  <option value="colormix">{{ 'order.form.colorLine.colormix' | translate }}</option>
+                }
+                <option value="mono">{{ 'order.form.colorLine.mono' | translate }}</option>
+                <option value="white-cement">{{ 'order.form.colorLine.whiteCement' | translate }}</option>
               </select>
             </div>
             <div class="form-group">
               <label for="order-color">{{ 'order.form.color' | translate }}</label>
               <select id="order-color" name="color" required>
                 <option value="">{{ 'order.form.selectColor' | translate }}</option>
-                <option value="Капучино new">"Капучино new"</option>
-                <option value="Луговая трава">"Луговая трава"</option>
-                <option value="Пламя">"Пламя"</option>
-                <option value="Осенние листья">"Осенние листья"</option>
-                <option value="Кафель">"Кафель"</option>
-                <option value="Ракушечник">"Ракушечник"</option>
-                <option value="Старая Италия">"Старая Италия"</option>
+                @for (opt of orderFormColorOptionsForGroup(); track opt.value) {
+                  <option [value]="opt.value">{{ opt.i18nKey | translate }}</option>
+                }
               </select>
             </div>
-          </div>
+          }
           <div class="form-group">
-            <label for="order-quantity">{{ 'order.form.quantity' | translate }}</label>
+            <label for="order-quantity">
+              @if (isOrderFormBorderSelected()) {
+                {{ 'order.form.quantityLinear' | translate }}
+              } @else {
+                {{ 'order.form.quantity' | translate }}
+              }
+            </label>
             <input type="number" id="order-quantity" name="quantity" min="1" step="0.1" placeholder="0" required />
           </div>
           <div class="form-group">
@@ -756,11 +775,61 @@
             <label for="order-message">{{ 'order.form.message' | translate }}</label>
             <input type="text" id="order-message" name="message" />
           </div>
+
+          <div class="order-consent">
+            <input
+              type="checkbox"
+              id="order-consent-pd"
+              name="consentPd"
+              class="order-consent__checkbox"
+              required
+              aria-describedby="order-consent-desc"
+            />
+            <div class="order-consent__text" id="order-consent-desc">
+              <span class="order-consent__lead">{{ 'order.form.consent.lead' | translate }}</span>
+              <a
+                class="order-consent__link"
+                href="assets/privacy-policy-by.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ 'order.form.consent.policyLink' | translate }}</a
+              ><span class="order-consent__tail">{{ 'order.form.consent.tail' | translate }}</span>
+            </div>
+          </div>
+
           <button type="submit" class="submit-btn">{{ 'order.form.submit' | translate }}</button>
         </form>
       </div>
     </div>
   </div>
+
+  @if (roadBorderInfoModalOpen) {
+    <div
+      class="road-border-info"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="road-border-info-title"
+      (click)="closeRoadBorderInfoModal()"
+    >
+      <div class="road-border-info__panel" (click)="$event.stopPropagation()">
+        <button
+          type="button"
+          class="road-border-info__close"
+          (click)="closeRoadBorderInfoModal()"
+          [attr.aria-label]="'catalog.modal.novyGorodHintClose' | translate"
+        >
+          &times;
+        </button>
+        <h3 id="road-border-info-title" class="road-border-info__title">
+          {{ 'order.form.roadBorderModalTitle' | translate }}
+        </h3>
+        <p class="road-border-info__text">{{ 'order.form.roadBorderModalText' | translate }}</p>
+        <button type="button" class="road-border-info__ok" (click)="closeRoadBorderInfoModal()">
+          {{ 'order.form.roadBorderModalOk' | translate }}
+        </button>
+      </div>
+    </div>
+  }
 </section>
 
 <footer class="footer">

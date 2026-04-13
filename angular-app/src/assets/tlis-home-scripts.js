@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: 'Одноцветная на белом цементе «Зеленая»', description: 'Моковая карточка. Описание будет добавлено.' },
           { title: 'Одноцветная на белом цементе «Синяя»', description: 'Моковая карточка. Описание будет добавлено.' },
           { title: 'Одноцветная на белом цементе «Коричневая»', description: 'Моковая карточка. Описание будет добавлено.' },
-          { title: 'Одноцветная на белом цементе «Черная»', description: 'Моковая карточка. Описание будет добавлено.' },
           { title: 'Тактильная плитка предупреждающая (ТП)', description: 'Моковая карточка. Описание будет добавлено.' },
           { title: 'Тактильная плитка направляющая (ТН)', description: 'Моковая карточка. Описание будет добавлено.' }
         ],
@@ -81,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: 'Борт дорожный', description: 'Моковая карточка. Описание будет добавлено.' }
         ]
       },
-      formSubmit: 'Спасибо за заказ! Мы свяжемся с вами в ближайшее время для уточнения деталей.'
+      formSubmit: 'Спасибо за заказ! Мы свяжемся с вами в ближайшее время для уточнения деталей.',
+      consentAlert: 'Для отправки заявки необходимо согласие на обработку персональных данных.'
     },
     be: {
       imageDataByType: {
@@ -111,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: 'Аднаколерная на белым цэменце «Зялёная»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
           { title: 'Аднаколерная на белым цэменце «Сіняя»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
           { title: 'Аднаколерная на белым цэменце «Карычневая»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
-          { title: 'Аднаколерная на белым цэменце «Чорная»', description: 'Мокавая картка. Апісанне будзе дададзена.' },
           { title: 'Тактыльная плітка папярэджальная (ТП)', description: 'Мокавая картка. Апісанне будзе дададзена.' },
           { title: 'Тактыльная плітка кіруючая (ТН)', description: 'Мокавая картка. Апісанне будзе дададзена.' }
         ],
@@ -120,7 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: 'Борт дарожны', description: 'Мокавая картка. Апісанне будзе дададзена.' }
         ]
       },
-      formSubmit: 'Дзякуй за замову! Мы звяжамся з вамі ў бліжэйшы час для ўдакладнення дэталяў.'
+      formSubmit: 'Дзякуй за замову! Мы звяжамся з вамі ў бліжэйшы час для ўдакладнення дэталяў.',
+      consentAlert: 'Для адпраўкі заяўкі неабходна згода на апрацоўку персанальных даных.'
     },
     zh: {
       imageDataByType: {
@@ -150,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: '白水泥单色 "绿色"', description: '占位卡片，后续补充描述。' },
           { title: '白水泥单色 "蓝色"', description: '占位卡片，后续补充描述。' },
           { title: '白水泥单色 "棕色"', description: '占位卡片，后续补充描述。' },
-          { title: '白水泥单色 "黑色"', description: '占位卡片，后续补充描述。' },
           { title: '白水泥 盲道警示砖 (TP)', description: '占位卡片，后续补充描述。' },
           { title: '白水泥 盲道行进砖 (TN)', description: '占位卡片，后续补充描述。' }
         ],
@@ -159,7 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: '道路路缘石', description: '占位卡片，后续补充描述。' }
         ]
       },
-      formSubmit: '感谢您的订单！我们会尽快与您联系以确认详细信息。'
+      formSubmit: '感谢您的订单！我们会尽快与您联系以确认详细信息。',
+      consentAlert: '提交订单前请勾选同意处理个人数据。'
     }
   };
 
@@ -504,6 +504,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /** Совпадает с `TACTILE_ORDER_SIZE_*` в `catalog-modal-data.ts` */
+  function isTactileOrderSize(size) {
+    const s = (size || '').trim();
+    return s === '20.10.9-ТП' || s === '20.10.9-ТН';
+  }
+
+  /** Бордюр — маркировка как в форме заказа */
+  function isBorderOrderSize(size) {
+    const s = (size || '').trim();
+    return s === 'БР100.20.8 тротуарный' || s === 'БР100.30.15 дорожный';
+  }
+
+  function isTrotuarBorderOrderSize(size) {
+    return (size || '').trim() === 'БР100.20.8 тротуарный';
+  }
+
+  function isRoadBorderOrderSize(size) {
+    return (size || '').trim() === 'БР100.30.15 дорожный';
+  }
+
+  const ROAD_BORDER_SHADE_RU =
+    'по умолчанию стандартный серый; по спецзаказу — любой цвет (уточняйте у менеджера)';
+
+  const ORDER_COLOR_GROUP_LABEL_RU = {
+    colormix: 'COLOR Mix',
+    mono: 'Одноцветная',
+    'white-cement': 'Одноцветная на белом цементе'
+  };
+
   // Format order data for Telegram
   function formatOrderMessage(formData) {
     // Get form values by ID or name
@@ -511,6 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const phoneInput = document.getElementById('order-phone');
     const emailInput = document.getElementById('order-email');
     const sizeInput = document.getElementById('order-size');
+    const colorGroupInput = document.getElementById('order-color-group');
     const colorInput = document.getElementById('order-color');
     const quantityInput = document.getElementById('order-quantity');
     const addressInput = document.getElementById('order-address');
@@ -520,8 +550,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const phone = (phoneInput?.value || formData.get('phone') || '').trim() || 'Не указано';
     const email = (emailInput?.value || formData.get('email') || '').trim() || 'Не указано';
     const size = (sizeInput?.value || formData.get('size') || '').trim() || 'Не указано';
-    const color = (colorInput?.value || formData.get('color') || '').trim() || 'Не указано';
+    const colorGroupRaw = (colorGroupInput?.value || formData.get('colorGroup') || '').trim();
+    const colorRaw = (colorInput?.value || formData.get('color') || '').trim();
+
+    let colorLine = '';
+    let shadeLine = '';
+
+    if (isTactileOrderSize(size)) {
+      colorLine = 'не применимо (тактильная плитка)';
+      shadeLine = 'не применимо (тактильная плитка)';
+    } else if (isRoadBorderOrderSize(size)) {
+      colorLine = 'дорожный борт';
+      shadeLine = ROAD_BORDER_SHADE_RU;
+    } else if (isTrotuarBorderOrderSize(size)) {
+      colorLine = ORDER_COLOR_GROUP_LABEL_RU[colorGroupRaw] || colorGroupRaw || 'Не указано';
+      shadeLine = colorRaw || 'Не указано';
+    } else {
+      colorLine = ORDER_COLOR_GROUP_LABEL_RU[colorGroupRaw] || colorGroupRaw || 'Не указано';
+      shadeLine = colorRaw || 'Не указано';
+    }
     const quantity = (quantityInput?.value || formData.get('quantity') || '').trim() || 'Не указано';
+    const quantityUnit = isBorderOrderSize(size) ? 'м пог.' : 'м²';
     const address = (addressInput?.value || formData.get('address') || '').trim() || 'Не указано';
     const message = (messageInput?.value || formData.get('message') || '').trim() || 'Нет комментария';
 
@@ -534,8 +583,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <b>📦 Детали заказа:</b>
 • Размер плитки: ${size}
-• Цвет (COLOR Mix): ${color}
-• Количество: ${quantity} м²
+• Коллекция: ${colorLine}
+• Оттенок / цвет: ${shadeLine}
+• Количество: ${quantity} ${quantityUnit}
 • Адрес доставки: ${address || 'Не указан'}
 
 <b>💬 Комментарий:</b>
@@ -549,7 +599,9 @@ ${new Date().toLocaleString('ru-BY', {
   day: '2-digit',
   hour: '2-digit',
   minute: '2-digit'
-})}`;
+})}
+
+Пользователь подтвердил согласие на обработку персональных данных (имя, номер телефона, адрес электронной почты) при отправке настоящей заявки; указанные данные могут использоваться исключительно для связи по целевому обращению о приобретении тротуарной плитки либо бортовой продукции, в соответствии с законодательством Республики Беларусь о защите персональных данных.`;
 
     // Validate that message is not empty
     if (!orderMessage || orderMessage.trim().length === 0) {
@@ -563,7 +615,17 @@ ${new Date().toLocaleString('ru-BY', {
   // Form submission
   async function handleSubmit(event) {
     event.preventDefault();
-    
+
+    const consentEl = document.getElementById('order-consent-pd');
+    if (!consentEl?.checked) {
+      alert(
+        translations[currentLang]?.consentAlert ||
+          translations.ru.consentAlert ||
+          'Для отправки заявки необходимо согласие на обработку персональных данных.'
+      );
+      return;
+    }
+
     const form = event.target;
     const formData = new FormData(form);
     const submitButton = form.querySelector('.submit-btn');

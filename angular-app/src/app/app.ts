@@ -1,14 +1,22 @@
 import { DOCUMENT } from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   type CatalogGalleryId,
   type CatalogModalCard,
   NOVY_GOROD_LAYOUT_IMAGES,
   PRICELIST_TILE_SIZE_OPTIONS,
+  TACTILE_ORDER_SIZE_TP,
+  TACTILE_ORDER_SIZE_TN,
   WHITE_CEMENT_TACTILE_FIXED_SIZE,
+  ORDER_FORM_COLORMIX_COLOR_OPTIONS,
+  ORDER_FORM_MONO_COLOR_OPTIONS,
+  ORDER_FORM_WHITE_CEMENT_COLOR_OPTIONS,
+  type OrderFormColorGroupId,
   catalogModalImageSrc,
+  isOrderFormTactileSize,
   catalogModalTitleRu,
   isNovyGorodLayoutSize,
   isWhiteCementTactileIndex
@@ -16,13 +24,14 @@ import {
 
 @Component({
   selector: 'app-root',
-  imports: [TranslateModule, CommonModule],
+  imports: [TranslateModule, CommonModule, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   private readonly documentRef = inject(DOCUMENT);
   private readonly translate = inject(TranslateService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   readonly languages = [
     { code: 'ru', label: 'RU' },
@@ -48,6 +57,35 @@ export class App {
 
   /** Тактильные ТП/ТН на белом цементе — фиксированный размер в модалке и в форме */
   readonly whiteCementTactileFixedSize = WHITE_CEMENT_TACTILE_FIXED_SIZE;
+  readonly tactileOrderSizeTp = TACTILE_ORDER_SIZE_TP;
+  readonly tactileOrderSizeTn = TACTILE_ORDER_SIZE_TN;
+
+  /** Текущее значение #order-size (для скрытия цвета при тактилке) */
+  orderFormSelectedSize = '';
+
+  /** Дорожный борт: подсказка про серый по умолчанию и спецзаказ по цвету */
+  roadBorderInfoModalOpen = false;
+
+  /** Линия как на табах каталога: затем выбор оттенка в #order-color */
+  orderFormColorGroup: OrderFormColorGroupId = 'colormix';
+
+  /** Варианты оттенков для текущей группы (двухуровневый выбор) */
+  orderFormColorOptionsForGroup(): { value: string; i18nKey: string }[] {
+    let group: OrderFormColorGroupId = this.orderFormColorGroup;
+    if (this.isOrderFormTrotuarBorderSelected() && group === 'colormix') {
+      group = 'mono';
+    }
+    switch (group) {
+      case 'colormix':
+        return [...ORDER_FORM_COLORMIX_COLOR_OPTIONS];
+      case 'mono':
+        return [...ORDER_FORM_MONO_COLOR_OPTIONS];
+      case 'white-cement':
+        return [...ORDER_FORM_WHITE_CEMENT_COLOR_OPTIONS];
+      default:
+        return [];
+    }
+  }
 
   /** Размеры плитки из прайса — селектор в модалке и в форме заказа (кроме бордюров и тактилки) */
   readonly pricelistTileSizeOptions = PRICELIST_TILE_SIZE_OPTIONS;
@@ -210,7 +248,7 @@ export class App {
     if (galleryId === 'border') {
       this.selectedSize = index === 0 ? this.borderSizeTrotuar : this.borderSizeRoad;
     } else if (galleryId === 'white-cement' && isWhiteCementTactileIndex(index)) {
-      this.selectedSize = WHITE_CEMENT_TACTILE_FIXED_SIZE;
+      this.selectedSize = index === 6 ? TACTILE_ORDER_SIZE_TP : TACTILE_ORDER_SIZE_TN;
     } else {
       this.selectedSize = '';
     }
@@ -232,11 +270,10 @@ export class App {
       const orderSection = document.querySelector('#order');
       if (orderSection) {
         orderSection.scrollIntoView({ behavior: 'smooth' });
-        
-        // Заполняем поле выбора цвета выбранной плиткой
-        this.setSelectedColorInForm();
-        // Заполняем поле выбора размера, если размер был выбран
+
+        // Сначала размер (тактилка/бордюр влияют на видимость цвета), затем коллекция и оттенок
         this.setSelectedSizeInForm();
+        this.setSelectedColorInForm();
       }
     }
   }
@@ -250,19 +287,45 @@ export class App {
   }
 
   setSelectedColorInForm() {
-    if (this.catalogModalGalleryId !== 'colormix') {
+    if (typeof document === 'undefined') {
       return;
     }
-    if (typeof document !== 'undefined') {
-      const colorSelect = document.getElementById('order-color') as HTMLSelectElement;
-      if (colorSelect && this.catalogToColorValue[this.selectedCatalogIndex] !== undefined) {
-        const colorValue = this.catalogToColorValue[this.selectedCatalogIndex];
-        colorSelect.value = colorValue;
-        
-        // Триггерим событие change для обновления UI
-        colorSelect.dispatchEvent(new Event('change', { bubbles: true }));
-      }
+    if (this.catalogModalGalleryId === 'border') {
+      return;
     }
+    if (this.catalogModalGalleryId === 'white-cement' && isWhiteCementTactileIndex(this.selectedCatalogIndex)) {
+      return;
+    }
+
+    const colorSelect = document.getElementById('order-color') as HTMLSelectElement | null;
+    if (!colorSelect) {
+      return;
+    }
+
+    let colorValue = '';
+
+    if (this.catalogModalGalleryId === 'colormix') {
+      this.orderFormColorGroup = 'colormix';
+      colorValue = this.catalogToColorValue[this.selectedCatalogIndex] ?? '';
+    } else if (this.catalogModalGalleryId === 'mono') {
+      this.orderFormColorGroup = 'mono';
+      colorValue = ORDER_FORM_MONO_COLOR_OPTIONS[this.selectedCatalogIndex]?.value ?? '';
+    } else if (this.catalogModalGalleryId === 'white-cement') {
+      this.orderFormColorGroup = 'white-cement';
+      colorValue = ORDER_FORM_WHITE_CEMENT_COLOR_OPTIONS[this.selectedCatalogIndex]?.value ?? '';
+    } else {
+      return;
+    }
+
+    this.cdr.detectChanges();
+
+    queueMicrotask(() => {
+      const cs = document.getElementById('order-color') as HTMLSelectElement | null;
+      if (cs && colorValue) {
+        cs.value = colorValue;
+        cs.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
   }
 
   setSelectedSizeInForm() {
@@ -270,11 +333,74 @@ export class App {
       const sizeSelect = document.getElementById('order-size') as HTMLSelectElement;
       if (sizeSelect) {
         sizeSelect.value = this.selectedSize;
-        
+        this.orderFormSelectedSize = this.selectedSize;
+
         // Триггерим событие change для обновления UI
         sizeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+
+        if (this.selectedSize === this.borderSizeRoad) {
+          this.roadBorderInfoModalOpen = true;
+        }
       }
     }
+  }
+
+  /** Скрываем выбор Color Mix для тактильной плитки (ТП / ТН) */
+  isOrderFormTactileSelected(): boolean {
+    return isOrderFormTactileSize(this.orderFormSelectedSize);
+  }
+
+  /** Борт тротуарный — в форме есть выбор цвета (без Color Mix) */
+  isOrderFormTrotuarBorderSelected(): boolean {
+    return this.orderFormSelectedSize === this.borderSizeTrotuar;
+  }
+
+  /** Борт дорожный — без выбора цвета в форме */
+  isOrderFormRoadBorderSelected(): boolean {
+    return this.orderFormSelectedSize === this.borderSizeRoad;
+  }
+
+  /** Любой бордюр (погонные метры в количестве) */
+  isOrderFormBorderSelected(): boolean {
+    return this.isOrderFormTrotuarBorderSelected() || this.isOrderFormRoadBorderSelected();
+  }
+
+  /** Показать Color Mix в списке коллекций (не для тротуарного борта) */
+  orderFormShowsColorMixGroupOption(): boolean {
+    return !this.isOrderFormTrotuarBorderSelected();
+  }
+
+  /** Плитка и тротуарный борт: коллекция + оттенок; тактилка и дорожный борт — без */
+  orderFormShowsColor(): boolean {
+    if (this.isOrderFormTactileSelected()) {
+      return false;
+    }
+    if (this.isOrderFormRoadBorderSelected()) {
+      return false;
+    }
+    return true;
+  }
+
+  closeRoadBorderInfoModal() {
+    this.roadBorderInfoModalOpen = false;
+  }
+
+  onOrderColorGroupChange(event: Event) {
+    const el = event.target as HTMLSelectElement;
+    this.orderFormColorGroup = el.value as OrderFormColorGroupId;
+    if (event.isTrusted) {
+      const colorSelect = document.getElementById('order-color') as HTMLSelectElement | null;
+      if (colorSelect) {
+        colorSelect.value = '';
+      }
+    }
+  }
+
+  /** Подпись размера в модалке: ТП или ТН (только для тактильных карточек) */
+  getCatalogModalTactileSizeLine(): string {
+    return this.selectedCatalogIndex === 6
+      ? this.translate.instant('catalog.modal.tactileSizeTp')
+      : this.translate.instant('catalog.modal.tactileSizeTn');
   }
 
   onCatalogModalSizeChange(event: Event) {
@@ -287,6 +413,27 @@ export class App {
 
   onOrderSizeChange(event: Event) {
     const el = event.target as HTMLSelectElement;
+    this.orderFormSelectedSize = el.value;
+
+    if (!this.isOrderFormRoadBorderSelected()) {
+      this.roadBorderInfoModalOpen = false;
+    }
+
+    if (this.isOrderFormTrotuarBorderSelected() && this.orderFormColorGroup === 'colormix') {
+      this.orderFormColorGroup = 'mono';
+      this.cdr.detectChanges();
+      queueMicrotask(() => {
+        const colorSelect = document.getElementById('order-color') as HTMLSelectElement | null;
+        if (colorSelect) {
+          colorSelect.value = '';
+        }
+      });
+    }
+
+    if (event.isTrusted && this.isOrderFormRoadBorderSelected()) {
+      this.roadBorderInfoModalOpen = true;
+    }
+
     if (event.isTrusted) {
       this.maybeOpenNovyGorodHint(el.value);
     }
@@ -316,6 +463,12 @@ export class App {
 
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
+    if (this.roadBorderInfoModalOpen && event.key === 'Escape') {
+      this.closeRoadBorderInfoModal();
+      event.preventDefault();
+      return;
+    }
+
     if (this.novyGorodHintOpen && event.key === 'Escape') {
       this.closeNovyGorodHint();
       event.preventDefault();

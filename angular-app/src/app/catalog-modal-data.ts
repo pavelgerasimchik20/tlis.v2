@@ -53,7 +53,7 @@ export const CATALOG_MONO_PLACEHOLDER_SRCS: readonly string[] = [
   'assets/images/mono/black.jpg'
 ];
 
-/** Фото «на белом цементе» (как в #catalog-panel-white-cement); чёрная — общее фото плитки; ТП/ТН — тактильные */
+/** Фото «на белом цементе» (как в #catalog-panel-white-cement); ТП/ТН — тактильные */
 export const CATALOG_WHITE_CEMENT_PLACEHOLDER_SRCS: readonly string[] = [
   'assets/images/white-cement/white.jpg',
   'assets/images/white-cement/red.jpg',
@@ -61,16 +61,26 @@ export const CATALOG_WHITE_CEMENT_PLACEHOLDER_SRCS: readonly string[] = [
   'assets/images/white-cement/green.jpg',
   'assets/images/white-cement/blue.jpg',
   'assets/images/white-cement/braun.jpg',
-  'assets/images/mono/black.jpg',
   'assets/images/white-cement/TP.jpg',
   'assets/images/white-cement/TN.webp'
 ];
 
-/** ТП/ТН: фиксированный размер, отдельная цена в модалке (индексы 7 и 8) */
+/** Габарит тактильной плитки (отображение в модалке) */
 export const WHITE_CEMENT_TACTILE_FIXED_SIZE = '20.10.9';
 
+/**
+ * Значения option «размер» в форме заказа: один габарит, два типа (ТП / ТН).
+ * Должны совпадать с `option [value]` и с логикой отправки заявки.
+ */
+export const TACTILE_ORDER_SIZE_TP = '20.10.9-ТП';
+export const TACTILE_ORDER_SIZE_TN = '20.10.9-ТН';
+
+export function isOrderFormTactileSize(value: string): boolean {
+  return value === TACTILE_ORDER_SIZE_TP || value === TACTILE_ORDER_SIZE_TN;
+}
+
 export function isWhiteCementTactileIndex(index: number): boolean {
-  return index === 7 || index === 8;
+  return index === 6 || index === 7;
 }
 
 /** Фото бордюров: маркировка по габаритам в имени файла */
@@ -97,12 +107,39 @@ export const CATALOG_WHITE_CEMENT_TITLES_RU: readonly string[] = [
   'Одноцветная на белом цементе «Зеленая»',
   'Одноцветная на белом цементе «Синяя»',
   'Одноцветная на белом цементе «Коричневая»',
-  'Одноцветная на белом цементе «Черная»',
   'Тактильная плитка предупреждающая (ТП)',
   'Тактильная плитка направляющая (ТН)'
 ];
 
 export const CATALOG_BORDER_TITLES_RU: readonly string[] = ['Борт тротуарный', 'Борт дорожный'];
+
+/** Три линии как на табах каталога — выбор в форме заказа (группа → оттенок) */
+export type OrderFormColorGroupId = 'colormix' | 'mono' | 'white-cement';
+
+/** Color Mix: значения заявки (как в старой форме) + ключи подписей (как у плиток в каталоге) */
+export const ORDER_FORM_COLORMIX_COLOR_OPTIONS: readonly { value: string; i18nKey: string }[] = [
+  { value: 'Кафель', i18nKey: 'catalog.slabs.slab1' },
+  { value: 'Ракушечник', i18nKey: 'catalog.slabs.slab2' },
+  { value: 'Старая Италия', i18nKey: 'catalog.slabs.slab3' },
+  { value: 'Капучино new', i18nKey: 'catalog.slabs.slab4' },
+  { value: 'Луговая трава', i18nKey: 'catalog.slabs.slab6' },
+  { value: 'Пламя', i18nKey: 'catalog.slabs.slab7' },
+  { value: 'Осенние листья', i18nKey: 'catalog.slabs.slab10' }
+];
+
+/** Однотонная: как в `CATALOG_MONO_TITLES_RU` */
+export const ORDER_FORM_MONO_COLOR_OPTIONS: readonly { value: string; i18nKey: string }[] =
+  CATALOG_MONO_TITLES_RU.map((value, i) => ({
+    value,
+    i18nKey: `order.form.colorsMono.${i}`
+  }));
+
+/** На белом цементе (без тактилки ТП/ТН): только цветные позиции до ТП */
+export const ORDER_FORM_WHITE_CEMENT_COLOR_OPTIONS: readonly { value: string; i18nKey: string }[] =
+  CATALOG_WHITE_CEMENT_TITLES_RU.slice(0, 6).map((value, i) => ({
+    value,
+    i18nKey: `order.form.colorsWhiteCement.${i}`
+  }));
 
 export function catalogModalImageSrc(galleryId: CatalogGalleryId, index: number): string {
   switch (galleryId) {
