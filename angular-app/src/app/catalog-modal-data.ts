@@ -48,7 +48,7 @@ export const CATALOG_MONO_PLACEHOLDER_SRCS: readonly string[] = [
   'assets/images/mono/red.jpg',
   'assets/images/mono/yellow.jpg',
   'assets/images/mono/green.jpg',
-  'assets/images/mono/blue.jpg',
+  'assets/images/mono/blue2.webp',
   'assets/images/mono/brown.jpg',
   'assets/images/mono/black.jpg'
 ];

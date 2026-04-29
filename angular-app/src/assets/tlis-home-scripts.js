@@ -448,6 +448,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Откройте getUpdates и найдите его chat_id в ответе
   const TELEGRAM_CHAT_ID = '5034535540';
 
+  /** Секрет для marketing/append-lead.php (пустой = запись в leads-feed.txt не выполняется). */
+  const TLIS_LEADS_LOG_SECRET = '';
+  const TLIS_LEADS_LOG_URL = '/marketing/append-lead.php';
+
   // Send message to Telegram
   async function sendToTelegram(message, chatId = null) {
     if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE') {
@@ -533,9 +537,15 @@ document.addEventListener('DOMContentLoaded', () => {
     'white-cement': 'Одноцветная на белом цементе'
   };
 
-  // Format order data for Telegram
-  function formatOrderMessage(formData) {
-    // Get form values by ID or name
+  function sanitizeLeadSingleLine(s) {
+    return String(s || '')
+      .replace(/[\r\n\t\u0000]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  /** Снимок полей формы заказа (для Telegram и маркетингового журнала). */
+  function collectOrderFormFields(formData) {
     const nameInput = document.getElementById('order-name');
     const phoneInput = document.getElementById('order-phone');
     const emailInput = document.getElementById('order-email');
@@ -573,6 +583,63 @@ document.addEventListener('DOMContentLoaded', () => {
     const quantityUnit = isBorderOrderSize(size) ? 'м пог.' : 'м²';
     const address = (addressInput?.value || formData.get('address') || '').trim() || 'Не указано';
     const message = (messageInput?.value || formData.get('message') || '').trim() || 'Нет комментария';
+
+    return {
+      name,
+      phone,
+      email,
+      size,
+      colorLine,
+      shadeLine,
+      quantity,
+      quantityUnit,
+      address,
+      message
+    };
+  }
+
+  /** Одна строка для marketing/leads-feed.txt (читаемый фид). */
+  function formatLeadFeedLine(formData) {
+    const f = collectOrderFormFields(formData);
+    const ts = new Date().toLocaleString('ru-BY', {
+      timeZone: 'Europe/Minsk',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    const tile = `плитка/изделие: ${f.size}; линия: ${f.colorLine}; цвет/оттенок: ${f.shadeLine}; количество: ${f.quantity} ${f.quantityUnit}`;
+    return sanitizeLeadSingleLine(
+      `${ts} | Имя: ${f.name} | Тел.: ${f.phone} | ${tile}`
+    );
+  }
+
+  async function appendLeadToMarketingFeed(line) {
+    const secret = (typeof TLIS_LEADS_LOG_SECRET === 'string' ? TLIS_LEADS_LOG_SECRET : '').trim();
+    if (!secret) return;
+    try {
+      const response = await fetch(TLIS_LEADS_LOG_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Tlis-Leads-Secret': secret
+        },
+        body: JSON.stringify({ line })
+      });
+      if (!response.ok) {
+        const t = await response.text().catch(() => '');
+        console.warn('Marketing leads log HTTP', response.status, t);
+      }
+    } catch (e) {
+      console.warn('Marketing leads log failed:', e);
+    }
+  }
+
+  // Format order data for Telegram
+  function formatOrderMessage(formData) {
+    const f = collectOrderFormFields(formData);
+    const { name, phone, email, size, colorLine, shadeLine, quantity, quantityUnit, address, message } = f;
 
     const orderMessage = `<b>🆕 Новый заказ плитки</b>
 
@@ -650,6 +717,8 @@ ${new Date().toLocaleString('ru-BY', {
       const success = await sendToTelegram(message);
 
       if (success) {
+        const leadLine = formatLeadFeedLine(formData);
+        await appendLeadToMarketingFeed(leadLine);
         alert(translations[currentLang].formSubmit || 'Спасибо за заказ! Мы скоро свяжемся с вами.');
         form.reset();
       } else {

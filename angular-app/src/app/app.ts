@@ -444,21 +444,15 @@ export class App {
   }
 
   private maybeOpenNovyGorodHint(value: string) {
-    if (!isNovyGorodLayoutSize(value) || !this.isDesktopNovyGorodHintViewport()) {
+    if (!isNovyGorodLayoutSize(value)) {
       return;
     }
     this.novyGorodHintOpen = true;
   }
 
-  private isDesktopNovyGorodHintViewport(): boolean {
-    return typeof window !== 'undefined' && window.matchMedia('(min-width: 769px)').matches;
-  }
-
   @HostListener('window:resize')
   onWindowResize() {
-    if (this.novyGorodHintOpen && !this.isDesktopNovyGorodHintViewport()) {
-      this.novyGorodHintOpen = false;
-    }
+    // noop: подсказка «Новый город» теперь доступна и на мобильных
   }
 
   @HostListener('window:keydown', ['$event'])
